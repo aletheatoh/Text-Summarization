@@ -32,6 +32,9 @@ app.set('view engine', 'handlebars');
 // Import routes to match incoming requests
 require('./routes')(app, db);
 
+// tell Express to look into the public/ folder for assets that should be publicly available (eg. CSS files, JavaScript files, images, etc.)
+app.use(express.static('public'));
+
 // Root GET request (it doesn't belong in any controller file)
 app.get('/', (request, response) => {
   let loggedIn = request.cookies['loggedIn'];
@@ -51,7 +54,10 @@ app.get('/', (request, response) => {
       articles: queryResult.rows
     };
 
-    response.render('home', context);
+
+    if (loggedIn) response.render('home', context);
+    else response.render('user/login');
+
   });
 });
 

@@ -54,6 +54,8 @@ module.exports = (dbPool) => {
       });
     },
 
+    
+
     login: (user, callback) => {
       console.log('loggin in in users model');
       // set up query

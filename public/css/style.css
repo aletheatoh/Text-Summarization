@@ -1,0 +1,26 @@
+h1 {
+  color: pink;
+  text-align: center;
+}
+
+.container {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.article-div {
+  height: 200px;
+  width: 200px;
+  margin: 20px auto;
+}
+
+#logout-button {
+  text-decoration: none;
+  margin: 12px 20px 0 0;
+}
+
+.user-form {
+  text-align: center;
+}

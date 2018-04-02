@@ -1,0 +1,106 @@
+/**
+ * Article controller functions.
+ *
+ * Each article-related route in `routes.js` will call
+ * one controller function here.
+ *
+ * Export all functions as a module using `module.exports`,
+ * to be imported (using `require(...)`) in `routes.js`.
+ */
+ /**
+  * ===========================================
+  * Controller logic
+  * ===========================================
+  */
+ const get = (db) => {
+   return (request, response) => {
+     // use article model method `get` to retrieve article data
+     db.article.get(request.params.id, (error, queryResult) => {
+       // queryResult contains article data returned from the article model
+       if (error) {
+         console.error('error getting article:', error);
+         response.sendStatus(500);
+       } else {
+         // render article.handlebars in the article folder
+         response.render('article/article', { article: queryResult.rows[0] });
+
+       }
+     });
+   };
+ };
+
+ const updateForm = (db) => {
+   return (request, response) => {
+     db.article.get(request.params.id, (error, queryResult) => {
+       // queryResult contains article data returned from the article model
+       if (error) {
+         console.error('error getting article:', error);
+         response.sendStatus(500);
+       } else {
+         // render article.handlebars in the article folder
+         response.render('article/edit', { article: queryResult.rows[0] });
+       }
+     });
+   };
+ };
+
+ const update = (db) => {
+   return (request, response) => {
+
+     db.article.update(request.body, (error, queryResult) => {
+       // queryResult of creation is not useful to us, so we ignore it
+       // (console log it to see for yourself)
+       // (you can choose to omit it completely from the function parameters)
+       console.log(request.body);
+       if (error) {
+         console.error('error getting article:', error);
+         response.sendStatus(500);
+       }
+
+       // console.log('updating!!!');
+       response.redirect(`/articles/${request.params.id}`);
+     });
+   };
+ };
+
+ const createForm = (request, response) => {
+   response.render('article/new');
+ };
+
+ const create = (db) => {
+   return (request, response) => {
+     // use article model method `create` to create new article entry in db
+     db.article.create(request.body, (error, queryResult) => {
+       // queryResult of creation is not useful to us, so we ignore it
+       // (console log it to see for yourself)
+       // (you can choose to omit it completely from the function parameters)
+
+       if (error) {
+         console.error('error getting article:', error);
+         response.sendStatus(500);
+       }
+
+       if (queryResult.rowCount >= 1) {
+         console.log('article created successfully');
+       } else {
+         console.log('article could not be created');
+       }
+
+       // redirect to home page after creation
+       response.redirect('/');
+     });
+   };
+ };
+
+ /**
+  * ===========================================
+  * Export controller functions as a module
+  * ===========================================
+  */
+ module.exports = {
+   get,
+   updateForm,
+   update,
+   createForm,
+   create
+ };

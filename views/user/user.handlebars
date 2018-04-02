@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User profile</title>
+</head>
+<body>
+  <ul class="user-list">
+    <h3>User Details</h3>
+    <li class="user-attribute">
+      id: {{user.id}}
+    </li>
+    <li class="user-attribute">
+      name: {{user.name}}
+    </li>
+    <li class="user-attribute">
+      email: {{user.email}}
+    </li>
+  </ul>
+  <ul class="article-list">
+    <h3>Article Details</h3>
+    {{#each articles}}
+      <li>{{this.title}}</li>
+    {{/each}}
+  </ul>
+</body>
+</html>

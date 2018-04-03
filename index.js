@@ -43,25 +43,31 @@ app.get('/', (request, response) => {
   let username = request.cookies['username'];
   let email = request.cookies['email'];
 
-  // select articles of each user
-  var queryString = `SELECT articles.id, articles.title, articles.url, articles.summary from articles INNER JOIN users ON articles.user_id = users.id WHERE name='${username}';`;
+  let context = {
+    loggedIn: loggedIn,
+    username: username,
+  };
 
-  db.pool.query(queryString, (error, queryResult) => {
+  if (loggedIn) response.render('home', context);
+  else response.render('user/login');
 
-    if (error) console.error('error!', error);
-
-    let context = {
-      loggedIn: loggedIn,
-      username: username,
-      articles: queryResult.rows
-    };
-
-    // $( "button" ).on( "click", notify );
-
-    if (loggedIn) response.render('home', context);
-    else response.render('user/login');
-
-  });
+  // // select articles of each user
+  // var queryString = `SELECT articles.id, articles.title, articles.url, articles.summary from articles INNER JOIN users ON articles.user_id = users.id WHERE name='${username}';`;
+  //
+  // db.pool.query(queryString, (error, queryResult) => {
+  //
+  //   if (error) console.error('error!', error);
+  //
+  //   let context = {
+  //     loggedIn: loggedIn,
+  //     username: username,
+  //     articles: queryResult.rows
+  //   };
+  //
+  //   if (loggedIn) response.render('home', context);
+  //   else response.render('user/login');
+  //
+  // });
 
 });
 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- css stylesheet -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/articles.css">
+
+  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+  <title>Home Page</title>
+</head>
+<body>
+
+  <div class="ui menu">
+  <div class="header item">
+    App Name
+  </div>
+  <a href="/" class="item">
+    Home
+  </a>
+  <a href="/articles" class="item">
+    My Articles
+  </a>
+  <a href="#" class="item">
+    My Work
+  </a>
+  <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
+    <button>Log Out</button>
+  </form>
+</div>
+
+<h1>Here are your articles, {{username}}!</h1>
+
+<div id="article-grid" class="three column stackable ui grid">
+  {{#each articles}}
+  <div class="column">
+    <div class="ui segment">
+      <div class="header item">
+          <b>{{this.title}}</b>
+      </div>
+      <p>Hello</p>
+      <div id="original-button-{{this.id}}" class="ui button">Original</div>
+      <div id="summary-button-{{this.id}}" class="ui button">Summary</div>
+      <div href="/articles/{{this.id}}" class="ui button" onclick="location.href = 'articles/{{this.id}}';">Details</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="ui large modal summary-modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      {{this.title}}
+    </div>
+    <div class="scrolling content">
+      <p>{{this.summary}}</p>
+    </div>
+    <div class="actions">
+      <div id="summary-close-button-{{this.id}}" class="ui button">OK</div>
+    </div>
+  </div>
+
+  <!-- ORIGINAL -->
+  <div class="ui large modal original-modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      {{this.title}}
+    </div>
+    <div class="scrolling content">
+      <div id="web-page-{{this.id}}" class="ui embed" data-url="/articles/{{this.id}}/edit">
+      </div>
+    </div>
+    <div class="actions">
+      <div id="original-close-button-{{this.id}}" class="ui button">OK</div>
+    </div>
+  </div>
+
+  <script>
+  $(function(){
+    // $("#testmodal").modal('show');
+    $("#summary-button-{{this.id}}").click(function(){
+      $(".summary-modal-{{this.id}}").modal('show');
+    });
+    $("#summary-close-button-{{this.id}}").click(function(){
+      $(".summary-modal-{{this.id}}").modal('hide');
+    });
+    $(".summary-modal-{{this.id}}").modal({
+      closable: true
+    });
+
+    $("#original-button-{{this.id}}").click(function(){
+      $('#web-page-{{this.id}}').embed();
+      $(".original-modal-{{this.id}}").modal('show');
+    });
+    $("#original-close-button-{{this.id}}").click(function(){
+      $(".original-modal-{{this.id}}").modal('hide');
+    });
+    $(".original-modal-{{this.id}}").modal({
+      closable: true
+    });
+  });
+
+  </script>
+  {{/each}}
+</div>
+
+</body>
+</html>

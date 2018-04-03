@@ -33,6 +33,7 @@
     *  =========================================
     */
    // CRUD articles
+   app.get('/articles', articles.articlesHomePage(db));
    app.get('/articles/:id/edit', articles.updateForm(db)); // done
    app.put('/articles/:id/edit', articles.update(db)); // done
    app.get('/articles/new', articles.createForm); // done

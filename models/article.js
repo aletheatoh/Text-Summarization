@@ -28,16 +28,6 @@
        		console.log("An error occured! " + result.error);
        	}
 
-       	console.log(result.title);
-       	console.log(result.words);
-       	console.log(result.compressFactor);
-       	console.log(result.summary.join("\n"));
-
-        // var summary = result.summary[0];
-        // for (var i=1;i<result.summary;i++) {
-        //   summary += CHAR(13) + result.summary[i];
-        // }
-
         var summary = result.summary.join("\n");
 
         // set up query
@@ -79,10 +69,19 @@
      },
 
      get: (id, callback) => {
-
        dbPool.query("SELECT * from articles WHERE id=" + id, (error, queryResult) => {
          callback(error, queryResult);
          console.log(queryResult);
+       });
+     },
+
+     getUserArticles: (username, callback) => {
+
+       // select articles of each user
+       var queryString = `SELECT articles.id, articles.title, articles.url, articles.summary from articles INNER JOIN users ON articles.user_id = users.id WHERE name='${username}';`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
        });
      }
    };

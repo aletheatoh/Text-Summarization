@@ -29,6 +29,36 @@
    };
  };
 
+ const articlesHomePage = (db) => {
+   return (request, response) => {
+
+     // retrieve cookies
+     let loggedIn = request.cookies['loggedIn'];
+     let username = request.cookies['username'];
+     // let email = request.cookies['email'];
+
+     db.article.getUserArticles(username, (error, queryResult) => {
+       // queryResult contains article data returned from the article model
+       if (error) {
+         console.error('error getting article:', error);
+         response.sendStatus(500);
+       }
+
+       else {
+
+         let context = {
+           loggedIn: loggedIn,
+           username: username,
+           articles: queryResult.rows
+         };
+
+         // render articles.handlebars in the article folder
+         response.render('article/articles', context);
+       }
+     });
+   };
+ };
+
  const updateForm = (db) => {
    return (request, response) => {
      db.article.get(request.params.id, (error, queryResult) => {
@@ -99,6 +129,7 @@
   */
  module.exports = {
    get,
+   articlesHomePage,
    updateForm,
    update,
    createForm,

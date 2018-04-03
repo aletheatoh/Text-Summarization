@@ -10,10 +10,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
-  <!-- bootstrap -->
-  <!-- <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <title>Home Page</title>
 </head>
 <body>
@@ -25,68 +21,18 @@
   <a href="/" class="item">
     Home
   </a>
-  <a href="/" class="item">
+  <a href="/articles" class="item">
     My Articles
   </a>
   <a href="#" class="item">
     My Work
   </a>
-  <form id="logout-button" method="POST" action="/users/logout" class="item">
+  <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
     <button>Log Out</button>
   </form>
 </div>
 
 <h1>Welcome back{{#if loggedIn }}, {{username}}{{/if}}!</h1>
 
-<div id="article-grid" class="three column stackable ui grid">
-  {{#if loggedIn }}
-  {{#each articles}}
-  <div class="column">
-    <div class="ui segment">
-      <div class="header item">
-          <b>{{this.title}}</b>
-      </div>
-      <p>Hello</p>
-      <div class="ui button">Original</div>
-      <div id="button-{{this.id}}" class="ui button">Summary</div>
-      <div href="/articles/{{this.id}}" class="ui button">Details</div>
-    </div>
-  </div>
-
-  <div class="ui longer modal modal-{{this.id}}">
-    <i class="close icon"></i>
-    <div class="header">
-      {{this.title}}
-    </div>
-    <div class="scolling content">
-      <p>{{this.summary}}</p>
-      <!-- <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
-      </div> -->
-    </div>
-    <div class="actions">
-      <div id="close-button-{{this.id}}" class="ui button">OK</div>
-    </div>
-  </div>
-
-  <script>
-  $(function(){
-    $("#button-{{this.id}}").click(function(){
-      $(".modal-{{this.id}}").modal('show');
-    });
-    $("#close-button-{{this.id}}").click(function(){
-      $(".modal-{{this.id}}").modal('hide');
-    });
-    $(".modal-{{this.id}}").modal({
-      closable: true
-    });
-    // $('#web-page-{{this.id}}').embed();
-  });
-
-  </script>
-  {{/each}}
-  {{/if}}
-</div>
-
-<!-- <script src="js/dom.js"></script> -->
 </body>
 </html>

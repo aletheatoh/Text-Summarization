@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const db = require('./db');
+const http = require("https");
+const jsonfile = require('jsonfile');
 
 /**
  * ===================================
@@ -42,7 +44,7 @@ app.get('/', (request, response) => {
   let email = request.cookies['email'];
 
   // select articles of each user
-  var queryString = `SELECT articles.id, articles.title from articles INNER JOIN users ON articles.user_id = users.id WHERE email='${email}' AND name='${username}';`;
+  var queryString = `SELECT articles.id, articles.title, articles.url, articles.summary from articles INNER JOIN users ON articles.user_id = users.id WHERE name='${username}';`;
 
   db.pool.query(queryString, (error, queryResult) => {
 
@@ -54,11 +56,13 @@ app.get('/', (request, response) => {
       articles: queryResult.rows
     };
 
+    // $( "button" ).on( "click", notify );
 
     if (loggedIn) response.render('home', context);
     else response.render('user/login');
 
   });
+
 });
 
 // Catch all unmatched requests and return 404 not found page

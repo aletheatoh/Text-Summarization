@@ -4,51 +4,89 @@
   <meta charset="UTF-8">
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/articles.css">
+
+  <link rel="stylesheet" href="./dist/semantic.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+  <!-- bootstrap -->
+  <!-- <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <title>Home Page</title>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Articles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Work</a>
-      </li>
-      <li><form id="logout-button" method="POST" action="/users/logout">
-        <button>Log Out</button>
-      </form>
-    </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+  <div class="ui menu">
+  <div class="header item">
+    App Name
   </div>
-</nav>
+  <a href="/" class="item">
+    Home
+  </a>
+  <a href="/" class="item">
+    My Articles
+  </a>
+  <a href="#" class="item">
+    My Work
+  </a>
+  <form id="logout-button" method="POST" action="/users/logout" class="item">
+    <button>Log Out</button>
+  </form>
+</div>
 
 <h1>Welcome back{{#if loggedIn }}, {{username}}{{/if}}!</h1>
 
-<div class="container">
+<div id="article-grid" class="three column stackable ui grid">
   {{#if loggedIn }}
   {{#each articles}}
-  <div class="article-div" style="background-color:lavender;">{{this.title}}</div>
+  <div class="column">
+    <div class="ui segment">
+      <div class="header item">
+          <b>{{this.title}}</b>
+      </div>
+      <p>Hello</p>
+      <div class="ui button">Original</div>
+      <div id="button-{{this.id}}" class="ui button">Summary</div>
+      <div href="/articles/{{this.id}}" class="ui button">Details</div>
+    </div>
+  </div>
+
+  <div class="ui longer modal modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      {{this.title}}
+    </div>
+    <div class="scolling content">
+      <p>{{this.summary}}</p>
+      <!-- <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
+      </div> -->
+    </div>
+    <div class="actions">
+      <div id="close-button-{{this.id}}" class="ui button">OK</div>
+    </div>
+  </div>
+
+  <script>
+  $(function(){
+    $("#button-{{this.id}}").click(function(){
+      $(".modal-{{this.id}}").modal('show');
+    });
+    $("#close-button-{{this.id}}").click(function(){
+      $(".modal-{{this.id}}").modal('hide');
+    });
+    $(".modal-{{this.id}}").modal({
+      closable: true
+    });
+    // $('#web-page-{{this.id}}').embed();
+  });
+
+  </script>
   {{/each}}
   {{/if}}
 </div>
+
+<!-- <script src="js/dom.js"></script> -->
 </body>
 </html>

@@ -3,22 +3,13 @@ h1 {
   text-align: center;
 }
 
-.container {
-  display: flex; /* or inline-flex */
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.article-div {
-  height: 200px;
-  width: 200px;
-  margin: 20px auto;
+#article-grid {
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 #logout-button {
   text-decoration: none;
-  margin: 12px 20px 0 0;
 }
 
 .user-form {

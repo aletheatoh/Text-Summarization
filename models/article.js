@@ -33,6 +33,11 @@
        	console.log(result.compressFactor);
        	console.log(result.summary.join("\n"));
 
+        // var summary = result.summary[0];
+        // for (var i=1;i<result.summary;i++) {
+        //   summary += CHAR(13) + result.summary[i];
+        // }
+
         var summary = result.summary.join("\n");
 
         // set up query

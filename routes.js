@@ -39,5 +39,6 @@
    app.get('/articles/new', articles.createForm); // done
    app.post('/articles', articles.create(db)); // done
    app.get('/articles/:id', articles.get(db)); // done
+   app.delete('/articles/:id', articles.deleteArticle(db));
 
  };

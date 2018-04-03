@@ -20,7 +20,7 @@
    // `dbPool` is accessible within this function scope
    return {
      // create an article
-     create: (article, callback) => {
+     create: (user_id, article, callback) => {
 
        // generate summary
        node_sum.summarize(`${article.url}`, function(result, failure) {
@@ -35,7 +35,7 @@
           VALUES ($1, $2, $3, $4);`;
 
         var values = [
-          parseInt(article.user_id),
+          user_id,
           article.title,
           article.url,
           summary
@@ -45,20 +45,27 @@
         dbPool.query(queryString, values, (error, queryResult) => {
           // invoke callback function with results after query has executed
           callback(error, queryResult);
-          console.log(queryResult);
         });
        });
      },
 
-     update: (article, callback) => {
+     update: (id, article, callback) => {
        // set up query
 
-       console.log("request is " + article.user_id);
+       var queryString = `UPDATE articles SET title='${article.title}', url='${article.url}', summary='${article.summary}' WHERE id='${id}';`;
 
-       var user_id_int = parseInt(article.user_id);
+       // execute query
+       dbPool.query(queryString, (error, queryResult) => {
+         // invoke callback function with results after query has executed
 
-       var queryString = `UPDATE articles SET user_id=${user_id_int}, title='${article.title}', url='${article.url}', summary='${article.summary}' WHERE id='${article.id}';`;
-       console.log("qs is " + queryString);
+         callback(error, queryResult);
+       });
+     },
+
+     deleteArticle: (id, article, callback) => {
+       // set up query
+
+       var queryString = `DELETE FROM articles WHERE id=${id};`;
 
        // execute query
        dbPool.query(queryString, (error, queryResult) => {
@@ -71,7 +78,6 @@
      get: (id, callback) => {
        dbPool.query("SELECT * from articles WHERE id=" + id, (error, queryResult) => {
          callback(error, queryResult);
-         console.log(queryResult);
        });
      },
 

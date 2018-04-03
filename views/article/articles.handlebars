@@ -24,32 +24,81 @@
   <a href="/articles" class="item">
     My Articles
   </a>
-  <a href="#" class="item">
+  <a href="/" class="item">
     My Work
   </a>
+  <div class="item">
+  <div class="ui button" id="add-article-button"><i class="add icon"></i>Add Article</div>
+  </div>
   <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
-    <button>Log Out</button>
+    <button class="ui button">Log Out</button>
   </form>
 </div>
 
 <h1>Here are your articles, {{username}}!</h1>
 
+<!-- ADD ARTICLE -->
+<div class="ui longer modal add-article">
+  <i class="close icon"></i>
+  <div class="header">
+    Add Article
+  </div>
+  <div class="scrolling content">
+    <div id="add-article" class="ui embed" data-url="articles/new">
+    </div>
+  </div>
+  <div class="actions">
+    <button id="add-close-button" class="ui button">OK</button>
+  </div>
+</div>
+
+<script>
+$(function(){
+  $("#add-article-button").click(function(){
+    $('#add-article').embed();
+    $(".add-article").modal('show');
+  });
+  $("#add-close-button").click(function(){
+    $(".add-article").modal('hide');
+    location.reload();
+  });
+  $(".add-article").modal({
+    closable: true
+  });
+});
+</script>
+
 <div id="article-grid" class="three column stackable ui grid">
   {{#each articles}}
-  <div class="column">
+  <div id="article-{{this.id}}-box"class="column">
     <div class="ui segment">
       <div class="header item">
           <b>{{this.title}}</b>
       </div>
       <p>Hello</p>
-      <div id="original-button-{{this.id}}" class="ui button">Original</div>
-      <div id="summary-button-{{this.id}}" class="ui button">Summary</div>
-      <div href="/articles/{{this.id}}" class="ui button" onclick="location.href = 'articles/{{this.id}}';">Details</div>
+      <button id="original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
+      <button id="summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
+      <button id="edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
+    </div>
+  </div>
+
+  <!-- ORIGINAL -->
+  <div class="ui longer large modal original-modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      {{this.title}}
+    </div>
+    <div class="scrolling content">
+      <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
+      </div>
+    </div>
+    <div class="actions">
+      <button id="original-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
 
   <!-- SUMMARY -->
-  <div class="ui large modal summary-modal-{{this.id}}">
+  <div class="ui longer large modal summary-modal-{{this.id}}">
     <i class="close icon"></i>
     <div class="header">
       {{this.title}}
@@ -58,37 +107,27 @@
       <p>{{this.summary}}</p>
     </div>
     <div class="actions">
-      <div id="summary-close-button-{{this.id}}" class="ui button">OK</div>
+      <button id="summary-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
 
-  <!-- ORIGINAL -->
-  <div class="ui large modal original-modal-{{this.id}}">
+  <!-- DETAILS -->
+  <div class="ui longer large modal edit-modal-{{this.id}}">
     <i class="close icon"></i>
     <div class="header">
       {{this.title}}
     </div>
     <div class="scrolling content">
-      <div id="web-page-{{this.id}}" class="ui embed" data-url="/articles/{{this.id}}/edit">
+      <div id="edit-article-{{this.id}}" class="ui embed" data-url="articles/{{this.id}}/edit">
       </div>
     </div>
     <div class="actions">
-      <div id="original-close-button-{{this.id}}" class="ui button">OK</div>
+      <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
 
   <script>
   $(function(){
-    // $("#testmodal").modal('show');
-    $("#summary-button-{{this.id}}").click(function(){
-      $(".summary-modal-{{this.id}}").modal('show');
-    });
-    $("#summary-close-button-{{this.id}}").click(function(){
-      $(".summary-modal-{{this.id}}").modal('hide');
-    });
-    $(".summary-modal-{{this.id}}").modal({
-      closable: true
-    });
 
     $("#original-button-{{this.id}}").click(function(){
       $('#web-page-{{this.id}}').embed();
@@ -96,8 +135,32 @@
     });
     $("#original-close-button-{{this.id}}").click(function(){
       $(".original-modal-{{this.id}}").modal('hide');
+      location.reload();
     });
     $(".original-modal-{{this.id}}").modal({
+      closable: true
+    });
+
+    $("#summary-button-{{this.id}}").click(function(){
+      $(".summary-modal-{{this.id}}").modal('show');
+    });
+    $("#summary-close-button-{{this.id}}").click(function(){
+      $(".summary-modal-{{this.id}}").modal('hide');
+      location.reload();
+    });
+    $(".summary-modal-{{this.id}}").modal({
+      closable: true
+    });
+
+    $("#edit-button-{{this.id}}").click(function(){
+      $('#edit-article-{{this.id}}').embed();
+      $(".edit-modal-{{this.id}}").modal('show');
+    });
+    $("#edit-close-button-{{this.id}}").click(function(){
+      $(".edit-modal-{{this.id}}").modal('hide');
+      location.reload();
+    });
+    $(".edit-modal-{{this.id}}").modal({
       closable: true
     });
   });

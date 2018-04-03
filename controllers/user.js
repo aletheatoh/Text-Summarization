@@ -45,7 +45,7 @@ const create = (db) => {
     db.user.create(request.body, (error, queryResult) => {
       // queryResult of creation is not useful to us, so we ignore it
       // (console log it to see for yourself)
-      console.log(request.body);
+
       // (you can choose to omit it completely from the function parameters)
 
       if (error) {

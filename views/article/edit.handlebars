@@ -3,58 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+
+  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+
   <title>Article</title>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarColor02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Articles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Work</a>
-      </li>
-      <li><form id="logout-button" method="POST" action="/users/logout">
-        <button>Log Out</button>
-      </form>
-    </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-
   <h2>Editing: Article {{article.id}}</h2>
-  <form class="article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
-    <div class="article-attribute">
-      id:<input name="id" type="text" value="{{article.id}}"/>
-    </div>
-    <div class="article-attribute">
-      user_id:<input name="user_id" type="text" value="{{article.user_id}}"/>
-    </div>
-    <div class="article-attribute">
-      title:<input name="title" type="text" value="{{article.title}}"/>
-    </div>
-    <div class="article-attribute">
-      url:<input name="url" type="text" value="{{article.url}}"/>
-    </div>
-    <div class="article-attribute">
-      summary:<input name="summary" type="text" value="{{article.summary}}"/>
-    </div>
-    <input name="submit" type="submit"/>
+
+  <form class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
+      <div class="eight wide field">
+        <label>Article Title</label>
+        <input name="title" type="text" value="{{article.title}}"/>
+      </div>
+      <div class="ten wide field">
+        <label>URL</label>
+        <input name="url" type="text" value="{{article.url}}"/>
+      </div>
+      <div class="field">
+        <label>Summary</label>
+        <textarea name="summary" type="text" placeholder="No summary available">{{article.summary}}</textarea>
+      </div>
+    <button class="ui button" type="submit">Submit</button>
+    <!-- <button class="ui button" onclick="window.location.href='/articles/{{article.id}}'">Back</button> -->
   </form>
-  <a href="/articles/{{article.id}}">Back</a>
+  <form method="POST" action="/articles/{{article.id}}?_method=DELETE">
+  <button class="ui button">Delete Pokemon</button></form>
+
 </body>
 </html>

@@ -3,57 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+
+  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
   <title>Article</title>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarColor02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Articles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Work</a>
-      </li>
-      <li><form id="logout-button" method="POST" action="/users/logout">
-        <button>Log Out</button>
-      </form>
-    </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
 
-<h2>Article {{article.id}} Details</h2>
-  <ul class="article-list">
-    <li class="article-attribute">
-      id: {{article.id}}
-    </li>
-    <li class="article-attribute">
-      user_id: {{article.user_id}}
-    </li>
-    <li class="article-attribute">
-      title: {{article.title}}
-    </li>
-    <li class="article-attribute">
-      url: {{article.url}}
-    </li>
-    <li class="article-attribute">
-      summary: {{article.summary}}
-    </li>
-  </ul>
-  <a href="{{article.id}}/edit">Edit Article</a>
+<h2>Article {{article.id}} Details</h2><button id="edit-button-{{this.id}}" class="ui labeled icon button" onclick="window.location.href='/articles/{{article.id}}/edit'"><i class="edit icon"></i>Edit Article</button>
+
+<table class="ui celled table">
+  <thead>
+    <tr><th colspan="2">
+      Folders
+    </th>
+  </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td class="collapsing">
+        <i class="folder icon"></i> node_modules
+      </td>
+      <td>Initial commit</td>
+    </tr>
+    <tr>
+      <td>
+        <i class="file outline icon"></i> package.json
+      </td>
+      <td>Initial commit</td>
+    </tr>
+  </tbody>
+</table>
+<table class="ui celled striped table">
+  <thead>
+    <tr><th colspan="2">
+      Details
+    </th>
+  </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td class="collapsing">
+        <i class="file outline icon"></i> File ID
+      </td>
+      <td>{{article.id}}</td>
+    </tr>
+    <tr>
+      <td>
+        Summary
+      </td>
+      <td>{{article.summary}}</td>
+    </tr>
+  </tbody>
+</table>
+
+  <!-- Folders
+  Title
+  Summary
+  Summary Rating-->
+
 </body>
 </html>

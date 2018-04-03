@@ -77,18 +77,33 @@
  const update = (db) => {
    return (request, response) => {
 
-     db.article.update(request.body, (error, queryResult) => {
+     db.article.update(request.params.id, request.body, (error, queryResult) => {
        // queryResult of creation is not useful to us, so we ignore it
        // (console log it to see for yourself)
        // (you can choose to omit it completely from the function parameters)
-       console.log(request.body);
+
        if (error) {
          console.error('error getting article:', error);
          response.sendStatus(500);
        }
 
-       // console.log('updating!!!');
        response.redirect(`/articles/${request.params.id}`);
+     });
+   };
+ };
+
+ const deleteArticle = (db) => {
+   return (request, response) => {
+     db.article.deleteArticle(request.params.id, request.body, (error, queryResult) => {
+       // queryResult of creation is not useful to us, so we ignore it
+       // (console log it to see for yourself)
+       // (you can choose to omit it completely from the function parameters)
+
+       if (error) {
+         console.error('error getting article:', error);
+         response.sendStatus(500);
+       }
+       response.send('successfully deleted');
      });
    };
  };
@@ -99,11 +114,11 @@
 
  const create = (db) => {
    return (request, response) => {
+     let user_id = parseInt(request.cookies['user-id']);
+
      // use article model method `create` to create new article entry in db
-     db.article.create(request.body, (error, queryResult) => {
+     db.article.create(user_id, request.body, (error, queryResult) => {
        // queryResult of creation is not useful to us, so we ignore it
-       // (console log it to see for yourself)
-       // (you can choose to omit it completely from the function parameters)
 
        if (error) {
          console.error('error getting article:', error);
@@ -117,7 +132,7 @@
        }
 
        // redirect to home page after creation
-       response.redirect('/');
+       response.send('article created successfully!');
      });
    };
  };
@@ -132,6 +147,7 @@
    articlesHomePage,
    updateForm,
    update,
+   deleteArticle,
    createForm,
    create
  };

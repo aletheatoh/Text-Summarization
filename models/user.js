@@ -47,25 +47,23 @@ module.exports = (dbPool) => {
       // set up query
 
       var anotherQS = "SELECT articles.id, articles.title from articles INNER JOIN users ON articles.user_id = users.id WHERE user_id=" + id + ";";
-      console.log(anotherQS);
+
       dbPool.query(anotherQS, (error, queryResult) => {
         // invoke callback function with results after query has executed
         callback(error, queryResult);
       });
     },
 
-    
+
 
     login: (user, callback) => {
-      console.log('loggin in in users model');
+
       // set up query
       var queryString = "SELECT * from users WHERE name = '" + user.name + "';";
 
-      console.log(queryString);
       // execute query
       dbPool.query(queryString, (error, queryResult) => {
         // invoke callback function with results after query has executed
-
         callback(error, queryResult);
       });
     }

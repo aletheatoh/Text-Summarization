@@ -4,22 +4,28 @@
   <meta charset="UTF-8">
   <title>Article</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 </head>
 <body>
-  <form class="article-form" method="POST" action="/articles">
-    <!-- <div class="article-attribute">
-      id:<input name="id" type="text"/>
+
+  <form class="ui form article-form" method="POST" action="/articles">
+    <!-- <div class="two wide field">
+      <label>User ID</label>
+      <input name="user_id" type="text"/>
     </div> -->
-    <div class="article-attribute">
-      user_id:<input name="user_id" type="text"/>
-    </div>
-    <div class="article-attribute">
-      title:<input name="title" type="text"/>
-    </div>
-    <div class="article-attribute">
-      url:<input name="url" type="text"/>
-    </div>
-    <input name="submit" type="submit"/>
+      <div class="eight wide field">
+        <label>Article Title</label>
+        <input name="title" type="text"/>
+      </div>
+      <div class="ten wide field">
+        <label>URL</label>
+        <input name="url" type="text"/>
+      </div>
+    <button class="ui button" type="submit">Submit</button>
   </form>
+
 </body>
 </html>

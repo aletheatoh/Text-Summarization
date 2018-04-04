@@ -22,7 +22,13 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 // Set handlebars to be the default view engine
-app.engine('handlebars', handlebars.create().engine);
+const handlebarsConfigs = {
+  extname: '.handlebars',
+  layoutsDir:'views'
+  // defaultLayout: 'layout'
+};
+
+app.engine('.handlebars', handlebars(handlebarsConfigs));
 app.set('view engine', 'handlebars');
 
 /**
@@ -57,7 +63,13 @@ app.get('/', (request, response) => {
     };
 
     if (loggedIn) response.render('home', context);
-    else response.render('user/login');
+    else {
+      response.clearCookie('loggedIn');
+      response.clearCookie('username');
+      response.clearCookie('email');
+      response.clearCookie('user-id');
+      response.render('user/login');
+    }
 
   });
 

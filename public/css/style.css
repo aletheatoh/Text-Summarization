@@ -14,3 +14,7 @@ h1 {
 form {
   display: inline;
 }
+
+#folder-menu {
+  display: inline-block;
+}

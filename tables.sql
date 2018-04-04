@@ -23,3 +23,20 @@ CREATE TABLE IF NOT EXISTS users (
   email varchar(255),
   password varchar(255)
 );
+
+CREATE TABLE IF NOT EXISTS folders (
+  id SERIAL PRIMARY KEY,
+  name varchar(255)
+)
+
+CREATE TABLE IF NOT EXISTS organized_articles (
+  id SERIAL PRIMARY KEY,
+  folder_id INTEGER,
+  article_id INTEGER
+)
+
+CREATE TABLE IF NOT EXISTS organized_writing (
+  id SERIAL PRIMARY KEY,
+  folder_id INTEGER,
+  writing_id INTEGER
+)

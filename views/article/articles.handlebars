@@ -35,7 +35,7 @@
   </form>
 </div>
 
-<h1>Here are your articles, {{username}}!</h1>
+<h1>Here are all your articles, {{username}}!</h1>
 
 <!-- ADD ARTICLE -->
 <div class="ui longer modal add-article">
@@ -68,106 +68,169 @@ $(function(){
 });
 </script>
 
-<div id="article-grid" class="three column stackable ui grid">
-  {{#each articles}}
-  <div id="article-{{this.id}}-box"class="column">
-    <div class="ui segment">
-      <div class="header item">
-          <b>{{this.title}}</b>
-      </div>
-      <p>Hello</p>
-      <button id="original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
-      <button id="summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
-      <button id="edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
-    </div>
-  </div>
+<div class="ui centered grid">
+<div class="ui large breadcrumb">
+  <a class="section" href="/">Home</a>
+  <span class="divider">/</span>
+  <a class="section" href="/articles">All Articles</a>
+  <span class="divider">/</span>
 
-  <!-- ORIGINAL -->
-  <div class="ui longer large modal original-modal-{{this.id}}">
-    <i class="close icon"></i>
-    <div class="header">
-      {{this.title}}
-    </div>
-    <div class="scrolling content">
-      <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
-      </div>
-    </div>
-    <div class="actions">
-      <button id="original-close-button-{{this.id}}" class="ui button">OK</button>
-    </div>
-  </div>
+  <div class="section ui simple dropdown">
+  <div class="text" id="folders-dropdown">All Folders<i class="dropdown icon"></i></div>
+  <div class="menu">
 
-  <!-- SUMMARY -->
-  <div class="ui longer large modal summary-modal-{{this.id}}">
-    <i class="close icon"></i>
-    <div class="header">
-      {{this.title}}
-    </div>
-    <div class="scrolling content">
-      <p>{{this.summary}}</p>
-    </div>
-    <div class="actions">
-      <button id="summary-close-button-{{this.id}}" class="ui button">OK</button>
-    </div>
-  </div>
+    <!-- loop through folders and add each one as a div -->
+    <div class="item">New</div>
 
-  <!-- DETAILS -->
-  <div class="ui longer large modal edit-modal-{{this.id}}">
-    <i class="close icon"></i>
-    <div class="header">
-      {{this.title}}
+    <div class="item">
+      <span class="description">ctrl + o</span>
+      Open...
     </div>
-    <div class="scrolling content">
-      <div id="edit-article-{{this.id}}" class="ui embed" data-url="articles/{{this.id}}/edit">
+    <div class="item">
+      <span class="description">ctrl + s</span>
+      Save as...
+    </div>
+    <div class="item">
+      <span class="description">ctrl + r</span>
+      Rename
+    </div>
+    <div class="item">Make a copy</div>
+    <div class="item">
+      <i class="folder icon"></i>
+      Move to folder
+    </div>
+    <div class="item">
+      <i class="trash icon"></i>
+      Move to trash
+    </div>
+    <div class="divider"></div>
+    <div class="item">Download As...</div>
+    <div class="item">
+      <i class="dropdown icon"></i>
+      Publish To Web
+      <div class="menu">
+        <div class="item">Google Docs</div>
+        <div class="item">Google Drive</div>
+        <div class="item">Dropbox</div>
+        <div class="item">Adobe Creative Cloud</div>
+        <div class="item">Private FTP</div>
+        <div class="item">Another Service...</div>
       </div>
     </div>
-    <div class="actions">
-      <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
-    </div>
+    <div class="item">E-mail Collaborators</div>
   </div>
-
-  <script>
-  $(function(){
-
-    $("#original-button-{{this.id}}").click(function(){
-      $('#web-page-{{this.id}}').embed();
-      $(".original-modal-{{this.id}}").modal('show');
-    });
-    $("#original-close-button-{{this.id}}").click(function(){
-      $(".original-modal-{{this.id}}").modal('hide');
-      location.reload();
-    });
-    $(".original-modal-{{this.id}}").modal({
-      closable: true
-    });
-
-    $("#summary-button-{{this.id}}").click(function(){
-      $(".summary-modal-{{this.id}}").modal('show');
-    });
-    $("#summary-close-button-{{this.id}}").click(function(){
-      $(".summary-modal-{{this.id}}").modal('hide');
-      location.reload();
-    });
-    $(".summary-modal-{{this.id}}").modal({
-      closable: true
-    });
-
-    $("#edit-button-{{this.id}}").click(function(){
-      $('#edit-article-{{this.id}}').embed();
-      $(".edit-modal-{{this.id}}").modal('show');
-    });
-    $("#edit-close-button-{{this.id}}").click(function(){
-      $(".edit-modal-{{this.id}}").modal('hide');
-      location.reload();
-    });
-    $(".edit-modal-{{this.id}}").modal({
-      closable: true
-    });
-  });
-
-  </script>
-  {{/each}}
 </div>
+
+<script>
+$('#folders-dropdown').click(function() {
+  $('.section.ui.active.dropdown').dropdown('show');
+})
+
+</script>
+
+</div>
+</div>
+
+  <div id="article-grid" class="three column stackable ui grid">
+    {{#each articles}}
+    <div id="article-{{this.id}}-box"class="column">
+      <div class="ui segment">
+        <div class="header item">
+            <b>{{this.title}}</b>
+        </div>
+        <p>Hello</p>
+        <button id="original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
+        <button id="summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
+        <button id="edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
+      </div>
+    </div>
+
+    <!-- ORIGINAL -->
+    <div class="ui longer large modal original-modal-{{this.id}}">
+      <i class="close icon"></i>
+      <div class="header">
+        {{this.title}}
+      </div>
+      <div class="scrolling content">
+        <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
+        </div>
+      </div>
+      <div class="actions">
+        <button id="original-close-button-{{this.id}}" class="ui button">OK</button>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="ui longer large modal summary-modal-{{this.id}}">
+      <i class="close icon"></i>
+      <div class="header">
+        {{this.title}}
+      </div>
+      <div class="scrolling content">
+        <p>{{this.summary}}</p>
+      </div>
+      <div class="actions">
+        <button id="summary-close-button-{{this.id}}" class="ui button">OK</button>
+      </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="ui longer large modal edit-modal-{{this.id}}">
+      <i class="close icon"></i>
+      <div class="header">
+        {{this.title}}
+      </div>
+      <div class="scrolling content">
+        <div id="edit-article-{{this.id}}" class="ui embed" data-url="articles/{{this.id}}/edit">
+        </div>
+      </div>
+      <div class="actions">
+        <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
+      </div>
+    </div>
+
+    <script>
+    $(function(){
+
+      $("#original-button-{{this.id}}").click(function(){
+        $('#web-page-{{this.id}}').embed();
+        $(".original-modal-{{this.id}}").modal('show');
+      });
+      $("#original-close-button-{{this.id}}").click(function(){
+        $(".original-modal-{{this.id}}").modal('hide');
+        location.reload();
+      });
+      $(".original-modal-{{this.id}}").modal({
+        closable: true
+      });
+
+      $("#summary-button-{{this.id}}").click(function(){
+        $(".summary-modal-{{this.id}}").modal('show');
+      });
+      $("#summary-close-button-{{this.id}}").click(function(){
+        $(".summary-modal-{{this.id}}").modal('hide');
+        location.reload();
+      });
+      $(".summary-modal-{{this.id}}").modal({
+        closable: true
+      });
+
+      $("#edit-button-{{this.id}}").click(function(){
+        $('#edit-article-{{this.id}}').embed();
+        $(".edit-modal-{{this.id}}").modal('show');
+      });
+      $("#edit-close-button-{{this.id}}").click(function(){
+        $(".edit-modal-{{this.id}}").modal('hide');
+        location.reload();
+      });
+      $(".edit-modal-{{this.id}}").modal({
+        closable: true
+      });
+    });
+
+    </script>
+    {{/each}}
+  </div>
 
 </body>
 </html>

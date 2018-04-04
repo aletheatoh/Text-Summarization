@@ -76,6 +76,7 @@ const logout = (request, response) => {
   response.clearCookie('loggedIn');
   response.clearCookie('username');
   response.clearCookie('email');
+  response.clearCookie('user-id');
 
   // redirect to home page
   response.redirect(301, '/');
@@ -88,6 +89,10 @@ const loginForm = (request, response) => {
 const login = (db) => {
   return (request, response) => {
     console.log('loggin in in users controller');
+    response.clearCookie('loggedIn');
+    response.clearCookie('username');
+    response.clearCookie('email');
+    response.clearCookie('user-id');
 
     // Hint: All SQL queries should happen in the corresponding model file
     // ie. in models/user.js - which method should this controller call on the model?
@@ -102,6 +107,7 @@ const login = (db) => {
           response.cookie('loggedIn', 'true');
           response.cookie('username', request.body.name);
           response.cookie('email', request.body.email);
+          response.cookie('user-id', queryResult.rows[0].id);
           response.redirect(301,'/');
 
           return;

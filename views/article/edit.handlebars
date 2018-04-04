@@ -28,10 +28,9 @@
         <textarea name="summary" type="text" placeholder="No summary available">{{article.summary}}</textarea>
       </div>
     <button class="ui button" type="submit">Submit</button>
-    <!-- <button class="ui button" onclick="window.location.href='/articles/{{article.id}}'">Back</button> -->
   </form>
   <form method="POST" action="/articles/{{article.id}}?_method=DELETE">
-  <button class="ui button">Delete Pokemon</button></form>
+  <button class="ui button"><i class="trash icon"></i>Delete Article</button></form>
 
 </body>
 </html>

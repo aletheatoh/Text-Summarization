@@ -24,8 +24,27 @@ app.use(cookieParser());
 // Set handlebars to be the default view engine
 const handlebarsConfigs = {
   extname: '.handlebars',
-  layoutsDir:'views'
+  layoutsDir: 'views',
   // defaultLayout: 'layout'
+  helpers: {
+    getFolderArticles: () => {
+
+      // var folder_id = parseInt(id);
+      var folder_id = 1;
+
+      const queryString = `SELECT articles.id, articles.title, articles.url, articles.summary FROM organized_articles INNER JOIN articles ON organized_articles.article_id = articles.id WHERE organized_articles.folder_id = ${folder_id};`;
+
+      db.pool.query(queryString, (error, queryResult) => {
+        // callback(error, queryResult);
+        // return queryResult.rows;
+        // console.log(queryResult.rows);
+        // return `<p>${queryResult.rows}</p>`;
+        console.log(queryResult.rows);
+        return queryResult.rows;
+      });
+
+    }
+  }
 };
 
 app.engine('.handlebars', handlebars(handlebarsConfigs));

@@ -89,6 +89,27 @@
        dbPool.query(queryString, (error, queryResult) => {
          callback(error, queryResult);
        });
-     }
+     },
+
+     getUserFolders: (username, callback) => {
+
+       // select foldesr of each user
+       var queryString = `SELECT folders.id, folders.name from folders INNER JOIN users ON folders.user_id = users.id WHERE users.name='${username}';`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
+     folders_and_articles: (callback) => {
+
+       // select foldesr of each user
+       var queryString = `SELECT * FROM organized_articles;`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
    };
  };

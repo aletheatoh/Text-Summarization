@@ -39,22 +39,45 @@
 
      db.article.getUserArticles(username, (error, queryResult) => {
        // queryResult contains article data returned from the article model
-       if (error) {
-         console.error('error getting article:', error);
-         response.sendStatus(500);
-       }
 
-       else {
-
-         let context = {
-           loggedIn: loggedIn,
-           username: username,
-           articles: queryResult.rows
-         };
-
+       db.article.getUserFolders(username, (err, qr) => {
          // render articles.handlebars in the article folder
-         response.render('article/articles', context);
-       }
+
+         db.article.folders_and_articles((e, res) => {
+           if (e) {
+             console.error('error getting article:', e);
+             response.sendStatus(500);
+           }
+
+           else {
+
+             var folder_articles = {};
+
+             res.rows.forEach(function(item){
+               var folder_id = parseInt(item.folder_id);
+               var article_id = item.id;
+               if (folder_articles[folder_id] === undefined) {
+                 folder_articles[folder_id] = {};
+                 folder_articles[folder_id]['folder_id'] = folder_id;
+                 folder_articles[folder_id]['articles'] = [];
+               }
+               folder_articles[folder_id]['articles'].push(article_id);
+             });
+
+             console.log(folder_articles);
+
+             let context = {
+               loggedIn: loggedIn,
+               username: username,
+               articles: queryResult.rows,
+               folders: qr.rows,
+               folder_articles: folder_articles
+             };
+
+             response.render('article/articles', context);
+           }
+         });
+       });
      });
    };
  };

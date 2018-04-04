@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/articles.css">
 
-  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <!-- <link rel="stylesheet" href="./dist/semantic.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -78,53 +78,24 @@ $(function(){
   <div class="section ui simple dropdown">
   <div class="text" id="folders-dropdown">All Folders<i class="dropdown icon"></i></div>
   <div class="menu">
-
-    <!-- loop through folders and add each one as a div -->
-    <div class="item">New</div>
-
-    <div class="item">
-      <span class="description">ctrl + o</span>
-      Open...
-    </div>
-    <div class="item">
-      <span class="description">ctrl + s</span>
-      Save as...
-    </div>
-    <div class="item">
-      <span class="description">ctrl + r</span>
-      Rename
-    </div>
-    <div class="item">Make a copy</div>
-    <div class="item">
+    {{#each folders}}
+    <div id="{{this.id}}" class="item folder-button">
       <i class="folder icon"></i>
-      Move to folder
+      {{this.name}}
     </div>
+
+    {{/each}}
     <div class="item">
-      <i class="trash icon"></i>
-      Move to trash
+      <i class="add icon"></i>
+      Add Folder
     </div>
-    <div class="divider"></div>
-    <div class="item">Download As...</div>
-    <div class="item">
-      <i class="dropdown icon"></i>
-      Publish To Web
-      <div class="menu">
-        <div class="item">Google Docs</div>
-        <div class="item">Google Drive</div>
-        <div class="item">Dropbox</div>
-        <div class="item">Adobe Creative Cloud</div>
-        <div class="item">Private FTP</div>
-        <div class="item">Another Service...</div>
-      </div>
-    </div>
-    <div class="item">E-mail Collaborators</div>
   </div>
 </div>
 
 <script>
 $('#folders-dropdown').click(function() {
   $('.section.ui.active.dropdown').dropdown('show');
-})
+});
 
 </script>
 
@@ -132,8 +103,9 @@ $('#folders-dropdown').click(function() {
 </div>
 
   <div id="article-grid" class="three column stackable ui grid">
+
     {{#each articles}}
-    <div id="article-{{this.id}}-box"class="column">
+    <div id="article-{{this.id}}-box" class="article-box column">
       <div class="ui segment">
         <div class="header item">
             <b>{{this.title}}</b>
@@ -230,7 +202,27 @@ $('#folders-dropdown').click(function() {
 
     </script>
     {{/each}}
+
   </div>
+
+<script>
+
+$('.folder-button').click(function() {
+  // first clear all boxes
+  $('.article-box').css('display', 'none');
+  // get folder id
+  var id = $(this).attr('id');
+  // then display articles belonging to folder
+  {{#each folder_articles}}
+  if ({{this.folder_id}} == id) { // target folder
+    $.each([{{this.articles}}], function( index, value ) {
+      let article_entry_id = '#article-' + value + '-box';
+      $(article_entry_id).css('display', '');
+    });
+  }
+  {{/each}}
+});
+</script>
 
 </body>
 </html>

@@ -26,17 +26,18 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS folders (
   id SERIAL PRIMARY KEY,
-  name varchar(255)
-)
+  name varchar(255),
+  user_id INTEGER
+);
 
 CREATE TABLE IF NOT EXISTS organized_articles (
   id SERIAL PRIMARY KEY,
   folder_id INTEGER,
   article_id INTEGER
-)
+);
 
 CREATE TABLE IF NOT EXISTS organized_writing (
   id SERIAL PRIMARY KEY,
   folder_id INTEGER,
   writing_id INTEGER
-)
+);

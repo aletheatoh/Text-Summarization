@@ -49,7 +49,7 @@ app.get('/', (request, response) => {
   db.pool.query(queryString, (error, queryResult) => {
 
     if (error) console.error('error!', error);
-    response.cookie('user-id', queryResult.rows[0].id); // set cookie
+    if (queryResult.rows[0] != undefined) response.cookie('user-id', queryResult.rows[0].id); // set cookie
 
     let context = {
       loggedIn: loggedIn,

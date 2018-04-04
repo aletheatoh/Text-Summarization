@@ -14,23 +14,86 @@
 <body>
   <h2>Editing: Article {{article.id}}</h2>
 
-  <form class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
-      <div class="eight wide field">
-        <label>Article Title</label>
-        <input name="title" type="text" value="{{article.title}}"/>
+  <!-- item ui tiny top right attached label -->
+<!-- <div>
+  <form method="POST" action="/addtofolders/{{article.id}}">
+    <div class="ui small top attached fluid multiple search selection dropdown">
+      <input type="hidden" name="folders">
+      <i class="dropdown icon"></i>
+      <div class="default text">Add to folder(s)</div>
+      <div id="add-to-folder-menu" class="menu inline">
+        {{#each folders}}
+        <input type="hidden" name="name" value="{{this.name}}">
+        <input type="hidden" name="id" value="{{this.id}}">
+        <div class="item" name="name" value="{{this.id}}">
+          <i class="folder icon"></i>{{this.name}}</div>
+        {{/each}}
       </div>
-      <div class="ten wide field">
-        <label>URL</label>
-        <input name="url" type="text" value="{{article.url}}"/>
-      </div>
-      <div class="field">
-        <label>Summary</label>
-        <textarea name="summary" type="text" placeholder="No summary available">{{article.summary}}</textarea>
-      </div>
-    <button class="ui button" type="submit">Submit</button>
+    </div>
+    <button style="margin-left: 5px;" id="add-to-folders-button" class="ui tiny button" type="submit">Add</button>
   </form>
-  <form method="POST" action="/articles/{{article.id}}?_method=DELETE">
-  <button class="ui button"><i class="trash icon"></i>Delete Article</button></form>
+</div>
+</br> -->
+
+<script>
+$('#add-to-folders-button').click(function() {
+  console.log('clicked');
+});
+
+function textAreaAdjust(o) {
+  o.style.height = "1px";
+  o.style.height = (25+o.scrollHeight)+"px";
+};
+
+</script>
+
+<div style="display: inline">
+<form class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
+  <div class="ui small top attached fluid multiple search selection dropdown">
+    <input type="hidden" name="folders">
+    <i class="dropdown icon"></i>
+    <div class="default text">Add to folder(s)</div>
+    <div id="add-to-folder-menu" class="menu inline">
+      {{#each folders}}
+      <input type="hidden" name="name" value="{{this.name}}">
+      <input type="hidden" name="id" value="{{this.id}}">
+      <div class="item" name="name" value="{{this.id}}">
+        <i class="folder icon"></i>{{this.name}}</div>
+      {{/each}}
+    </div>
+  </div>
+</br>
+
+  <div class="two fields">
+  <div class="field">
+    <label>Article Title</label>
+    <input name="title" type="text" value="{{article.title}}"/>
+  </div>
+  <div class="field">
+    <label>URL</label>
+    <input name="url" type="text" value="{{article.url}}"/>
+  </div>
+</div>
+
+  <div class="field textarea">
+    <label>Summary</label>
+    <textarea onkeyup="textAreaAdjust(this)" name="summary" type="text" placeholder="No summary available">{{article.summary}}</textarea>
+  </div>
+  <button class="ui button" type="submit">Submit</button>
+</form>
+</div>
+<div style="display: inline">
+<form method="POST" action="/articles/{{article.id}}?_method=DELETE">
+  <button class="ui button"><i class="trash icon"></i>Delete Article</button>
+</form>
+</div>
+
+  <script>
+  $('.ui.dropdown')
+  .dropdown()
+  ;
+
+  </script>
 
 </body>
 </html>

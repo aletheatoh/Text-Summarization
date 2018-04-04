@@ -41,7 +41,7 @@
 <div class="ui longer modal add-article">
   <i class="close icon"></i>
   <div class="header">
-    Add Article
+    New Article
   </div>
   <div class="scrolling content">
     <div id="add-article" class="ui embed" data-url="articles/new">
@@ -51,22 +51,6 @@
     <button id="add-close-button" class="ui button">OK</button>
   </div>
 </div>
-
-<script>
-$(function(){
-  $("#add-article-button").click(function(){
-    $('#add-article').embed();
-    $(".add-article").modal('show');
-  });
-  $("#add-close-button").click(function(){
-    $(".add-article").modal('hide');
-    location.reload();
-  });
-  $(".add-article").modal({
-    closable: true
-  });
-});
-</script>
 
 <div class="ui centered grid">
 <div class="ui large breadcrumb">
@@ -83,25 +67,55 @@ $(function(){
       <i class="folder icon"></i>
       {{this.name}}
     </div>
-
     {{/each}}
-    <div class="item">
+    <div id="add-folder-button" class="item">
       <i class="add icon"></i>
       Add Folder
+      <div class="menu">
+        <div class="header">
+          Folder Name
+        </div>
+        <div>
+          <form class="ui form folder-form" method="POST" action="/folders">
+        <div class="ui left icon input">
+          <i class="folder icon"></i>
+          <input id="folder-name-input" type="text" name="name" placeholder="Folder Name">
+        </div>
+        <button class="ui button" type="submit">Add</button>
+        </form>
+      </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+
+// DISPLAY ADD ARTICLE MODAL
+$(function(){
+  $("#add-article-button").click(function(){
+    $('#add-article').embed();
+    $(".add-article").modal('show');
+  });
+  $("#add-close-button").click(function(){
+    $(".add-article").modal('hide');
+    location.reload();
+  });
+  $(".add-article").modal({
+    closable: true
+  });
+});
+
+// FOLDER DROPDOWN
 $('#folders-dropdown').click(function() {
   $('.section.ui.active.dropdown').dropdown('show');
 });
 
 </script>
-
 </div>
 </div>
 
+  <!-- ARTICLES GRID -->
   <div id="article-grid" class="three column stackable ui grid">
 
     {{#each articles}}
@@ -162,6 +176,7 @@ $('#folders-dropdown').click(function() {
     </div>
 
     <script>
+
     $(function(){
 
       $("#original-button-{{this.id}}").click(function(){
@@ -202,12 +217,13 @@ $('#folders-dropdown').click(function() {
 
     </script>
     {{/each}}
-
   </div>
 
 <script>
 
 $('.folder-button').click(function() {
+  var folder_name = $(this).text();
+  $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
   // first clear all boxes
   $('.article-box').css('display', 'none');
   // get folder id
@@ -216,6 +232,8 @@ $('.folder-button').click(function() {
   {{#each folder_articles}}
   if ({{this.folder_id}} == id) { // target folder
     $.each([{{this.articles}}], function( index, value ) {
+      console.log('value is ' + value);
+      console.log('index is ' + index);
       let article_entry_id = '#article-' + value + '-box';
       $(article_entry_id).css('display', '');
     });

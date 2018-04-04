@@ -10,6 +10,7 @@
  const users = require('./controllers/user');
  const articles = require('./controllers/article');
  const writing_pieces = require('./controllers/writing_piece');
+ const folders = require('./controllers/folder');
 
  module.exports = (app, db) => {
    /*
@@ -41,4 +42,8 @@
    app.get('/articles/:id', articles.get(db)); // done
    app.delete('/articles/:id', articles.deleteArticle(db));
 
+   // CRUD folders
+   app.get('/folders/new', folders.createForm); // done
+   app.post('/folders', folders.create(db)); // done
+   // app.post('/addtofolders/:id', folders.addArticleToFolder(db));
  };

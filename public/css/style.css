@@ -18,3 +18,22 @@ form {
 #folder-menu {
   display: inline-block;
 }
+
+.ui.left.icon.input {
+  margin-bottom: 10px;
+  margin-right: 4px;
+}
+
+.folder-form {
+  padding: 10px;
+}
+
+.multiple.search.selection.dropdown {
+  width: 500px;
+  margin: 0;
+  display: inline-block;
+}
+
+textarea {
+  overflow: hidden;
+}

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<h2>Article {{article.id}} Details</h2><button id="edit-button-{{this.id}}" class="ui labeled icon button" onclick="window.location.href='/articles/{{article.id}}/edit'"><i class="edit icon"></i>Edit Article</button>
+<h2>Successfully edited Article {{article.id}}</h2><button id="edit-button-{{this.id}}" class="ui labeled icon button" onclick="window.location.href='/articles/{{article.id}}/edit'"><i class="edit icon"></i>Edit Article</button>
 
 <table class="ui celled table">
   <thead>
@@ -22,18 +22,14 @@
   </tr>
 </thead>
   <tbody>
+    {{#each folders}}
     <tr>
       <td class="collapsing">
-        <i class="folder icon"></i> node_modules
+        <i class="folder icon"></i> {{this.name}}
       </td>
       <td>Initial commit</td>
     </tr>
-    <tr>
-      <td>
-        <i class="file outline icon"></i> package.json
-      </td>
-      <td>Initial commit</td>
-    </tr>
+    {{/each}}
   </tbody>
 </table>
 <table class="ui celled striped table">
@@ -46,9 +42,14 @@
   <tbody>
     <tr>
       <td class="collapsing">
-        <i class="file outline icon"></i> File ID
+        <i class="file outline icon"></i> Article ID
       </td>
       <td>{{article.id}}</td>
+    </tr>
+    <tr>
+      <td>
+        <i class="ui url icon"></i>URL</td>
+      <td>{{article.url}}</td>
     </tr>
     <tr>
       <td>
@@ -58,11 +59,6 @@
     </tr>
   </tbody>
 </table>
-
-  <!-- Folders
-  Title
-  Summary
-  Summary Rating-->
 
 </body>
 </html>

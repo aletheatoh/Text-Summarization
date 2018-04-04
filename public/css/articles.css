@@ -2,14 +2,10 @@
   margin: 100px auto;
 }
 
-#folder-menu {
-  /* width: 50px; */
-  /* display: inline-block; */
-}
-
 .ui.centered.grid {
   margin: 10px auto;
 }
-/* #article-grid {
-  width: 1000px;
-} */
+
+a {
+  text-decoration: none;
+}

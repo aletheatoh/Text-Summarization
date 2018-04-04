@@ -12,6 +12,7 @@
  const user = require('./models/user');
  const article = require('./models/article');
  const writing_piece = require('./models/writing_piece');
+ const folder = require('./models/folder');
 
  const configs = {
    user: 'alethea',
@@ -30,5 +31,6 @@
    pool: pool,
    user: user(pool),
    article: article(pool),
+   folder: folder(pool)
    // writing_piece: writing_piece(pool)
  };

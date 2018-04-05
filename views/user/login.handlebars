@@ -14,14 +14,14 @@
 
   <!-- NAVBAR -->
   <div class="ui menu">
-  <div class="header item">
-    App Name
+    <div class="header item">
+      App Name
+    </div>
   </div>
-</div>
 
-    <div id="signin-form" class="ui center aligned middle aligned grid">
-      <div class="six wide column">
-        <h1>Sign in to your account</h2>
+  <div id="signin-form" class="ui center aligned middle aligned grid">
+    <div class="six wide column">
+      <h1>Sign in to your account</h2>
         <div class="ui stackable segment">
           <form class="ui large form" method="POST" action="/users/login">
             <div class="required field">
@@ -52,10 +52,35 @@
           <button class="ui circular twitter icon button">
             <i class="twitter icon"></i>
           </button>
-          <p>New to us? <a href="users/new"> Sign Up</a></p>
+          <p id="new-to-us">New to us? <a href="users/new"> Sign Up</a> here.</p>
         </div>
+
+        <div class="ui error message" style="display:none;">
+          <i class="close icon" id="close-error-message"></i>
+          <div class="header">
+            There were some errors with your submission
+          </div>
+          <ul class="list">
+            <li>Your password is incorrect.</li>
+            <li><b>New to us? <a href="/users/new"> Sign Up</a></b> here.</li>
+          </ul>
+        </div>
+
       </div>
+
     </div>
 
-</body>
-</html>
+    <script>
+    {{#if loginFailure}}
+    $('.ui.error.message').show();
+    $('#new-to-us').hide();
+    $('#close-error-message').click(function() {
+      $('.ui.error.message').hide();
+    });
+    {{/if}}
+
+
+    </script>
+
+  </body>
+  </html>

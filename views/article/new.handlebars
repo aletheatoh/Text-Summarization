@@ -23,5 +23,23 @@
     <button class="ui button" type="submit">Submit</button>
   </form>
 
+  <div class="ui success message" style="display:none;">
+    <i class="close icon" id="close-success-message"></i>
+    <div class="header">
+      Your article was successfully created.
+    </div>
+    <p>Enjoy reading!</p>
+  </div>
+
 </body>
+<script>
+{{#if create_success}}
+$('.success.message').show();
+$('#close-success-message').click(function() {
+  $('.success.message').hide();
+});
+{{/if}}
+
+</script>
+
 </html>

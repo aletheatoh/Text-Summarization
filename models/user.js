@@ -57,7 +57,6 @@ module.exports = (dbPool) => {
 
 
     login: (user, callback) => {
-
       // set up query
       var queryString = "SELECT * from users WHERE name = '" + user.name + "';";
 

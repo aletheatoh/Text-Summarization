@@ -14,27 +14,6 @@
 <body>
   <h2>Editing: Article {{article.id}}</h2>
 
-  <!-- item ui tiny top right attached label -->
-<!-- <div>
-  <form method="POST" action="/addtofolders/{{article.id}}">
-    <div class="ui small top attached fluid multiple search selection dropdown">
-      <input type="hidden" name="folders">
-      <i class="dropdown icon"></i>
-      <div class="default text">Add to folder(s)</div>
-      <div id="add-to-folder-menu" class="menu inline">
-        {{#each folders}}
-        <input type="hidden" name="name" value="{{this.name}}">
-        <input type="hidden" name="id" value="{{this.id}}">
-        <div class="item" name="name" value="{{this.id}}">
-          <i class="folder icon"></i>{{this.name}}</div>
-        {{/each}}
-      </div>
-    </div>
-    <button style="margin-left: 5px;" id="add-to-folders-button" class="ui tiny button" type="submit">Add</button>
-  </form>
-</div>
-</br> -->
-
 <script>
 $('#add-to-folders-button').click(function() {
   console.log('clicked');

@@ -120,7 +120,7 @@
    return (request, response) => {
 
      db.article.update(request.params.id, request.body, (error, queryResult) => {
-       // console.log(request.body);
+       console.log(request.body);
 
        var array = request.body['folders'].split('<i class=&quot;folder icon&quot;></i>');
 
@@ -196,8 +196,11 @@
          console.log('article could not be created');
        }
 
-       // redirect to home page after creation
-       response.send('article created successfully!');
+       let context = {
+         create_success: true
+       }
+       response.render('article/new', context);
+
      });
    };
  };

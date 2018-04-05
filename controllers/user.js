@@ -97,6 +97,18 @@ const login = (db) => {
     // Hint: All SQL queries should happen in the corresponding model file
     // ie. in models/user.js - which method should this controller call on the model?
     db.user.login(request.body, (error, queryResult) => {
+      console.log(queryResult.rowCount);
+
+      if (queryResult.rowCount === 0) {
+
+        console.error('error getting user:', error);
+
+        let context = {
+          needToRegister: true
+        }
+        response.render('user/new', context);
+        return;
+      }
 
       var hash = queryResult.rows[0].password;
 
@@ -114,7 +126,11 @@ const login = (db) => {
         }
         else {
           console.log('incorrect password');
-          response.send("password incorrect!");
+
+          let context = {
+            loginFailure: true
+          }
+          response.render('user/login', context);
           return;
         }
       });

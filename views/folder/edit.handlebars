@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+
+  <title>Folder</title>
+</head>
+<body>
+
+  <div id="edit-article-container">
+  <h2>Editing: Folder {{folder.id}}</h2>
+
+<div style="display:inline">
+<form class="ui form folder-form" method="POST" action="/folders/{{folder.id}}/edit?_method=PUT">
+
+  <h6 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Details
+  </h6>
+</br>
+
+  <div class="two fields">
+  <div class="field">
+    <label>Folder Name</label>
+    <input name="name" type="text" value="{{folder.name}}"/>
+  </div>
+</div>
+
+  <button class="ui button" type="submit">Submit</button>
+</form>
+</div>
+
+<div style="display: inline">
+<form method="POST" action="/folders/{{folder.id}}?_method=DELETE">
+  <button class="ui button"><i class="trash icon"></i>Delete Folder</button>
+</form>
+</div>
+</div>
+
+<div class="ui success message" style="display:none;">
+  <i class="close icon" id="close-success-message"></i>
+  <div class="header">
+    Your folder was successfully deleted.
+  </div>
+  <p>Enjoy reading!</p>
+</div>
+
+  <script>
+  $('.ui.dropdown')
+  .dropdown();
+
+  {{#if delete_success}}
+  $('#edit-article-container').hide();
+  $('.success.message').show();
+  $('#close-success-message').click(function() {
+    $('.success.message').hide();
+  });
+  {{/if}}
+
+  </script>
+
+</body>
+</html>

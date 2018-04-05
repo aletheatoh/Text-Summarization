@@ -118,40 +118,47 @@
 
      db.article.update(request.params.id, request.body, (error, queryResult) => {
        console.log(request.body);
+       if (request.body.folders != '') {
+         var array = request.body['folders'].split('<i class=&quot;folder icon&quot;></i>');
 
-       var array = request.body['folders'].split('<i class=&quot;folder icon&quot;></i>');
+         array.forEach(function(item, index) {
+           array[index] = item.replace(',', '');
+         });
+         var removed = array.splice(0,1);
 
-       array.forEach(function(item, index) {
-         array[index] = item.replace(',', '');
-       });
+         var res = request.body;
+         res['folders'] = array;
 
-       var removed = array.splice(0,1);
+         var folder_ids = [];
 
-       var res = request.body;
-       res['folders'] = array;
-
-       var folder_ids = [];
-
-       request.body['id'].forEach(function(item, index) {
-         let folder = request.body['name'][index];
-         if (array.includes(folder)) {
-           folder_ids.push(item);
+         if (request.body['id'].length == 1) {
+           let folder = request.body['name'];
+           console.log(array);
+           console.log(folder);
+           if (array.includes(folder.toLowerCase())) folder_ids.push(request.body['id']);
          }
-       });
 
-       folder_ids.forEach(function(id) {
-         db.folder.addArticleToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
-           if (err) {
-             console.error('error:', err);
-             response.sendStatus(500);
-           }
-           if (queryResult.rowCount >= 1) {
-             console.log('article added successfully');
-           } else {
-             console.log('article could not be added');
+         else request.body['id'].forEach(function(item, index) {
+           let folder = request.body['name'][index];
+           if (array.includes(folder.toLowerCase())) {
+             folder_ids.push(item);
            }
          });
-       });
+
+         folder_ids.forEach(function(id) {
+           db.folder.addArticleToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
+             if (err) {
+               console.error('error:', err);
+               response.sendStatus(500);
+             }
+             if (queryResult.rowCount >= 1) {
+               console.log('article added successfully');
+             } else {
+               console.log('article could not be added');
+             }
+           });
+         });
+       }
        response.redirect(`/articles/${request.params.id}`);
      });
    };
@@ -159,7 +166,7 @@
 
  const deleteArticle = (db) => {
    return (request, response) => {
-     db.article.deleteArticle(request.params.id, request.body, (error, queryResult) => {
+     db.article.deleteArticle(request.params.id, (error, queryResult) => {
 
        if (error) {
          console.error('error getting article:', error);

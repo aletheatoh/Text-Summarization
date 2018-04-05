@@ -46,5 +46,9 @@
    app.get('/folders/new', folders.createForm); // done
    app.get('/folders', folders.foldersHomePage(db));
    app.post('/folders', folders.create(db)); // done
-   // app.post('/addtofolders/:id', folders.addArticleToFolder(db));
+   app.get('/folders/:id', folders.get(db)); // done
+   app.get('/folders/:id/edit', folders.updateForm(db)); // done
+   app.put('/folders/:id/edit', folders.update(db)); // done
+   app.delete('/folders/:id', folders.deleteFolder(db));
+
  };

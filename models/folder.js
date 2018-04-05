@@ -45,7 +45,7 @@
        });
      },
 
-     deleteFolder: (id, folder, callback) => {
+     deleteFolder: (id, callback) => {
        // set up query
 
        var queryString = `DELETE FROM folders WHERE id=${id};`;
@@ -53,7 +53,7 @@
        // execute query
        dbPool.query(queryString, (error, queryResult) => {
          // invoke callback function with results after query has executed
-         var qs = `DELETE FROM folder_articles WHERE folder_id=${id};`;
+         var qs = `DELETE FROM organized_articles WHERE folder_id=${id};`;
          // execute query
          dbPool.query(qs, (err, qr) => {
            // invoke callback function with results after query has executed
@@ -72,6 +72,16 @@
 
        // select folders of each user
        var queryString = `SELECT folders.id, folders.name from folders INNER JOIN users ON folders.user_id = users.id WHERE users.name='${username}';`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
+     getFolderArticles: (folder_id, callback) => {
+
+       // select articles of each folder
+       var queryString = `SELECT articles.id, articles.title, articles.url, articles.summary from articles INNER JOIN organized_articles ON articles.id = organized_articles.article_id WHERE organized_articles.folder_id=${folder_id};`;
 
        dbPool.query(queryString, (error, queryResult) => {
          callback(error, queryResult);

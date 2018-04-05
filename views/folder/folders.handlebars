@@ -225,17 +225,47 @@ $('#folders-dropdown').click(function() {
 <!-- FOLDERS GRID -->
 <div id="folders-article-grid" class="four column stackable ui grid" style="text-align:center;">
   {{#each folders}}
-  <div class="column">
-    <button class="ui basic icon button" style="padding: 30px;"><i class="massive folder icon"></i></button>
+  <div id="folder-{{this.id}}-box" class="column">
+    <button id="button-folder-{{this.id}}" class="ui basic icon button" style="padding: 30px;"><i class="massive folder icon"></i></button>
     <div class="header item" style="margin-top: 8px;"><b>{{this.name}}</b></div>
   </div>
+
+  <!-- DETAILS -->
+  <div id="edit-modal-{{this.id}}" class="ui longer large modal">
+    <i class="close icon"></i>
+    <div class="header">
+      {{this.title}}
+    </div>
+    <div class="scrolling content">
+      <div id="edit-folder-{{this.id}}" class="ui embed" data-url="folders/{{this.id}}">
+      </div>
+    </div>
+    <div class="actions">
+      <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
+    </div>
+  </div>
+
+  <script>
+  $("#button-folder-{{this.id}}").click(function(){
+    $('#edit-folder-{{this.id}}').embed();
+    $("#edit-modal-{{this.id}}").modal('show');
+  });
+  $("#edit-close-button-{{this.id}}").click(function(){
+    $("#edit-modal-{{this.id}}").modal('hide');
+    location.reload();
+  });
+  $("#edit-modal-{{this.id}}").modal({
+    closable: true
+  });
+  </script>
+
   {{/each}}
 </div>
 <script>
 
 $('.folder-button').click(function() {
   $('#folders-article-grid').hide();
-  $('#article-grid').show();
+  $('#article-grid').show(); // load article grid
   var folder_name = $(this).text();
   $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
   // first clear all boxes
@@ -251,6 +281,7 @@ $('.folder-button').click(function() {
     });
   }
   {{/each}}
+
 });
 </script>
 

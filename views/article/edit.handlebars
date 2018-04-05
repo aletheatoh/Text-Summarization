@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-
-  <!-- <link rel="stylesheet" href="./dist/semantic.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -12,26 +10,16 @@
   <title>Article</title>
 </head>
 <body>
+
+  <div id="edit-article-container">
   <h2>Editing: Article {{article.id}}</h2>
 
-<script>
-$('#add-to-folders-button').click(function() {
-  console.log('clicked');
-});
-
-function textAreaAdjust(o) {
-  o.style.height = "1px";
-  o.style.height = (25+o.scrollHeight)+"px";
-};
-
-</script>
-
-<div style="display: inline">
+<div style="display:inline">
 <form class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
   <div class="ui small top attached fluid multiple search selection dropdown">
     <input type="hidden" name="folders">
     <i class="dropdown icon"></i>
-    <div class="default text">Add to folder(s)</div>
+    <div class="default text"><i class="folder icon"></i>Add to folder(s)</div>
     <div id="add-to-folder-menu" class="menu inline">
       {{#each folders}}
       <input type="hidden" name="name" value="{{this.name}}">
@@ -41,6 +29,10 @@ function textAreaAdjust(o) {
       {{/each}}
     </div>
   </div>
+  <h6 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Details
+  </h6>
 </br>
 
   <div class="two fields">
@@ -61,16 +53,33 @@ function textAreaAdjust(o) {
   <button class="ui button" type="submit">Submit</button>
 </form>
 </div>
+
 <div style="display: inline">
 <form method="POST" action="/articles/{{article.id}}?_method=DELETE">
   <button class="ui button"><i class="trash icon"></i>Delete Article</button>
 </form>
 </div>
+</div>
+
+<div class="ui success message" style="display:none;">
+  <i class="close icon" id="close-success-message"></i>
+  <div class="header">
+    Your article was successfully deleted.
+  </div>
+  <p>Enjoy reading!</p>
+</div>
 
   <script>
   $('.ui.dropdown')
-  .dropdown()
-  ;
+  .dropdown();
+
+  {{#if delete_success}}
+  $('#edit-article-container').hide();
+  $('.success.message').show();
+  $('#close-success-message').click(function() {
+    $('.success.message').hide();
+  });
+  {{/if}}
 
   </script>
 

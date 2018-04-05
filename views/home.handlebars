@@ -33,7 +33,29 @@
   </form>
 </div>
 
-<h1>Welcome back{{#if loggedIn }}, {{username}}{{/if}}!</h1>
+<div id="home-page-content">
+<h1>Welcome{{#if returningUser}} back{{/if}}{{#if loggedIn }}, <span style="color:red">{{username}}</span>{{/if}}!</h1>
+<div class="ui ordered steps">
+  <div class="completed step">
+    <div class="content">
+      <div class="title">Shipping</div>
+      <div class="description">Choose your shipping options</div>
+    </div>
+  </div>
+  <div class="completed step">
+    <div class="content">
+      <div class="title">Billing</div>
+      <div class="description">Enter billing information</div>
+    </div>
+  </div>
+  <div class="active step">
+    <div class="content">
+      <div class="title">Confirm Order</div>
+      <div class="description">Verify order details</div>
+    </div>
+  </div>
+</div>
+</div>
 
 </body>
 </html>

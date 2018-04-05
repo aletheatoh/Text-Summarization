@@ -2,7 +2,7 @@ h1 {
   text-align: center;
 }
 
-#article-grid {
+#folders-article-grid, #article-grid {
   margin-left: 80px;
   margin-right: 80px;
 }
@@ -36,4 +36,44 @@ form {
 
 textarea {
   overflow: hidden;
+}
+
+.modal-button {
+  margin: 100px auto;
+}
+
+.ui.centered.grid {
+  margin: 10px auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+#home-page-content {
+  width: 1000px;
+  height: 100px;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+#signin-form {
+  width: 1200px;
+  height: 100px;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+.massive.folder.icon {
+  /* margin-left: 100px; */
 }

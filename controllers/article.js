@@ -73,9 +73,6 @@
                folder_articles[item.folder_id]['articles'].push(article_id);
              });
 
-             console.log(folder_articles);
-
-
              let context = {
                loggedIn: loggedIn,
                username: username,
@@ -168,7 +165,10 @@
          console.error('error getting article:', error);
          response.sendStatus(500);
        }
-       response.send('successfully deleted');
+       let context = {
+         delete_success: true
+       }
+       response.render('article/edit', context);
      });
    };
  };

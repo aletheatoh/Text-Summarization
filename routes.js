@@ -44,6 +44,7 @@
 
    // CRUD folders
    app.get('/folders/new', folders.createForm); // done
+   app.get('/folders', folders.foldersHomePage(db));
    app.post('/folders', folders.create(db)); // done
    // app.post('/addtofolders/:id', folders.addArticleToFolder(db));
  };

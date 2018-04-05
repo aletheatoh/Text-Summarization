@@ -28,6 +28,59 @@
    };
  };
 
+ const foldersHomePage = (db) => {
+   return (request, response) => {
+     // retrieve cookies
+     let loggedIn = request.cookies['loggedIn'];
+     let username = request.cookies['username'];
+     // let email = request.cookies['email'];
+
+     db.article.getUserArticles(username, (error, queryResult) => {
+       // queryResult contains article data returned from the article model
+
+       db.folder.getUserFolders(username, (err, qr) => {
+
+         db.folder.folders_and_articles((e, res) => {
+           if (e) {
+             console.error('error getting article:', e);
+             response.sendStatus(500);
+           }
+
+           else {
+
+             var folder_articles = {};
+
+             res.rows.forEach(function(item){
+               console.log(item);
+               var folder_id = parseInt(item.folder_id);
+               var article_id = item.article_id;
+               if (folder_articles[item.folder_id] === undefined) {
+                 folder_articles[item.folder_id] = {};
+                 folder_articles[item.folder_id]['folder_id'] = folder_id;
+                 folder_articles[item.folder_id]['articles'] = [];
+               }
+               folder_articles[item.folder_id]['articles'].push(article_id);
+             });
+
+             console.log(folder_articles);
+
+
+             let context = {
+               loggedIn: loggedIn,
+               username: username,
+               articles: queryResult.rows,
+               folders: qr.rows,
+               folder_articles: folder_articles
+             };
+
+             response.render('folder/folders', context);
+           }
+         });
+       });
+     });
+   };
+ };
+
  const updateForm = (db) => {
    return (request, response) => {
      db.folder.get(request.params.id, (error, queryResult) => {
@@ -109,6 +162,7 @@
   */
  module.exports = {
    get,
+   foldersHomePage,
    updateForm,
    update,
    deleteArticle,

@@ -120,7 +120,14 @@ const login = (db) => {
           response.cookie('username', request.body.name);
           response.cookie('email', request.body.email);
           response.cookie('user-id', queryResult.rows[0].id);
-          response.redirect(301,'/');
+
+          let context = {
+            returningUser: true,
+            loggedIn: true,
+            username: request.body.name
+          }
+
+          response.render('home', context);
 
           return;
         }

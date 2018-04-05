@@ -20,7 +20,7 @@
         <label>URL</label>
         <input name="url" type="text"/>
       </div>
-    <button class="ui button" type="submit">Submit</button>
+    <button class="ui button" id="submit-button" type="submit">Submit</button>
   </form>
 
   <div class="ui success message" style="display:none;">
@@ -31,8 +31,16 @@
     <p>Enjoy reading!</p>
   </div>
 
+  <div class="ui active dimmer" style="display:none;">
+    <div class="ui text loader">Creating Article</div>
+  </div>
+
 </body>
 <script>
+
+$('#submit-button').click(function() {
+  $('.ui.active.dimmer').show();
+});
 {{#if create_success}}
 $('.success.message').show();
 $('#close-success-message').click(function() {

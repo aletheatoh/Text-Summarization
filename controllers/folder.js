@@ -175,9 +175,41 @@ const create = (db) => {
       }
 
       // redirect to articles page after creation
-      response.redirect('/articles');
+      response.redirect('back');
     });
   };
+
+};
+
+const removeArticle = (db) => {
+  return (request, response) => {
+    console.log('artice id is ' + request.params.article_id);
+    db.folder.removeArticleFromFolder(request.params.article_id, request.params.folder_id, (error, queryResult) => {
+
+      if (error) {
+        console.error('error getting folder:', error);
+        response.sendStatus(500);
+      }
+
+      // redirect to articles page after creation
+      response.send('successfully removed');
+    });
+  }
+};
+
+const removeWriting = (db) => {
+  return (request, response) => {
+    console.log('writing id is ' + request.params.writing_id);
+    db.folder.removeWritingFromFolder(request.params.writing_id, request.params.folder_id, (error, queryResult) => {
+      if (error) {
+        console.error('error getting folder:', error);
+        response.sendStatus(500);
+      }
+
+      // redirect to articles page after creation
+      response.send('successfully removed');
+    });
+  }
 };
 
 /**
@@ -192,5 +224,7 @@ module.exports = {
   update,
   deleteFolder,
   createForm,
-  create
+  create,
+  removeArticle,
+  removeWriting
 };

@@ -2,7 +2,7 @@ h1 {
   text-align: center;
 }
 
-#folders-article-grid, #article-grid {
+#folders-article-grid, #article-grid, #writing_piece-grid {
   margin-left: 80px;
   margin-right: 80px;
 }
@@ -32,10 +32,6 @@ form {
   width: 500px;
   margin: 0;
   display: inline-block;
-}
-
-textarea {
-  overflow: hidden;
 }
 
 .modal-button {

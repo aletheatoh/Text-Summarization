@@ -9,8 +9,6 @@
  * to be imported (using `require(...)`) in `db.js`.
  */
 
- var node_sum = require('node-tldr');
-
  /**
   * ===========================================
   * Export model functions as a module
@@ -98,6 +96,16 @@
        });
      },
 
+     getWritingPieceFolders: (writing_id, callback) => {
+
+       // select folders of each writing piece
+       var queryString = `SELECT folders.id, folders.name from folders INNER JOIN organized_writing ON folders.id = organized_writing.folder_id WHERE organized_writing.writing_id=${writing_id};`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
      folders_and_articles: (callback) => {
        // select foldesr of each user
        var queryString = `SELECT * FROM organized_articles;`;
@@ -107,9 +115,54 @@
        });
      },
 
+     folders_and_writing_pieces: (callback) => {
+       // select foldesr of each user
+       var queryString = `SELECT * FROM organized_writing;`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
+     folders_and_entries: (callback) => {
+       // select foldesr of each user
+       var queryString = `SELECT * FROM organized_writing;`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
      addArticleToFolder: (article_id, folder_id, callback) => {
 
        var queryString = `INSERT INTO organized_articles (folder_id, article_id) VALUES (${folder_id}, ${article_id});`
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
+     addWritingPieceToFolder: (writing_id, folder_id, callback) => {
+
+       var queryString = `INSERT INTO organized_writing (folder_id, writing_id) VALUES (${folder_id}, ${writing_id});`
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
+     removeArticleFromFolder: (article_id, folder_id, callback) => {
+
+       var queryString = `DELETE FROM organized_articles WHERE folder_id=${folder_id} AND article_id=${article_id};`
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
+     removeWritingFromFolder: (writing_id, folder_id, callback) => {
+
+       var queryString = `DELETE FROM organized_writing WHERE folder_id=${folder_id} AND writing_id=${writing_id};`
 
        dbPool.query(queryString, (error, queryResult) => {
          callback(error, queryResult);

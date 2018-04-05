@@ -41,6 +41,17 @@
    app.post('/articles', articles.create(db)); // done
    app.get('/articles/:id', articles.get(db)); // done
    app.delete('/articles/:id', articles.deleteArticle(db));
+   app.delete('/deletearticle/:article_id/delete/:folder_id', folders.removeArticle(db));
+
+   // CRUD writing_pieces
+   app.get('/writing_pieces', writing_pieces.writingPiecesHomePage(db));
+   app.get('/writing_pieces/:id/edit', writing_pieces.updateForm(db)); // done
+   app.put('/writing_pieces/:id/edit', writing_pieces.update(db)); // done
+   app.get('/writing_pieces/new', writing_pieces.createForm); // done
+   app.post('/writing_pieces', writing_pieces.create(db)); // done
+   app.get('/writing_pieces/:id', writing_pieces.get(db)); // done
+   app.delete('/writing_pieces/:id', writing_pieces.deleteWritingPiece(db));
+   app.delete('/deletewriting/:writing_id/delete/:folder_id', folders.removeWriting(db));
 
    // CRUD folders
    app.get('/folders/new', folders.createForm); // done

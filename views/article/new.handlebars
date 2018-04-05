@@ -42,6 +42,7 @@ $('#submit-button').click(function() {
   $('.ui.active.dimmer').show();
 });
 {{#if create_success}}
+$('.article-form').hide();
 $('.success.message').show();
 $('#close-success-message').click(function() {
   $('.success.message').hide();

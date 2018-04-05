@@ -2,30 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pokemon</title>
+  <title>Article</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 </head>
 <body>
-  <form class="pokemon-form" method="POST" action="/pokemons">
-    <div class="pokemon-attribute">
-      user_id:<input name="user_id" type="text"/>
-    </div>
-    <div class="pokemon-attribute">
-      num:<input name="num" type="text"/>
-    </div>
-    <div class="pokemon-attribute">
-      name:<input name="name" type="text"/>
-    </div>
-    <div class="pokemon-attribute">
-      img:<input name="img" type="text"/>
-    </div>
-    <div class="pokemon-attribute">
-      height:<input name="height" type="text"/>
-    </div>
-    <div class="pokemon-attribute">
-      weight:<input name="weight" type="text"/>
-    </div>
-    <input name="submit" type="submit"/>
+
+  <form class="ui form writing_piece-form" method="POST" action="/writing_pieces">
+      <div class="eight wide field">
+        <label>Entry Title</label>
+        <input name="title" type="text"/>
+      </div>
+      <div class="field textarea">
+        <label>Original</label>
+        <textarea name="original" type="text" placeholder="Place text here"></textarea>
+      </div>
+      <div class="field textarea">
+        <label>Summary</label>
+        <textarea name="summary" type="text" placeholder=""></textarea>
+      </div>
+    <button class="ui button" id="submit-button" type="submit">Submit</button>
   </form>
+
+  <div class="ui success message" style="display:none;">
+    <i class="close icon" id="close-success-message"></i>
+    <div class="header">
+      Your entry was successfully created.
+    </div>
+    <p>Enjoy reading!</p>
+  </div>
+
+  <div class="ui active dimmer" style="display:none;">
+    <div class="ui text loader">Creating Entry</div>
+  </div>
+
 </body>
+<script>
+
+$('#submit-button').click(function() {
+  $('.ui.active.dimmer').show();
+});
+{{#if create_success}}
+$('.writing_piece-form').hide();
+$('.success.message').show();
+$('#close-success-message').click(function() {
+  $('.success.message').hide();
+});
+{{/if}}
+
+</script>
+
 </html>

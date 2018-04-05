@@ -31,7 +31,6 @@
            }
            // render article.handlebars in the article folder
            response.render('article/article', context);
-
          }
        });
      });
@@ -76,10 +75,16 @@
              let context = {
                loggedIn: loggedIn,
                username: username,
-               articles: queryResult.rows,
-               folders: qr.rows,
                folder_articles: folder_articles
              };
+
+             if (queryResult != undefined) {
+               context['articles'] = queryResult.rows;
+             }
+
+             if (qr != undefined) {
+               context['folders'] = qr.rows;
+             }
 
              response.render('article/articles', context);
            }

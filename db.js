@@ -31,6 +31,6 @@
    pool: pool,
    user: user(pool),
    article: article(pool),
-   folder: folder(pool)
-   // writing_piece: writing_piece(pool)
+   folder: folder(pool),
+   writing_piece: writing_piece(pool)
  };

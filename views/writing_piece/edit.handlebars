@@ -2,30 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pokemon</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+
+  <title>Writing Piece</title>
 </head>
 <body>
-  <h4>Editing: {{pokemon.name}}</h4>
-  <form class="pokemon-form" method="POST" action="/pokemons/{{pokemon.id}}/edit?_method=PUT">
-    <div class="pokemon-attribute">
-      id:<input name="id" type="text" value="{{pokemon.id}}"/>
+
+  <div id="edit-writing_piece-container">
+  <h2>Editing: Writing Entry {{writing_piece.id}}</h2>
+
+<div style="display:inline">
+<form class="ui form writing_piece-form" method="POST" action="/writing_pieces/{{writing_piece.id}}/edit?_method=PUT">
+  <div class="ui small top attached fluid multiple search selection dropdown">
+    <input type="hidden" name="folders">
+    <i class="dropdown icon"></i>
+    <div class="default text"><i class="folder icon"></i>Add to folder(s)</div>
+    <div id="add-to-folder-menu" class="menu inline">
+      {{#each folders}}
+      <input type="hidden" name="name" value="{{this.name}}">
+      <input type="hidden" name="id" value="{{this.id}}">
+      <div class="item" name="name" value="{{this.id}}">
+        <i class="folder icon"></i>{{this.name}}</div>
+      {{/each}}
     </div>
-    <div class="pokemon-attribute">
-      num:<input name="num" type="text" value="{{pokemon.num}}"/>
-    </div>
-    <div class="pokemon-attribute">
-      name:<input name="name" type="text" value="{{pokemon.name}}"/>
-    </div>
-    <div class="pokemon-attribute">
-      img:<input name="img" type="text" value="{{pokemon.img}}"/>
-    </div>
-    <div class="pokemon-attribute">
-      height:<input name="height" type="text" value="{{pokemon.height}}"/>
-    </div>
-    <div class="pokemon-attribute">
-      weight:<input name="weight" type="text" value="{{pokemon.weight}}"/>
-    </div>
-    <input name="submit" type="submit"/>
-  </form>
+  </div>
+  <h6 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Details
+  </h6>
+</br>
+
+  <div class="field">
+    <label>Title</label>
+    <input name="title" type="text" value="{{writing_piece.title}}"/>
+  </div>
+  <div class="field textarea">
+    <label>Original</label>
+    <textarea name="original" type="text">{{writing_piece.original}}</textarea>
+  </div>
+  <div class="field textarea">
+    <label>Summary</label>
+    <textarea onkeyup="textAreaAdjust(this)" name="summary" type="text" placeholder="No summary available">{{writing_piece.summary}}</textarea>
+  </div>
+  <button class="ui button" type="submit">Submit</button>
+</form>
+</div>
+
+<div style="display: inline">
+<form method="POST" action="/writing_pieces/{{writing_piece.id}}?_method=DELETE">
+  <button class="ui button"><i class="trash icon"></i>Delete Entry</button>
+</form>
+</div>
+</div>
+
+<div class="ui success message" style="display:none;">
+  <i class="close icon" id="close-success-message"></i>
+  <div class="header">
+    Your writing entry was successfully deleted.
+  </div>
+  <p>Enjoy reading!</p>
+</div>
+
+  <script>
+  $('.ui.dropdown')
+  .dropdown();
+
+  {{#if delete_success}}
+  $('#edit-writing_piece-container').hide();
+  $('.success.message').show();
+  $('#close-success-message').click(function() {
+    $('.success.message').hide();
+  });
+  {{/if}}
+
+  </script>
+
 </body>
 </html>

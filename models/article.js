@@ -9,7 +9,7 @@
  * to be imported (using `require(...)`) in `db.js`.
  */
 
- var node_sum = require('node-tldr');
+ var summary = require('node-sumuparticles');
 
  /**
   * ===========================================
@@ -23,12 +23,14 @@
      create: (user_id, article, callback) => {
 
        // generate summary
-       node_sum.summarize(`${article.url}`, function(result, failure) {
+       summary.summarize(`${article.url}`, function(title, result, failure) {
        	if (failure) {
        		console.log("An error occured! " + result.error);
        	}
 
-        var summary = result.summary.join("\n");
+        var summary = result.join("\n");
+
+        console.log('title is ' + title);
 
         // set up query
         var queryString = `INSERT INTO articles (user_id, title, url, summary)
@@ -62,16 +64,19 @@
        });
      },
 
-     deleteArticle: (id, article, callback) => {
+     deleteArticle: (id, callback) => {
        // set up query
 
        var queryString = `DELETE FROM articles WHERE id=${id};`;
 
        // execute query
        dbPool.query(queryString, (error, queryResult) => {
-         // invoke callback function with results after query has executed
-
-         callback(error, queryResult);
+         var qs = `DELETE FROM organized_articles WHERE article_id=${id};`;
+         // execute query
+         dbPool.query(qs, (err, qr) => {
+           // invoke callback function with results after query has executed
+           callback(err, qr);
+         });
        });
      },
 

@@ -2,28 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pokemon</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+  <title>Article</title>
 </head>
 <body>
-  <ul class="pokemon-list">
-    <li class="pokemon-attribute">
-      id: {{pokemon.id}}
-    </li>
-    <li class="pokemon-attribute">
-      num: {{pokemon.num}}
-    </li>
-    <li class="pokemon-attribute">
-      name: {{pokemon.name}}
-    </li>
-    <li class="pokemon-attribute">
-      img: {{pokemon.img}}
-    </li>
-    <li class="pokemon-attribute">
-      height: {{pokemon.height}}
-    </li>
-    <li class="pokemon-attribute">
-      weight: {{pokemon.weight}}
-    </li>
-  </ul>
+
+<h2>Successfully edited Writing Entry {{writing_piece.id}}</h2><button id="edit-button-{{this.id}}" class="ui labeled icon button" onclick="window.location.href='/writing_pieces/{{writing_piece.id}}/edit'"><i class="edit icon"></i>Edit Entry</button>
+
+<table class="ui celled table">
+  <thead>
+    <tr><th colspan="2">
+      Folders
+    </th>
+  </tr>
+</thead>
+  <tbody>
+    {{#each folders}}
+    <tr>
+      <td class="collapsing">
+        <i class="folder icon"></i> {{this.name}}
+      </td>
+      <td>
+        <form method="POST" action="/deletewriting/{{../writing_piece.id}}/delete/{{this.id}}?_method=DELETE">
+          <button class="ui tiny button"><i class="trash icon"></i>Remove</button>
+        </form>
+    </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<table class="ui celled striped table">
+  <thead>
+    <tr><th colspan="2">
+      Details
+    </th>
+  </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td class="collapsing">
+        <i class="text file outline icon"></i> Writing Entry ID
+      </td>
+      <td>{{writing_piece.id}}</td>
+    </tr>
+    <tr>
+      <td>
+        <i class="book icon"></i> Original
+      </td>
+      <td>{{writing_piece.original}}</td>
+    </tr>
+    <tr>
+      <td>
+        <i class="pencil icon"></i> Summary
+      </td>
+      <td>{{writing_piece.summary}}</td>
+    </tr>
+  </tbody>
+</table>
+
 </body>
 </html>

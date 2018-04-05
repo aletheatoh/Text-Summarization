@@ -6,7 +6,6 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/articles.css">
 
-  <!-- <link rel="stylesheet" href="./dist/semantic.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -38,7 +37,7 @@
   </form>
 </div>
 
-<h1>Here are all your articles, <span style="color:red">{{username}}</span>!</h1>
+<h1>Here are all your writing entries, <span style="color:red">{{username}}</span>!</h1>
 
 <!-- ADD ARTICLE -->
 <div class="ui longer modal add-article">
@@ -154,15 +153,15 @@ $('#folders-dropdown').click(function() {
 </div>
 </div>
 
-  <!-- ARTICLES GRID -->
-  <div id="article-grid" class="three column stackable ui grid">
-    {{#each articles}}
-    <div id="article-{{this.id}}-box" class="article-box column">
+  <!-- writing_pieces GRID -->
+  <div id="writing_piece-grid" class="three column stackable ui grid">
+    {{#each writing_pieces}}
+    <div id="writing_piece-{{this.id}}-box" class="writing_piece-box column">
       <div class="ui segment">
         <div class="header item">
             <b>{{this.title}}</b>
         </div>
-        <p>Article {{this.id}}</p>
+        <p>Entry {{this.id}}</p>
         <button id="original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
         <button id="summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
         <button id="edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
@@ -176,8 +175,9 @@ $('#folders-dropdown').click(function() {
         {{this.title}}
       </div>
       <div class="scrolling content">
-        <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
-        </div>
+        <!-- <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
+        </div> -->
+        <p>{{this.original}}</p>
       </div>
       <div class="actions">
         <button id="original-close-button-{{this.id}}" class="ui button">OK</button>
@@ -205,7 +205,7 @@ $('#folders-dropdown').click(function() {
         {{this.title}}
       </div>
       <div class="scrolling content">
-        <div id="edit-article-{{this.id}}" class="ui embed" data-url="articles/{{this.id}}/edit">
+        <div id="edit-writing-piece-{{this.id}}" class="ui embed" data-url="writing_pieces/{{this.id}}/edit">
         </div>
       </div>
       <div class="actions">
@@ -218,7 +218,7 @@ $('#folders-dropdown').click(function() {
     $(function(){
 
       $("#original-button-{{this.id}}").click(function(){
-        $('#web-page-{{this.id}}').embed();
+        // $('#web-page-{{this.id}}').embed();
         $(".original-modal-{{this.id}}").modal('show');
       });
       $("#original-close-button-{{this.id}}").click(function(){
@@ -241,7 +241,7 @@ $('#folders-dropdown').click(function() {
       });
 
       $("#edit-button-{{this.id}}").click(function(){
-        $('#edit-article-{{this.id}}').embed();
+        $('#edit-writing-piece-{{this.id}}').embed();
         $(".edit-modal-{{this.id}}").modal('show');
       });
       $("#edit-close-button-{{this.id}}").click(function(){
@@ -263,17 +263,17 @@ $('.folder-button').click(function() {
   var folder_name = $(this).text();
   $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
   // first clear all boxes
-  $('.article-box').css('display', 'none');
+  $('.writing_piece-box').css('display', 'none');
   // get folder id
   var id = $(this).attr('id');
   // then display articles belonging to folder
-  {{#each folder_articles}}
+  {{#each folders_writing_pieces}}
   if ({{this.folder_id}} == id) { // target folder
-    $.each([{{this.articles}}], function( index, value ) {
+    $.each([{{this.writing_pieces}}], function( index, value ) {
       console.log('value is ' + value);
       console.log('index is ' + index);
-      let article_entry_id = '#article-' + value + '-box';
-      $(article_entry_id).css('display', '');
+      let writing_entry_id = '#writing_piece-' + value + '-box';
+      $(writing_entry_id).css('display', '');
     });
   }
   {{/each}}

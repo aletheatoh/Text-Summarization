@@ -13,8 +13,9 @@
     "express-handlebars": "^3.0.0",
     "jsonfile": "^4.0.0",
     "method-override": "^2.3.10",
+    "node-sumuparticles": "^0.1.4",
     "pg": "^7.4.1",
     "request": "^2.85.0",
-    "semantic-ui": "^2.3.1"
+    "sum": "^0.1.4"
   }
 }

@@ -27,7 +27,11 @@
       <td class="collapsing">
         <i class="folder icon"></i> {{this.name}}
       </td>
-      <td>Initial commit</td>
+      <td>
+        <form method="POST" action="/deletearticle/{{../article.id}}/delete/{{this.id}}?_method=DELETE">
+        <button class="ui tiny button"><i class="trash icon"></i>Remove</button>
+      </form>
+    </td>
     </tr>
     {{/each}}
   </tbody>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/css/articles.css">
+
   <link href="https://fonts.googleapis.com/css?family=Delius+Swash+Caps" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
@@ -28,15 +28,20 @@
     My Writing
   </a>
   <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
-    <button class="ui button">Log Out</button>
+    <button class="ui compact primary button"><i class="sign out icon"></i>Log Out</button>
   </form>
 </div>
 
 <div id="home-page-content">
-<h1 class="welcome-message">Welcome {{#if returningUser}} back to</h1><span><img class="welcome-message" id="sum-rise-logo-welcome" src="/img/SumRise.png"></span><h1 class="welcome-message">{{/if}}{{#if loggedIn }}<span id="username" style="color:red">{{username}}</span>{{/if}}!</h1>
+<h1 class="welcome-message">Welcome {{#if returningUser}} back {{/if}}to</h1><span><img class="welcome-message" id="sum-rise-logo-welcome" src="/img/SumRise.png"></span><h1 class="welcome-message">
+{{#if loggedIn }}
+<span id="username" style="color:red">{{username}}</span>
+{{/if}}
+<i class="exclamation icon"></i></h1>
+
 <p id="home-page-message">Get Started With:</p>
-<button class="ui large button" onclick="window.location.href='/articles'"><i class="text file icon"></i>Articles</button>
-<button class="ui large button" onclick="window.location.href='/writing_pieces'"><i class="pencil icon"></i>Writing</button>
+<button class="ui large green left attached button" onclick="window.location.href='/articles'"><i class="text file icon"></i>Articles</button>
+<button class="ui large orange right attached button" onclick="window.location.href='/writing_pieces'"><i class="pencil icon"></i>Writing</button>
 
 </div>
 

@@ -32,6 +32,25 @@
   </tbody>
 </table>
 
+<table class="ui celled table">
+  <thead>
+    <tr><th colspan="2">
+      Writing Entries
+    </th>
+  </tr>
+</thead>
+  <tbody>
+    {{#each writing_pieces}}
+    <tr>
+      <td class="collapsing">
+        <i class="book icon"></i> {{this.title}}
+      </td>
+      <td>Initial commit</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
 <div class="ui success message" style="display:none;">
   <i class="close icon" id="close-success-message"></i>
   <div class="header">

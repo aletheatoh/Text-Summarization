@@ -86,6 +86,16 @@
        });
      },
 
+     getFolderWritingPieces: (folder_id, callback) => {
+
+       // select articles of each folder
+       var queryString = `SELECT writing_pieces.id, writing_pieces.title, writing_pieces.original, writing_pieces.summary from writing_pieces INNER JOIN organized_writing ON writing_pieces.id = organized_writing.writing_id WHERE organized_writing.folder_id=${folder_id};`;
+
+       dbPool.query(queryString, (error, queryResult) => {
+         callback(error, queryResult);
+       });
+     },
+
      getArticleFolders: (article_id, callback) => {
 
        // select folders of each article

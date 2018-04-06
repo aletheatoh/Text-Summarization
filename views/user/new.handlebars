@@ -35,27 +35,34 @@
               <label>Username</label>
               <div class="ui left icon input required field">
                 <i class="user icon"></i>
-                <input type="text" name="name" placeholder="Username">
+                <input id="username-input" ype="text" name="name" placeholder="Username">
               </div>
             </div>
             <div class="required field">
               <label>Email</label>
               <div class="ui left icon input required field">
                 <i class="mail icon"></i>
-                <input type="text" name="email" placeholder="jane.doe@gmail.com">
+                <input id="email-input" type="email" name="email" placeholder="jane.doe@gmail.com">
               </div>
             </div>
             <div class="required field">
               <label>Password</label>
               <div class="ui left icon input required field">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password">
+                <input id="password-input" type="password" name="password" placeholder="Password">
               </div>
             </div>
             <button class="ui medium button" type="submit">Sign up</button>
           </form>
           <button class="ui medium button" onclick="window.location.href='/'"><i class="home icon"></i>Back</button>
         </div>
+
+      <!-- FORM VALIDATOR -->
+        <div id="form-validator" class="ui error message" style="display:none;">
+          <ul id="form-validator-list" class="list">
+          </ul>
+        </div>
+
         <div class="ui message">
           <p>Sign up with your social media account</p>
           <button class="ui circular facebook icon button">
@@ -82,6 +89,34 @@
       $('#register-message').hide();
     });
     {{/if}}
+
+    // validate form
+    $( "form" ).submit(function( event ) {
+
+      // if both a username and password have been entered
+      if ( $('#username-input').val() !== "" && $('#email-input').val() !== "" && $('#password-input').val() !== "") {
+        return;
+      }
+
+      // display error message
+      $('#form-validator').show();
+      $( "#form-validator-list" ).empty();
+
+      if ( $('#username-input').val() == "") {
+        $( "#form-validator-list" ).append('<li>Please enter a username</li>');
+      }
+
+      if ( $('#email-input').val() == "") {
+        $( "#form-validator-list" ).append('<li>Please enter an email address</li>');
+      }
+
+      if ( $('#password-input').val() == "") {
+        $( "#form-validator-list" ).append('<li>Please enter a password</li>');
+      }
+
+      event.preventDefault();
+    });
+
     </script>
 
   </body>

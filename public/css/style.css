@@ -1,5 +1,15 @@
-h1 {
+h1, #article-grid-header {
   text-align: center;
+}
+
+#username {
+  font-family: 'Delius Swash Caps';
+}
+
+#home-page-message {
+  padding-top: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 #folders-article-grid, #article-grid, #writing_piece-grid {
@@ -46,7 +56,11 @@ a {
   text-decoration: none;
 }
 
-#home-page-content {
+#no-entries {
+  font-size: 20px;
+}
+
+#no-entries, #home-page-content {
   width: 1000px;
   height: 100px;
   position: absolute;
@@ -82,4 +96,10 @@ a {
 
 #sum-rise-logo {
   width: 100px;
+}
+
+#edit-details-button {
+  display: inline-block;
+  margin-left:15px;
+  padding: 0;
 }

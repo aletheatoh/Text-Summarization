@@ -5,8 +5,7 @@
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/articles.css">
-
-  <link rel="stylesheet" href="./dist/semantic.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Delius+Swash+Caps" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -34,27 +33,11 @@
 </div>
 
 <div id="home-page-content">
-<h1 class="welcome-message">Welcome{{#if returningUser}} back to</h1><span><img class="welcome-message" id="sum-rise-logo-welcome" src="/img/SumRise.png"></span><h1 class="welcome-message">{{/if}}{{#if loggedIn }}<span style="color:red">{{username}}</span>{{/if}}!</h1>
-<div class="ui ordered steps">
-  <div class="completed step">
-    <div class="content">
-      <div class="title">Shipping</div>
-      <div class="description">Choose your shipping options</div>
-    </div>
-  </div>
-  <div class="completed step">
-    <div class="content">
-      <div class="title">Billing</div>
-      <div class="description">Enter billing information</div>
-    </div>
-  </div>
-  <div class="active step">
-    <div class="content">
-      <div class="title">Confirm Order</div>
-      <div class="description">Verify order details</div>
-    </div>
-  </div>
-</div>
+<h1 class="welcome-message">Welcome {{#if returningUser}} back to</h1><span><img class="welcome-message" id="sum-rise-logo-welcome" src="/img/SumRise.png"></span><h1 class="welcome-message">{{/if}}{{#if loggedIn }}<span id="username" style="color:red">{{username}}</span>{{/if}}!</h1>
+<p id="home-page-message">Get Started With:</p>
+<button class="ui large button" onclick="window.location.href='/articles'"><i class="text file icon"></i>Articles</button>
+<button class="ui large button" onclick="window.location.href='/writing_pieces'"><i class="pencil icon"></i>Writing</button>
+
 </div>
 
 </body>

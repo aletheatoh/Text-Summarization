@@ -12,9 +12,11 @@
 <body>
 
   <div id="edit-writing_piece-container">
-  <h2>Editing: Writing Entry {{writing_piece.id}}</h2>
+  <h2 style="display:inline-block;">Editing: Writing Entry {{writing_piece.id}}</h2>
+  <div id="edit-details-button"><button class="tiny ui button" onclick="window.location.href='/writing_pieces/{{writing_piece.id}}'"><i class="info icon"></i>See Details</button></div>
 
-<div style="display:inline">
+</br>
+<div style="display:inline;">
 <form class="ui form writing_piece-form" method="POST" action="/writing_pieces/{{writing_piece.id}}/edit?_method=PUT">
   <div class="ui small top attached fluid multiple search selection dropdown">
     <input type="hidden" name="folders">

@@ -4,24 +4,13 @@
   <meta charset="UTF-8">
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <!-- <link rel="stylesheet" href="./dist/semantic.min.css"> -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
   <title>Login</title>
 </head>
 <body>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.12';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
 
   <div id="signin-form" class="ui center aligned middle aligned grid">
     <div class="six wide column">
@@ -32,20 +21,27 @@
               <label>Username</label>
               <div class="ui left icon input">
                 <i class="user icon"></i>
-                <input type="text" name="name" placeholder="Username">
+                <input id="username-input" type="text" name="name" placeholder="Username">
               </div>
             </div>
             <div class="required field">
               <label>Password</label>
               <div class="ui left icon input required field">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password">
+                <input id="password-input" type="password" name="password" placeholder="Password">
               </div>
             </div>
             <button class="ui medium button" type="submit">Sign in</button>
           </form>
           <button class="ui medium button" onclick="window.location.href='/'"><i class="home icon"></i>Back</button>
         </div>
+
+        <!-- FORM VALIDATOR -->
+        <div id="form-validator" class="ui error message" style="display:none;">
+          <ul id="form-validator-list" class="list">
+          </ul>
+        </div>
+
         <div class="ui message">
           <p>Or, sign in with your social media account</p>
           <button class="ui circular facebook icon button">
@@ -84,6 +80,27 @@
     });
     {{/if}}
 
+    // validate form
+    $( "form" ).submit(function( event ) {
+
+      // if both a username and password have been entered
+      if ( $('#username-input').val() !== "" && $('#password-input').val() !== "") {
+        return;
+      }
+
+      // display error message
+      $('#form-validator').show();
+      $( "#form-validator-list" ).empty();
+      if ( $('#username-input').val() == "") {
+        $( "#form-validator-list" ).append('<li>Please enter a username</li>');
+      }
+
+      if ( $('#password-input').val() == "") {
+        $( "#form-validator-list" ).append('<li>Please enter a password</li>');
+      }
+
+      event.preventDefault();
+    });
 
     </script>
 

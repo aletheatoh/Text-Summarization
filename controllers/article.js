@@ -29,6 +29,10 @@
              article: queryResult.rows[0],
              folders: res.rows
            }
+
+           if (request.query.success == "true") {
+             context['edit_success'] = true;
+           }
            // render article.handlebars in the article folder
            response.render('article/article', context);
          }
@@ -61,7 +65,6 @@
              var folder_articles = {};
 
              res.rows.forEach(function(item){
-               console.log(item);
                var folder_id = parseInt(item.folder_id);
                var article_id = item.article_id;
                if (folder_articles[item.folder_id] === undefined) {
@@ -84,6 +87,10 @@
 
              if (qr != undefined) {
                context['folders'] = qr.rows;
+             }
+
+             if (context['articles'].length == 0) {
+               context['noArticles'] = true;
              }
 
              response.render('article/articles', context);
@@ -122,7 +129,7 @@
    return (request, response) => {
 
      db.article.update(request.params.id, request.body, (error, queryResult) => {
-       console.log(request.body);
+
        if (request.body.folders != '') {
          var array = request.body['folders'].split('<i class=&quot;folder icon&quot;></i>');
 
@@ -136,10 +143,9 @@
 
          var folder_ids = [];
 
-         if (request.body['id'].length == 1) {
+         if (typeof request.body['id'] == 'string') {
            let folder = request.body['name'];
-           console.log(array);
-           console.log(folder);
+
            if (array.includes(folder.toLowerCase())) folder_ids.push(request.body['id']);
          }
 
@@ -164,7 +170,8 @@
            });
          });
        }
-       response.redirect(`/articles/${request.params.id}`);
+
+       response.redirect(`/articles/${request.params.id}?success=true`);
      });
    };
  };

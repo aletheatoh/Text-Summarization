@@ -5,7 +5,7 @@
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/articles.css">
-
+  <link href="https://fonts.googleapis.com/css?family=Delius+Swash+Caps" rel="stylesheet">
   <!-- <link rel="stylesheet" href="./dist/semantic.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
@@ -35,7 +35,7 @@
   </form>
 </div>
 
-<h1>Here are all your articles, <span style="color:red">{{username}}</span>!</h1>
+<h1>Here are your folders, <span id="username" style="color:red">{{username}}</span>!</h1>
 
 <!-- ADD ARTICLE -->
 <div class="ui longer modal add-article">
@@ -57,6 +57,8 @@
   <a class="section" href="/">Home</a>
   <span class="divider">/</span>
   <a class="section" href="/articles">All Articles</a>
+  <span class="divider">/</span>
+  <a class="section" href="/writing_pieces">All Writing</a>
   <span class="divider">/</span>
 
   <div class="section ui simple dropdown">
@@ -119,7 +121,12 @@ $('#folders-dropdown').click(function() {
 </div>
 </div>
 
+{{#if noFolders}}
+<p id="no-entries">Oops, seems like you don't have any folders yet!</p>
+{{/if}}
+
 <!-- ARTICLES GRID -->
+<h3 id="article-grid-header" style="display:none;">Articles</h3>
 <div id="article-grid" class="three column stackable ui grid" style="display:none;">
   {{#each articles}}
   <div id="article-{{this.id}}-box" class="article-box column">
@@ -177,6 +184,8 @@ $('#folders-dropdown').click(function() {
       <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
+
+
 
   <script>
 
@@ -265,7 +274,10 @@ $('#folders-dropdown').click(function() {
 
 $('.folder-button').click(function() {
   $('#folders-article-grid').hide();
-  $('#article-grid').show(); // load article grid
+
+  // load article grid
+  $('#article-grid-header').show();
+  $('#article-grid').show();
   var folder_name = $(this).text();
   $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
   // first clear all boxes
@@ -275,11 +287,17 @@ $('.folder-button').click(function() {
   // then display articles belonging to folder
   {{#each folder_articles}}
   if ({{this.folder_id}} == id) { // target folder
+
+    // change heading
+    $('h1').text('Displaying all items in Folder {{this.folder_id}}');
     $.each([{{this.articles}}], function( index, value ) {
       let article_entry_id = '#article-' + value + '-box';
       $(article_entry_id).css('display', '');
     });
   }
+
+  // load writing pieces grid
+
   {{/each}}
 
 });

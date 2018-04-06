@@ -12,9 +12,10 @@
 <body>
 
   <div id="edit-article-container">
-  <h2>Editing: Article {{article.id}}</h2>
-
-<div style="display:inline">
+  <h2 style="display:inline-block;">Editing: Article {{article.id}}</h2>
+  <div id="edit-details-button"><button class="tiny ui button" onclick="window.location.href='/articles/{{article.id}}'"><i class="info icon"></i>See Details</button></div>
+</br>
+<div style="display:inline;">
 <form class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
   <div class="ui small top attached fluid multiple search selection dropdown">
     <input type="hidden" name="folders">

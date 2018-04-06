@@ -5,7 +5,7 @@
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/articles.css">
-
+  <link href="https://fonts.googleapis.com/css?family=Delius+Swash+Caps" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -37,7 +37,7 @@
   </form>
 </div>
 
-<h1>Here are all your articles, <span style="color:red">{{username}}</span>!</h1>
+<h1>Here are your articles, <span id="username" style="color:red">{{username}}</span>!</h1>
 
 <!-- ADD ARTICLE -->
 <div class="ui longer modal add-article">
@@ -153,8 +153,13 @@ $('#folders-dropdown').click(function() {
 </div>
 </div>
 
+{{#if noArticles}}
+<p id="no-entries">Oops, seems like you don't have any articles yet!</p>
+{{/if}}
+
   <!-- ARTICLES GRID -->
   <div id="article-grid" class="three column stackable ui grid">
+
     {{#each articles}}
     <div id="article-{{this.id}}-box" class="article-box column">
       <div class="ui segment">
@@ -268,9 +273,9 @@ $('.folder-button').click(function() {
   // then display articles belonging to folder
   {{#each folder_articles}}
   if ({{this.folder_id}} == id) { // target folder
+    // change heading
+    $('h1').text('Displaying all items in Folder {{this.folder_id}}');
     $.each([{{this.articles}}], function( index, value ) {
-      console.log('value is ' + value);
-      console.log('index is ' + index);
       let article_entry_id = '#article-' + value + '-box';
       $(article_entry_id).css('display', '');
     });

@@ -12,7 +12,15 @@
 </head>
 <body>
 
-<h2>Successfully edited Writing Entry {{writing_piece.id}}</h2><button id="edit-button-{{this.id}}" class="ui labeled icon button" onclick="window.location.href='/writing_pieces/{{writing_piece.id}}/edit'"><i class="edit icon"></i>Edit Entry</button>
+<h2 style="display:inline;">Writing Entry {{writing_piece.id}} Details</h2><div id="edit-details-button"><button class="tiny ui button" onclick="window.location.href='/writing_pieces/{{writing_piece.id}}/edit'"><i class="edit icon"></i>Edit Entry</button></div>
+
+<div class="ui success message" style="display:none;">
+  <i class="close icon" id="close-success-message"></i>
+  <div class="header">
+    Your writing entry was successfully edited.
+  </div>
+  <p>Enjoy reading!</p>
+</div>
 
 <table class="ui celled table">
   <thead>
@@ -64,6 +72,15 @@
     </tr>
   </tbody>
 </table>
+
+<script>
+{{#if edit_success}}
+$('.success.message').show();
+$('#close-success-message').click(function() {
+  $('.success.message').hide();
+});
+{{/if}}
+</script>
 
 </body>
 </html>

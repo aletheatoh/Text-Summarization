@@ -30,6 +30,11 @@
              writing_piece: queryResult.rows[0],
              folders: res.rows
            }
+
+           if (request.query.success == "true") {
+             context['edit_success'] = true;
+           }
+           
            // render article.handlebars in the article folder
            response.render('writing_piece/writing_piece', context);
 
@@ -54,8 +59,6 @@
 
          db.folder.folders_and_writing_pieces((e, res) => {
 
-           console.log(qr);
-
            if (e) {
              console.error('error getting writing piece:', e);
              response.sendStatus(500);
@@ -71,9 +74,9 @@
                if (folders_writing_pieces[item.folder_id] === undefined) {
                  folders_writing_pieces[item.folder_id] = {};
                  folders_writing_pieces[item.folder_id]['folder_id'] = folder_id;
-                 folders_writing_pieces[item.folder_id]['folders'] = [];
+                 folders_writing_pieces[item.folder_id]['writing_pieces'] = [];
                }
-               folders_writing_pieces[item.folder_id]['folders'].push(writing_id);
+               folders_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
              });
 
              var context = {
@@ -88,6 +91,10 @@
 
              if (qr != undefined) {
                context['folders'] = qr.rows;
+             }
+
+             if (context['writing_pieces'].length == 0) {
+               context['noWritingPieces'] = true;
              }
 
              response.render('writing_piece/writing_pieces', context);
@@ -140,10 +147,9 @@
 
          var folder_ids = [];
 
-         if (request.body['id'].length == 1) {
+         if (typeof request.body['id'] == 'string') {
            let folder = request.body['name'];
-           // console.log(array);
-           // console.log(folder);
+
            if (array.includes(folder.toLowerCase())) folder_ids.push(request.body['id']);
          }
 
@@ -168,7 +174,7 @@
            });
          });
        }
-       response.redirect(`/writing_pieces/${request.params.id}`);
+       response.redirect(`/writing_pieces/${request.params.id}?success=true`);
      });
    };
  };

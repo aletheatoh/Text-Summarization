@@ -5,7 +5,7 @@
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/articles.css">
-
+  <link href="https://fonts.googleapis.com/css?family=Delius+Swash+Caps" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -37,7 +37,7 @@
   </form>
 </div>
 
-<h1>Here are all your writing entries, <span style="color:red">{{username}}</span>!</h1>
+<h1>Here are your writing entries, <span id="username" style="color:red">{{username}}</span>!</h1>
 
 <!-- ADD ARTICLE -->
 <div class="ui longer modal add-article">
@@ -153,6 +153,10 @@ $('#folders-dropdown').click(function() {
 </div>
 </div>
 
+{{#if noWritingPieces}}
+<p id="no-entries">Oops, seems like you don't have any writing entries yet!</p>
+{{/if}}
+
   <!-- writing_pieces GRID -->
   <div id="writing_piece-grid" class="three column stackable ui grid">
     {{#each writing_pieces}}
@@ -162,7 +166,7 @@ $('#folders-dropdown').click(function() {
             <b>{{this.title}}</b>
         </div>
         <p>Entry {{this.id}}</p>
-        <button id="original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
+        <button id="original-button-{{this.id}}" class="ui small compact button"><i class="pencil icon"></i>Original</button>
         <button id="summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
         <button id="edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
       </div>
@@ -175,8 +179,6 @@ $('#folders-dropdown').click(function() {
         {{this.title}}
       </div>
       <div class="scrolling content">
-        <!-- <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
-        </div> -->
         <p>{{this.original}}</p>
       </div>
       <div class="actions">
@@ -218,7 +220,6 @@ $('#folders-dropdown').click(function() {
     $(function(){
 
       $("#original-button-{{this.id}}").click(function(){
-        // $('#web-page-{{this.id}}').embed();
         $(".original-modal-{{this.id}}").modal('show');
       });
       $("#original-close-button-{{this.id}}").click(function(){
@@ -269,9 +270,9 @@ $('.folder-button').click(function() {
   // then display articles belonging to folder
   {{#each folders_writing_pieces}}
   if ({{this.folder_id}} == id) { // target folder
+    // change heading
+    $('h1').text('Displaying all items in Folder {{this.folder_id}}');
     $.each([{{this.writing_pieces}}], function( index, value ) {
-      console.log('value is ' + value);
-      console.log('index is ' + index);
       let writing_entry_id = '#writing_piece-' + value + '-box';
       $(writing_entry_id).css('display', '');
     });

@@ -17,7 +17,7 @@
   <!-- NAVBAR -->
   <div class="ui menu">
   <div class="header item">
-    App Name
+    <img id="sum-rise-logo" src="/img/SumRise.png">
   </div>
   <a href="/" class="item">
     Home
@@ -26,7 +26,7 @@
     My Articles
   </a>
   <a href="/writing_pieces" class="item">
-    My Work
+    My Writing
   </a>
   <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
     <button class="ui button">Log Out</button>
@@ -34,7 +34,7 @@
 </div>
 
 <div id="home-page-content">
-<h1>Welcome{{#if returningUser}} back{{/if}}{{#if loggedIn }}, <span style="color:red">{{username}}</span>{{/if}}!</h1>
+<h1 class="welcome-message">Welcome{{#if returningUser}} back to</h1><span><img class="welcome-message" id="sum-rise-logo-welcome" src="/img/SumRise.png"></span><h1 class="welcome-message">{{/if}}{{#if loggedIn }}<span style="color:red">{{username}}</span>{{/if}}!</h1>
 <div class="ui ordered steps">
   <div class="completed step">
     <div class="content">

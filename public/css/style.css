@@ -70,6 +70,16 @@ a {
   text-align: center;
 }
 
-.massive.folder.icon {
-  /* margin-left: 100px; */
+#sum-rise-logo-welcome {
+  width: 175px;
+  margin-bottom: 1.50em;
+  vertical-align: middle;
+}
+
+.welcome-message {
+  display: inline;
+}
+
+#sum-rise-logo {
+  width: 100px;
 }

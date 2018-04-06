@@ -68,11 +68,9 @@ app.get('/', (request, response) => {
       response.clearCookie('username');
       response.clearCookie('email');
       response.clearCookie('user-id');
-      response.render('user/login');
+      response.render('welcome');
     }
-
   });
-
 });
 
 // Catch all unmatched requests and return 404 not found page

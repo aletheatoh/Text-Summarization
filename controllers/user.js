@@ -51,7 +51,7 @@ const create = (db) => {
         let context = {
           usernameTaken: true
         }
-        
+
         response.render('user/new', context);
         return;
       }

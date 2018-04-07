@@ -45,7 +45,7 @@ module.exports = (dbPool) => {
     },
 
     checkUsernameAvailability: (username, callback) => {
-      var queryString = `SELECT * from users WHERE name='$1'`;
+      var queryString = `SELECT * from users WHERE name=$1`;
       var values = [username];
 
       // execute query
@@ -57,6 +57,20 @@ module.exports = (dbPool) => {
 
     update: (id, user, callback) => {
       // set up query
+
+      // run user input password through bcrypt to obtain hashed password
+      bcrypt.hash(user.password, 1, (err, hashed) => {
+        if (err) console.error('error!', err);
+
+        // set up query
+        const queryString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${hashed}' WHERE id='${id}';`;
+
+        // execute query
+        dbPool.query(queryString, (error, queryResult) => {
+          // invoke callback function with results after query has executed
+          callback(error, queryResult);
+        });
+      });
 
       var queryString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${user.password}' WHERE id='${id}';`;
 

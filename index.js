@@ -55,12 +55,17 @@ app.get('/', (request, response) => {
   db.pool.query(queryString, (error, queryResult) => {
 
     if (error) console.error('error!', error);
-    if (queryResult.rows[0] != undefined) response.cookie('user-id', queryResult.rows[0].id); // set cookie
+
 
     let context = {
       loggedIn: loggedIn,
-      username: username,
+      username: username
     };
+
+    if (queryResult.rows[0] != undefined) {
+      response.cookie('user-id', queryResult.rows[0].id); // set cookie
+      context['id'] = queryResult.rows[0].id;
+    }
 
     if (loggedIn) response.render('home', context);
     else {

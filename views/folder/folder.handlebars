@@ -24,9 +24,9 @@
     {{#each articles}}
     <tr>
       <td class="collapsing">
-        <i class="text file outline icon"></i> {{this.title}}
+        <i class="text file outline icon"></i> Article {{this.id}}
       </td>
-      <td>Initial commit</td>
+      <td>{{this.title}}</td>
     </tr>
     {{/each}}
   </tbody>
@@ -43,9 +43,9 @@
     {{#each writing_pieces}}
     <tr>
       <td class="collapsing">
-        <i class="book icon"></i> {{this.title}}
+        <i class="book icon"></i> Article {{this.id}}
       </td>
-      <td>Initial commit</td>
+      <td>{{this.title}}</td>
     </tr>
     {{/each}}
   </tbody>

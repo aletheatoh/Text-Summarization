@@ -57,7 +57,7 @@ const foldersHomePage = (db) => {
     // retrieve cookies
     let loggedIn = request.cookies['loggedIn'];
     let username = request.cookies['username'];
-    // let email = request.cookies['email'];
+    let user_id = request.cookies['user-id'];
 
     db.article.getUserArticles(username, (error, queryResult) => {
       // queryResult contains article data returned from the article model
@@ -105,12 +105,15 @@ const foldersHomePage = (db) => {
                 let context = {
                   loggedIn: loggedIn,
                   username: username,
+                  id: user_id,
                   articles: queryResult.rows,
                   writing_pieces: anotherQr.rows,
                   folders: qr.rows,
                   folder_articles: folder_articles,
                   folder_writing_pieces: folder_writing_pieces
                 };
+
+                if (qr.rows.length == 0) context['noFolders'] = true;
 
                 response.render('folder/folders', context);
               }

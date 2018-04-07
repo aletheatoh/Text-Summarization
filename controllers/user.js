@@ -10,64 +10,124 @@ const newForm = (request, response) => {
 
 const get = (db) => {
   return (request, response) => {
-    var context = {};
+    let username = request.cookies['username'];
     // use user model method `get` to retrieve user data
     db.user.get(request.params.id, (error, queryResult) => {
-      // queryResult contains user data returned from the user model
-      if (error) {
-        console.error('error getting user:', error);
-        response.sendStatus(500);
-      } else {
-        // render pokemon.handlebars in the pokemon folder
 
-        context.user = queryResult.rows[0];
+      db.article.getUserArticles(username, (err, qr) => {
+        db.writing_piece.getUserWritingPieces(username, (e, res) => {
+          // queryResult contains user data returned from the user model
+          if (e) {
+            console.error('error getting user details:', e);
+            response.sendStatus(500);
+          } else {
 
-        response.render('user/user', context);
-      }
+            let context = {
+              user: queryResult.rows[0],
+              articles: qr.rows,
+              writing_pieces: res.rows
+            }
+
+            if (request.query.success == "true") {
+              context['edit_success'] = true;
+            }
+
+            response.render('user/user', context);
+          }
+        });
+      });
     });
 
-    db.user.getArticles(request.params.id, (error, queryResult) => {
-      // queryResult contains user data returned from the user model
-      if (error) {
-        console.error('error getting user article details:', error);
-        response.sendStatus(500);
-      } else {
-        // render pokemon.handlebars in the pokemon folder
-        if (queryResult != null) context.articles = queryResult.rows;
-      }
-    });
   };
 };
 
 const create = (db) => {
   return (request, response) => {
-    // use user model method `create` to create new user entry in db
-    db.user.create(request.body, (error, queryResult) => {
-      // queryResult of creation is not useful to us, so we ignore it
-      // (console log it to see for yourself)
 
-      // (you can choose to omit it completely from the function parameters)
+    db.user.checkUsernameAvailability(request.body.name, (err, res) => {
+
+      if (res == undefined ) {
+
+        let context = {
+          usernameTaken: true
+        }
+        
+        response.render('user/new', context);
+        return;
+      }
+
+      // use user model method `create` to create new user entry in db
+      db.user.create(request.body, (error, queryResult) => {
+        // queryResult of creation is not useful to us, so we ignore it
+
+        // (you can choose to omit it completely from the function parameters)
+
+        if (error) {
+          console.error('error getting user:', error);
+          response.sendStatus(500);
+        }
+
+        if (queryResult.rowCount >= 1) {
+          console.log('User created successfully');
+
+          // drop cookies to indicate user's logged in status and username
+          response.cookie('loggedIn', true);
+          response.cookie('username', request.body.name);
+          response.cookie('email', request.body.email);
+
+        } else {
+          console.log('User could not be created');
+        }
+
+        // redirect to home page after creation
+        response.redirect('/');
+      });
+    });
+
+
+  };
+};
+
+const updateForm = (db) => {
+  return (request, response) => {
+
+    db.user.get(request.params.id, (error, queryResult) => {
+      // queryResult contains article data returned from the article model
+
+      let context = {
+        user: queryResult.rows[0]
+      }
+
+      response.render('user/edit', context);
+
+    });
+  };
+};
+
+const update = (db) => {
+  return (request, response) => {
+
+    db.user.update(request.params.id, request.body, (error, queryResult) => {
 
       if (error) {
         console.error('error getting user:', error);
         response.sendStatus(500);
       }
 
-      if (queryResult.rowCount >= 1) {
-        console.log('User created successfully');
+      // update cookies
+      response.clearCookie('loggedIn');
+      response.clearCookie('username');
+      response.clearCookie('email');
+      response.clearCookie('user-id');
 
-        // drop cookies to indicate user's logged in status and username
-        response.cookie('loggedIn', true);
-        response.cookie('username', request.body.name);
-        response.cookie('email', request.body.email);
+      response.cookie('loggedIn', true);
+      response.cookie('username', request.body.name);
+      response.cookie('email', request.body.email);
+      response.cookie('user-id', request.params.id);
 
-      } else {
-        console.log('User could not be created');
-      }
+      response.redirect(`/users/${request.params.id}?success=true`);
+    })
 
-      // redirect to home page after creation
-      response.redirect('/');
-    });
   };
 };
 
@@ -159,6 +219,8 @@ module.exports = {
   newForm,
   get,
   create,
+  update,
+  updateForm,
   logout,
   loginForm,
   login

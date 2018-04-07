@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <!-- css stylesheet -->
   <link rel="stylesheet" type="text/css" href="/css/style.css">
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -56,33 +56,21 @@
           <p id="new-to-us">New to us? <a href="/users/new"> Sign Up</a> here.</p>
         </div>
 
-        <div class="ui error message" style="display:none;">
-          <i class="close icon" id="close-error-message"></i>
-          <div class="header">
-            There were some errors with your submission
-          </div>
-          <ul class="list">
-            <li>Your password is incorrect.</li>
-            <li><b>New to us? <a href="/users/new"> Sign Up</a></b> here.</li>
-          </ul>
-        </div>
-
       </div>
 
     </div>
 
     <script>
+
     {{#if loginFailure}}
-    $('.ui.error.message').show();
-    $('#new-to-us').hide();
-    $('#close-error-message').click(function() {
-      $('.ui.error.message').hide();
-    });
+
+    $('#form-validator').show();
+    $( "#form-validator-list" ).append('<li>Your password is incorrect</li>');
     {{/if}}
 
     // validate form
     $( "form" ).submit(function( event ) {
-
+      // $('#new-to-us').hide();
       // if both a username and password have been entered
       if ( $('#username-input').val() !== "" && $('#password-input').val() !== "") {
         return;

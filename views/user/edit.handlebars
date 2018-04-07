@@ -1,22 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Edit user</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+
+<title>Edit User Profile</title>
 </head>
 <body>
-  <h4>Editing: {{user.name}}</h4>
-  <form class="user-form" method="POST" action="/{{user.id}}?_method=PUT">
-    <div class="user-attribute">
-      name: <input name="name" type="text" value="{{user.name}}"/>
+
+  <h3 style="margin-bottom:0px;">Editing Profile Details</h3>
+
+  <!-- FORM VALIDATOR -->
+    <div id="form-validator" class="ui error message" style="margin-bottom:0px;display:none;">
+      <ul id="form-validator-list" class="list">
+      </ul>
     </div>
-    <div class="user-attribute">
-      email: <input name="email" type="email" value="{{user.email}}"/>
+
+  <div style="margin-top:0px;">
+  <form class="ui form folder-form" method="POST" action="/users/{{user.id}}/edit?_method=PUT">
+    <div class="field">
+      <label>Username</label>
+      <input id="username-input" name="name" type="text" value="{{user.name}}"/>
     </div>
-    <div class="user-attribute">
-      password: <input name="password" type="password" value="{{user.password}}"/>
+    <div class="field">
+      <label>Email</label>
+      <input id="email-input" name="email" type="email" value="{{user.email}}"/>
     </div>
-    <input name="submit" type="submit"/>
+    <div class="field">
+      <label>Password</label>
+      <input id="password-input" name="password" type="password" value="{{user.name}}"/>
+    </div>
+    <button class="ui button" type="submit">Submit</button>
   </form>
+  </div>
+
 </body>
+
+<script>
+// validate form
+$( "form" ).submit(function( event ) {
+
+  // if both a username and password have been entered
+  if ( $('#username-input').val() !== "" && $('#email-input').val() !== "" && $('#password-input').val() !== "") {
+    return;
+  }
+
+  // display error message
+  $('#form-validator').show();
+  $( "#form-validator-list" ).empty();
+
+  if ( $('#username-input').val() == "") {
+    $( "#form-validator-list" ).append('<li>Please enter a username</li>');
+  }
+
+  if ( $('#email-input').val() == "") {
+    $( "#form-validator-list" ).append('<li>Please enter an email address</li>');
+  }
+
+  if ( $('#password-input').val() == "") {
+    $( "#form-validator-list" ).append('<li>Please enter a password</li>');
+  }
+
+  event.preventDefault();
+});
+</script>
 </html>

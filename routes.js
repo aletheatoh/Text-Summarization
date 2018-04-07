@@ -21,6 +21,8 @@
    // CRUD users
    app.get('/users/new', users.newForm); // done
    app.post('/users', users.create(db)); // done
+   app.get('/users/:id/edit', users.updateForm(db)); // done
+   app.put('/users/:id/edit', users.update(db)); // done
 
    // Authentication
    app.post('/users/logout', users.logout); // done

@@ -5,10 +5,12 @@ const bcrypt = require('bcrypt');
  * Export model functions as a module
  * ===========================================
  */
+
 module.exports = (dbPool) => {
   // `dbPool` is accessible within this function scope
   return {
     create: (user, callback) => {
+
       // run user input password through bcrypt to obtain hashed password
       bcrypt.hash(user.password, 1, (err, hashed) => {
         if (err) console.error('error!', err);
@@ -24,7 +26,6 @@ module.exports = (dbPool) => {
         // execute query
         dbPool.query(queryString, values, (error, queryResult) => {
           // invoke callback function with results after query has executed
-
           callback(error, queryResult);
 
         });
@@ -43,7 +44,30 @@ module.exports = (dbPool) => {
       });
     },
 
-    getArticles: (id, callback) => {
+    checkUsernameAvailability: (username, callback) => {
+      var queryString = `SELECT * from users WHERE name='$1'`;
+      var values = [username];
+
+      // execute query
+      dbPool.query(queryString, values, (error, queryResult) => {
+        // invoke callback function with results after query has executed
+        callback(error, queryResult);
+      });
+    },
+
+    update: (id, user, callback) => {
+      // set up query
+
+      var queryString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${user.password}' WHERE id='${id}';`;
+
+      // execute query
+      dbPool.query(queryString, (error, queryResult) => {
+        // invoke callback function with results after query has executed
+        callback(error, queryResult);
+      });
+    },
+
+    getWriting: (id, callback) => {
       // set up query
 
       var anotherQS = "SELECT articles.id, articles.title from articles INNER JOIN users ON articles.user_id = users.id WHERE user_id=" + id + ";";
@@ -53,8 +77,6 @@ module.exports = (dbPool) => {
         callback(error, queryResult);
       });
     },
-
-
 
     login: (user, callback) => {
       // set up query

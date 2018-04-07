@@ -37,6 +37,16 @@ h1, #article-grid-header, #writing-grid-header {
   letter-spacing: 0.75px;
 }
 
+#user-articles-table, #user-writing-table {
+  display: inline-flex;
+  width: 415px;
+  vertical-align: top;
+}
+
+#user-writing-table {
+  float: right;
+}
+
 #edit-article-details, #edit-writing-details {
   margin-top: 10px;
 }

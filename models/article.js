@@ -30,8 +30,6 @@
 
         var summary = result.join("\n");
 
-        console.log('title is ' + title);
-
         // set up query
         var queryString = `INSERT INTO articles (user_id, title, url, summary)
           VALUES ($1, $2, $3, $4);`;

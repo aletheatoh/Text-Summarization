@@ -118,6 +118,11 @@
       event.preventDefault();
     });
 
+    {{#if usernameTaken}}
+    $('#form-validator').show();
+    $( "#form-validator-list" ).append('<li>Sorry, that username has been taken <i class="icon frown"></i></li>');
+    {{/if}}
+
     </script>
 
   </body>

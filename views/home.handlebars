@@ -32,9 +32,15 @@
   <div class="ui green compact left attached button" id="add-article-button"><i class="add icon"></i>Article</div>
   <div class="ui orange compact right attached button" id="add-writing-piece-button"><i class="add icon"></i>Writing</div>
   </div>
-  <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
-    <button class="ui compact primary button"><i class="sign out icon"></i>Log Out</button>
-  </form>
+
+  <div class="right menu">
+    <div class="item">
+      <div class="ui compact teal button" id="user-profile-button"><i class="settings icon"></i>Profile</div>
+    </div>
+    <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
+      <button class="ui compact primary button"><i class="sign out icon"></i>Log Out</button>
+    </form>
+  </div>
 </div>
 
 <!-- ADD ARTICLE -->
@@ -45,6 +51,21 @@
   </div>
   <div class="scrolling content">
     <div id="add-article" class="ui embed" data-url="articles/new">
+    </div>
+  </div>
+  <div class="actions">
+    <button id="add-close-button" class="ui button">OK</button>
+  </div>
+</div>
+
+<!-- USER DETAILS -->
+<div class="ui longer modal user-profile">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Details
+  </div>
+  <div class="scrolling content">
+    <div id="user-profile" class="ui embed" data-url="users/{{id}}">
     </div>
   </div>
   <div class="actions">
@@ -84,4 +105,52 @@
 </div>
 
 </body>
+
+<script>
+// DISPLAY ADD ARTICLE MODAL
+$(function(){
+  $("#add-article-button").click(function(){
+    $('#add-article').embed();
+    $(".add-article").modal('show');
+  });
+  $("#add-close-button").click(function(){
+    $(".add-article").modal('hide');
+    location.reload();
+  });
+  $(".add-article").modal({
+    closable: true
+  });
+});
+
+// DISPLAY ADD WRITING PIECE MODAL
+$(function(){
+  $("#add-writing-piece-button").click(function(){
+    $('#add-writing-piece').embed();
+    $(".add-writing-piece").modal('show');
+  });
+  $("#add-close-button").click(function(){
+    $(".add-writing-piece").modal('hide');
+    location.reload();
+  });
+  $(".add-writing-piece").modal({
+    closable: true
+  });
+});
+
+// DISPLAY USER PROFILE MODAL
+$(function(){
+  $("#user-profile-button").click(function(){
+    $('#user-profile').embed();
+    $(".user-profile").modal('show');
+  });
+  $("#add-close-button").click(function(){
+    $(".user-profile").modal('hide');
+    location.reload();
+  });
+  $(".user-profile").modal({
+    closable: true
+  });
+});
+
+</script>
 </html>

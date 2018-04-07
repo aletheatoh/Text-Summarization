@@ -56,6 +56,8 @@ function uniq(a) {
      // retrieve cookies
      let loggedIn = request.cookies['loggedIn'];
      let username = request.cookies['username'];
+     let user_id = request.cookies['user-id'];
+
      // let email = request.cookies['email'];
 
      db.article.getUserArticles(username, (error, queryResult) => {
@@ -104,12 +106,15 @@ function uniq(a) {
                  let context = {
                    loggedIn: loggedIn,
                    username: username,
+                   id: user_id,
                    articles: queryResult.rows,
                    writing_pieces: anotherQr.rows,
                    folders: qr.rows,
                    folder_articles: folder_articles,
                    folder_writing_pieces: folder_writing_pieces
                  };
+
+                 if (queryResult.rows.length == 0 ) context['noArticles'] = true;
 
                  response.render('article/articles', context);
                }

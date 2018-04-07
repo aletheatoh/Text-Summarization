@@ -2,26 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
   <title>User profile</title>
 </head>
 <body>
-  <ul class="user-list">
-    <h3>User Details</h3>
-    <li class="user-attribute">
-      id: {{user.id}}
-    </li>
-    <li class="user-attribute">
-      name: {{user.name}}
-    </li>
-    <li class="user-attribute">
-      email: {{user.email}}
-    </li>
-  </ul>
-  <ul class="article-list">
-    <h3>Article Details</h3>
-    {{#each articles}}
-      <li>{{this.title}}</li>
-    {{/each}}
-  </ul>
+
+  <div class="ui success message" style="display:none;">
+    <i class="close icon" id="close-success-message"></i>
+    <div class="header">
+      Your user profile was successfully edited.
+    </div>
+    <p>Start surfing!</p>
+  </div>
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th colspan="4">
+        User Details<button style="margin-left:10px;" class="tiny compact ui button" onclick="window.location.href='/users/{{user.id}}/edit'"><i class="edit icon"></i>Edit Profile</button>
+      </th>
+    </tr>
+  </thead>
+    <tbody>
+      <tr>
+        <td class="collapsing">
+          <i class="user icon"></i> Username
+        </td>
+        <td>{{user.name}}</td>
+        <td class="collapsing">
+          <i class="mail icon"></i> Email
+        </td>
+        <td>{{user.email}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="user-articles-table">
+  <table class="ui celled sortable table">
+    <thead>
+      <tr><th colspan="2">
+        Your Articles
+      </th>
+    </tr>
+  </thead>
+    <tbody>
+      {{#each articles}}
+      <tr>
+        <td class="collapsing">
+          <i class="text file outline icon"></i> Article {{this.id}}
+        </td>
+        <td>{{this.title}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div id="user-writing-table">
+  <table class="ui celled sortable table">
+    <thead>
+      <tr><th colspan="2">
+        Your Writing Entries
+      </th>
+    </tr>
+  </thead>
+    <tbody>
+      {{#each writing_pieces}}
+      <tr>
+        <td class="collapsing">
+          <i class="book icon"></i> Entry {{this.id}}
+        </td>
+        <td>{{this.title}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
 </body>
+
+<script>
+
+{{#if edit_success}}
+$('.success.message').show();
+$('#close-success-message').click(function() {
+  $('.success.message').hide();
+});
+{{/if}}
+</script>
+
 </html>

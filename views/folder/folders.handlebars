@@ -419,10 +419,13 @@ $('.folder-button').click(function() {
     $('h1').text('Displaying all items in Folder {{this.folder_id}}');
 
     // display all articles
+
     $.each([{{this.articles}}], function( index, value ) {
       let article_entry_id = '#article-' + value + '-box';
       $(article_entry_id).css('display', '');
     });
+
+    if (([{{this.articles}}].length >= 1)) console.log('yes');
   }
 
   {{/each}}

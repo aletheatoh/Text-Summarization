@@ -12,6 +12,15 @@
   * Controller logic
   * ===========================================
   */
+
+// helper function
+function uniq(a) {
+  var seen = {};
+  return a.filter(function(item, index) {
+      return seen.hasOwnProperty(item.id) ? false : (seen[item.id] = true);
+  });
+}
+
  const get = (db) => {
    return (request, response) => {
      // use article model method `get` to retrieve article data
@@ -25,9 +34,10 @@
          }
 
          else {
+
            let context = {
              article: queryResult.rows[0],
-             folders: res.rows
+             folders: uniq(res.rows)
            }
 
            if (request.query.success == "true") {

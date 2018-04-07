@@ -12,6 +12,15 @@
 * Controller logic
 * ===========================================
 */
+
+// handle duplicates
+function uniq(a) {
+  var seen = {};
+  return a.filter(function(item, index) {
+      return seen.hasOwnProperty(item.id) ? false : (seen[item.id] = true);
+  });
+}
+
 const get = (db) => {
   return (request, response) => {
     // use article model method `get` to retrieve article data
@@ -29,9 +38,11 @@ const get = (db) => {
           else {
             let context = {
               folder: queryResult.rows[0],
-              articles: qr.rows,
-              writing_pieces: res.rows
+              articles: uniq(qr.rows),
+              writing_pieces: uniq(res.rows)
             }
+
+            console.log(context);
             // render article.handlebars in the article folder
             response.render('folder/folder', context);
           }

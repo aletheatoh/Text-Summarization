@@ -34,7 +34,7 @@
            if (request.query.success == "true") {
              context['edit_success'] = true;
            }
-           
+
            // render article.handlebars in the article folder
            response.render('writing_piece/writing_piece', context);
 
@@ -46,59 +46,68 @@
 
  const writingPiecesHomePage = (db) => {
    return (request, response) => {
-
      // retrieve cookies
      let loggedIn = request.cookies['loggedIn'];
      let username = request.cookies['username'];
      // let email = request.cookies['email'];
 
-     db.writing_piece.getUserWritingPieces(username, (error, queryResult) => {
+     db.article.getUserArticles(username, (error, queryResult) => {
        // queryResult contains article data returned from the article model
-       console.log(queryResult);
-       db.folder.getUserFolders(username, (err, qr) => {
+       db.writing_piece.getUserWritingPieces(username, (anotherErr, anotherQr) => {
 
-         db.folder.folders_and_writing_pieces((e, res) => {
+         db.folder.getUserFolders(username, (err, qr) => {
 
-           if (e) {
-             console.error('error getting writing piece:', e);
-             response.sendStatus(500);
-           }
+           db.folder.folders_and_articles((e, res) => {
 
-           else {
+             db.folder.folders_and_writing_pieces((er, r) => {
 
-             var folders_writing_pieces = {};
-
-             res.rows.forEach(function(item){
-               var folder_id = parseInt(item.folder_id);
-               var writing_id = item.writing_id;
-               if (folders_writing_pieces[item.folder_id] === undefined) {
-                 folders_writing_pieces[item.folder_id] = {};
-                 folders_writing_pieces[item.folder_id]['folder_id'] = folder_id;
-                 folders_writing_pieces[item.folder_id]['writing_pieces'] = [];
+               if (er) {
+                 console.error('error getting article:', er);
+                 response.sendStatus(500);
                }
-               folders_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
+
+               else {
+
+                 var folder_articles = {};
+
+                 res.rows.forEach(function(item){
+                   var folder_id = parseInt(item.folder_id);
+                   var article_id = item.article_id;
+                   if (folder_articles[item.folder_id] === undefined) {
+                     folder_articles[item.folder_id] = {};
+                     folder_articles[item.folder_id]['folder_id'] = folder_id;
+                     folder_articles[item.folder_id]['articles'] = [];
+                   }
+                   folder_articles[item.folder_id]['articles'].push(article_id);
+                 });
+
+                 var folder_writing_pieces = {};
+
+                 r.rows.forEach(function(item){
+                   var folder_id = parseInt(item.folder_id);
+                   var writing_id = item.writing_id;
+                   if (folder_writing_pieces[item.folder_id] === undefined) {
+                     folder_writing_pieces[item.folder_id] = {};
+                     folder_writing_pieces[item.folder_id]['folder_id'] = folder_id;
+                     folder_writing_pieces[item.folder_id]['writing_pieces'] = [];
+                   }
+                   folder_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
+                 });
+
+                 let context = {
+                   loggedIn: loggedIn,
+                   username: username,
+                   articles: queryResult.rows,
+                   writing_pieces: anotherQr.rows,
+                   folders: qr.rows,
+                   folder_articles: folder_articles,
+                   folder_writing_pieces: folder_writing_pieces
+                 };
+
+                 response.render('writing_piece/writing_pieces', context);
+               }
              });
-
-             var context = {
-               loggedIn: loggedIn,
-               username: username,
-               folders_writing_pieces: folders_writing_pieces
-             };
-
-             if (queryResult != undefined) {
-               context['writing_pieces'] = queryResult.rows;
-             }
-
-             if (qr != undefined) {
-               context['folders'] = qr.rows;
-             }
-
-             if (context['writing_pieces'].length == 0) {
-               context['noWritingPieces'] = true;
-             }
-
-             response.render('writing_piece/writing_pieces', context);
-           }
+           });
          });
        });
      });

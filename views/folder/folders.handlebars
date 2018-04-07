@@ -25,13 +25,11 @@
     My Articles
   </a>
   <a href="/writing_pieces" class="item">
-    My Work
+    My Writing
   </a>
   <div class="item">
-  <div class="ui green compact button" id="add-article-button"><i class="add icon"></i>Add Article</div>
-  </div>
-  <div class="item">
-  <div class="ui orange compact button" id="add-writing-piece-button"><i class="add icon"></i>Add Writing</div>
+  <div class="ui green compact left attached button" id="add-article-button"><i class="add icon"></i>Article</div>
+  <div class="ui orange compact right attached button" id="add-writing-piece-button"><i class="add icon"></i>Writing</div>
   </div>
   <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
     <button class="ui compact primary button"><i class="sign out icon"></i>Log Out</button>
@@ -134,95 +132,204 @@ $('#folders-dropdown').click(function() {
   {{#each articles}}
   <div id="article-{{this.id}}-box" class="article-box column">
     <div class="ui segment">
+      <a class="ui tiny top right attached basic green label">Article</a>
       <div class="header item">
           <b>{{this.title}}</b>
       </div>
       <p>Article {{this.id}}</p>
-      <button id="original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
-      <button id="summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
-      <button id="edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
+      <button id="article-original-button-{{this.id}}" class="ui small compact button"><i class="desktop icon"></i>Original</button>
+      <button id="article-summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
+      <button id="article-edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
     </div>
   </div>
 
   <!-- ORIGINAL -->
-  <div class="ui longer large modal original-modal-{{this.id}}">
+  <div class="ui longer large modal article-original-modal-{{this.id}}">
     <i class="close icon"></i>
     <div class="header">
-      {{this.title}}
+      <i class="linkify icon"></i><a href={{this.url}} target="_blank">Page Source</a>: Article {{this.id}}
     </div>
     <div class="scrolling content">
-      <div id="web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
+      <div id="article-web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
       </div>
     </div>
     <div class="actions">
-      <button id="original-close-button-{{this.id}}" class="ui button">OK</button>
+      <button id="article-original-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
 
   <!-- SUMMARY -->
-  <div class="ui longer large modal summary-modal-{{this.id}}">
+  <div class="ui longer large modal article-summary-modal-{{this.id}}">
     <i class="close icon"></i>
     <div class="header">
-      {{this.title}}
+      Generated Summary: Article {{this.id}}
     </div>
     <div class="scrolling content">
+      <h3>{{this.title}}</h3>
       <p>{{this.summary}}</p>
     </div>
     <div class="actions">
-      <button id="summary-close-button-{{this.id}}" class="ui button">OK</button>
+      <button id="article-summary-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
 
   <!-- DETAILS -->
-  <div class="ui longer large modal edit-modal-{{this.id}}">
+  <div class="ui longer large modal article-edit-modal-{{this.id}}">
     <i class="close icon"></i>
     <div class="header">
-      {{this.title}}
+      Editing: Article {{this.id}}
     </div>
     <div class="scrolling content">
-      <div id="edit-article-{{this.id}}" class="ui embed" data-url="articles/{{this.id}}/edit">
+      <div id="article-edit-article-{{this.id}}" class="ui embed" data-url="articles/{{this.id}}/edit">
       </div>
     </div>
     <div class="actions">
-      <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
+      <button id="article-edit-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
-
 
 
   <script>
 
   $(function(){
 
-    $("#original-button-{{this.id}}").click(function(){
-      $('#web-page-{{this.id}}').embed();
-      $(".original-modal-{{this.id}}").modal('show');
+    // ARTICLES - ORIGINAL
+    $("#article-original-button-{{this.id}}").click(function(){
+      $('#article-web-page-{{this.id}}').embed();
+      $(".article-original-modal-{{this.id}}").modal('show');
     });
-    $("#original-close-button-{{this.id}}").click(function(){
-      $(".original-modal-{{this.id}}").modal('hide');
+    $("#article-original-close-button-{{this.id}}").click(function(){
+      $(".article-original-modal-{{this.id}}").modal('hide');
       location.reload();
     });
-    $(".original-modal-{{this.id}}").modal({
+    $(".article-original-modal-{{this.id}}").modal({
       closable: true
     });
 
-    $("#summary-button-{{this.id}}").click(function(){
-      $(".summary-modal-{{this.id}}").modal('show');
+    // ARTICLES - SUMMARY
+    $("#article-summary-button-{{this.id}}").click(function(){
+      $(".article-summary-modal-{{this.id}}").modal('show');
     });
-    $("#summary-close-button-{{this.id}}").click(function(){
-      $(".summary-modal-{{this.id}}").modal('hide');
+    $("#article-summary-close-button-{{this.id}}").click(function(){
+      $(".article-summary-modal-{{this.id}}").modal('hide');
       location.reload();
     });
-    $(".summary-modal-{{this.id}}").modal({
+    $(".article-summary-modal-{{this.id}}").modal({
       closable: true
     });
 
-    $("#edit-button-{{this.id}}").click(function(){
-      $('#edit-article-{{this.id}}').embed();
-      $(".edit-modal-{{this.id}}").modal('show');
+    // ARTICLES - EDIT
+    $("#article-edit-button-{{this.id}}").click(function(){
+      $('#article-edit-article-{{this.id}}').embed();
+      $(".article-edit-modal-{{this.id}}").modal('show');
     });
-    $("#edit-close-button-{{this.id}}").click(function(){
-      $(".edit-modal-{{this.id}}").modal('hide');
+    $("#article-edit-close-button-{{this.id}}").click(function(){
+      $(".article-edit-modal-{{this.id}}").modal('hide');
+      location.reload();
+    });
+    $(".article-edit-modal-{{this.id}}").modal({
+      closable: true
+    });
+  });
+
+  </script>
+  {{/each}}
+</div>
+
+<!-- WRITING PIECES GRID -->
+<h3 id="writing-grid-header" style="display:none;">Writing Entries</h3>
+<!-- writing_pieces GRID -->
+<div id="writing_piece-grid" class="three column stackable ui grid" style="display:none;">
+  {{#each writing_pieces}}
+  <div id="writing_piece-{{this.id}}-box" class="writing_piece-box column">
+    <div class="ui segment">
+      <a class="ui tiny top right attached basic orange label">Writing</a>
+      <div class="header item">
+          <b>{{this.title}}</b>
+      </div>
+      <p>Entry {{this.id}}</p>
+      <button id="writing-original-button-{{this.id}}" class="ui small compact button"><i class="pencil icon"></i>Original</button>
+      <button id="writing-summary-button-{{this.id}}" class="ui small compact button"><i class="browser icon"></i>Summary</button>
+      <button id="writing-edit-button-{{this.id}}" class="ui edit small compact button"><i class="edit icon"></i>Edit</button>
+    </div>
+  </div>
+
+  <!-- ORIGINAL -->
+  <div class="ui longer large modal writing-original-modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      Original Writing Entry {{this.id}}
+    </div>
+    <div class="scrolling content">
+      <p>{{this.original}}</p>
+    </div>
+    <div class="actions">
+      <button id="writing-original-close-button-{{this.id}}" class="ui button">OK</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="ui longer large modal writing-summary-modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      Generated Summary: Writing Entry {{this.id}}
+    </div>
+    <div class="scrolling content">
+      <p>{{this.summary}}</p>
+    </div>
+    <div class="actions">
+      <button id="writing-summary-close-button-{{this.id}}" class="ui button">OK</button>
+    </div>
+  </div>
+
+  <!-- EDITING -->
+  <div class="ui longer large modal writing-edit-modal-{{this.id}}">
+    <i class="close icon"></i>
+    <div class="header">
+      Editing: Writing Entry {{this.id}}
+    </div>
+    <div class="scrolling content">
+      <div id="writing-edit-writing-piece-{{this.id}}" class="ui embed" data-url="writing_pieces/{{this.id}}/edit">
+      </div>
+    </div>
+    <div class="actions">
+      <button id="writing-edit-close-button-{{this.id}}" class="ui button">OK</button>
+    </div>
+  </div>
+
+  <script>
+
+  $(function(){
+
+    // ORIGINAL SECTION
+    $("#writing-original-button-{{this.id}}").click(function(){
+      $(".writing-original-modal-{{this.id}}").modal('show');
+    });
+    $("#writing-original-close-button-{{this.id}}").click(function(){
+      $(".writing-original-modal-{{this.id}}").modal('hide');
+      location.reload();
+    });
+    $(".writing-original-modal-{{this.id}}").modal({
+      closable: true
+    });
+
+    $("#writing-summary-button-{{this.id}}").click(function(){
+      $(".writing-summary-modal-{{this.id}}").modal('show');
+    });
+    $("#writing-summary-close-button-{{this.id}}").click(function(){
+      $(".writing-summary-modal-{{this.id}}").modal('hide');
+      location.reload();
+    });
+    $(".writing-summary-modal-{{this.id}}").modal({
+      closable: true
+    });
+
+    $("#writing-edit-button-{{this.id}}").click(function(){
+      $('#writing-edit-writing-piece-{{this.id}}').embed();
+      $(".writing-edit-modal-{{this.id}}").modal('show');
+    });
+    $("#writing-edit-close-button-{{this.id}}").click(function(){
+      $(".writing-edit-modal-{{this.id}}").modal('hide');
       location.reload();
     });
     $(".edit-modal-{{this.id}}").modal({
@@ -240,33 +347,34 @@ $('#folders-dropdown').click(function() {
   <div id="folder-{{this.id}}-box" class="column">
     <button id="button-folder-{{this.id}}" class="ui basic icon button" style="padding: 30px;"><i class="massive folder icon"></i></button>
     <div class="header item" style="margin-top: 8px;"><b>{{this.name}}</b></div>
+    <p>Folder {{this.id}}</p>
   </div>
 
   <!-- DETAILS -->
-  <div id="edit-modal-{{this.id}}" class="ui longer large modal">
+  <div id="folder-edit-modal-{{this.id}}" class="ui longer large modal">
     <i class="close icon"></i>
     <div class="header">
-      {{this.title}}
+      Folder {{this.id}} Details
     </div>
     <div class="scrolling content">
       <div id="edit-folder-{{this.id}}" class="ui embed" data-url="folders/{{this.id}}">
       </div>
     </div>
     <div class="actions">
-      <button id="edit-close-button-{{this.id}}" class="ui button">OK</button>
+      <button id="folder-edit-close-button-{{this.id}}" class="ui button">OK</button>
     </div>
   </div>
 
   <script>
   $("#button-folder-{{this.id}}").click(function(){
     $('#edit-folder-{{this.id}}').embed();
-    $("#edit-modal-{{this.id}}").modal('show');
+    $("#folder-edit-modal-{{this.id}}").modal('show');
   });
-  $("#edit-close-button-{{this.id}}").click(function(){
-    $("#edit-modal-{{this.id}}").modal('hide');
+  $("#folder-edit-close-button-{{this.id}}").click(function(){
+    $("#folder-edit-modal-{{this.id}}").modal('hide');
     location.reload();
   });
-  $("#edit-modal-{{this.id}}").modal({
+  $("#folder-edit-modal-{{this.id}}").modal({
     closable: true
   });
   </script>
@@ -275,32 +383,63 @@ $('#folders-dropdown').click(function() {
 </div>
 <script>
 
+// DISPLAY ALL CHILDREN OF FOLDERS
 $('.folder-button').click(function() {
+  // hide folders grid
   $('#folders-article-grid').hide();
 
   // load article grid
-  $('#article-grid-header').show();
+  // $('#article-grid-header').show();
   $('#article-grid').show();
   var folder_name = $(this).text();
   $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
+
   // first clear all boxes
   $('.article-box').css('display', 'none');
+  $('.writing_piece-box').css('display', 'none');
+
   // get folder id
   var id = $(this).attr('id');
-  // then display articles belonging to folder
+
+  // load writing pieces grid
+  // $('#writing-grid-header').show();
+  $('#writing_piece-grid').show();
+  var folder_name = $(this).text();
+  $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
+  // first clear all boxes
+  $('.writing_piece-box').css('display', 'none');
+  // get folder id
+  var id = $(this).attr('id');
+
+  // then display articles and writing pieces belonging to folder
   {{#each folder_articles}}
   if ({{this.folder_id}} == id) { // target folder
 
     // change heading
     $('h1').text('Displaying all items in Folder {{this.folder_id}}');
+
+    // display all articles
     $.each([{{this.articles}}], function( index, value ) {
       let article_entry_id = '#article-' + value + '-box';
       $(article_entry_id).css('display', '');
     });
   }
 
-  // load writing pieces grid
+  {{/each}}
 
+  // then display articles and writing pieces belonging to folder
+  {{#each folder_writing_pieces}}
+  if ({{this.folder_id}} == id) { // target folder
+
+    // change heading
+    $('h1').text('Displaying all items in Folder {{this.folder_id}}');
+
+    // display all writing pieces
+    $.each([{{this.writing_pieces}}], function( index, value ) {
+      let writing_entry_id = '#writing_piece-' + value + '-box';
+      $(writing_entry_id).css('display', '');
+    });
+  }
   {{/each}}
 
 });

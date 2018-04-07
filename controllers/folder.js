@@ -78,17 +78,17 @@ const foldersHomePage = (db) => {
                   folder_articles[item.folder_id]['articles'].push(article_id);
                 });
 
-                var folders_writing_pieces = {};
+                var folder_writing_pieces = {};
 
                 r.rows.forEach(function(item){
                   var folder_id = parseInt(item.folder_id);
                   var writing_id = item.writing_id;
-                  if (folders_writing_pieces[item.folder_id] === undefined) {
-                    folders_writing_pieces[item.folder_id] = {};
-                    folders_writing_pieces[item.folder_id]['folder_id'] = folder_id;
-                    folders_writing_pieces[item.folder_id]['writing_pieces'] = [];
+                  if (folder_writing_pieces[item.folder_id] === undefined) {
+                    folder_writing_pieces[item.folder_id] = {};
+                    folder_writing_pieces[item.folder_id]['folder_id'] = folder_id;
+                    folder_writing_pieces[item.folder_id]['writing_pieces'] = [];
                   }
-                  folders_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
+                  folder_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
                 });
 
                 let context = {
@@ -98,7 +98,7 @@ const foldersHomePage = (db) => {
                   writing_pieces: anotherQr.rows,
                   folders: qr.rows,
                   folder_articles: folder_articles,
-                  folders_writing_pieces: folders_writing_pieces
+                  folder_writing_pieces: folder_writing_pieces
                 };
 
                 response.render('folder/folders', context);

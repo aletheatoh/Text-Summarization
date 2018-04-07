@@ -1,10 +1,44 @@
-h1, #article-grid-header {
+h1, #article-grid-header, #writing-grid-header {
   text-align: center;
+}
+
+.modal {
+  overflow: scroll;
+}
+
+/* View Game Code On GitHub */
+#github-logo {
+  width: 25px;
+  height: auto;
+}
+
+#github {
+  text-align: center;
+}
+
+#view-github {
+  display: inline-block;
+  padding: 0px 5px;
+  font-size: 15px;
+  margin-top: 80px;
+  text-decoration: none;
+  font-family: 'Source Sans Pro';
+  color: green;
+}
+
+#credits {
+  margin-top: 4px;
+  font-family: 'Source Sans Pro';
+  color: orange;
 }
 
 #username {
   font-family: 'Delius Swash Caps';
-  font-style: italic;
+  letter-spacing: 0.75px;
+}
+
+#edit-article-details, #edit-writing-details {
+  margin-top: 10px;
 }
 
 #home-page-message {
@@ -15,6 +49,7 @@ h1, #article-grid-header {
 #folders-article-grid, #article-grid, #writing_piece-grid {
   margin-left: 80px;
   margin-right: 80px;
+  margin-top: 20px;
 }
 
 #logout-button {
@@ -100,6 +135,6 @@ a {
 
 #edit-details-button {
   display: inline-block;
+  vertical-align: center;
   margin-left:15px;
-  padding: 0;
 }

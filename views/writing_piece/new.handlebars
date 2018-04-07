@@ -14,18 +14,20 @@
   <form class="ui form writing_piece-form" method="POST" action="/writing_pieces">
       <div class="eight wide field">
         <label>Entry Title</label>
-        <input name="title" type="text"/>
+        <input id="title-input" name="title" type="text"/>
       </div>
       <div class="field textarea">
         <label>Original</label>
-        <textarea name="original" type="text" placeholder="Place text here"></textarea>
-      </div>
-      <div class="field textarea">
-        <label>Summary</label>
-        <textarea name="summary" type="text" placeholder=""></textarea>
+        <textarea id="original-input" name="original" type="text" placeholder="Place text here"></textarea>
       </div>
     <button class="ui button" id="submit-button" type="submit">Submit</button>
   </form>
+
+  <!-- FORM VALIDATOR -->
+    <div id="form-validator" class="ui error message" style="display:none;">
+      <ul id="form-validator-list" class="list">
+      </ul>
+    </div>
 
   <div class="ui success message" style="display:none;">
     <i class="close icon" id="close-success-message"></i>
@@ -42,9 +44,6 @@
 </body>
 <script>
 
-$('#submit-button').click(function() {
-  $('.ui.active.dimmer').show();
-});
 {{#if create_success}}
 $('.writing_piece-form').hide();
 $('.success.message').show();
@@ -52,6 +51,30 @@ $('#close-success-message').click(function() {
   $('.success.message').hide();
 });
 {{/if}}
+
+// validate form
+$( "form" ).submit(function( event ) {
+
+  // if both a username and password have been entered
+  if ( $('#title-input').val() !== "" && $('#original-input').val() !== "") {
+    $('.ui.active.dimmer').show();
+    return;
+  }
+
+  // display error message
+  $('#form-validator').show();
+  $( "#form-validator-list" ).empty();
+
+  if ( $('#title-input').val() == "") {
+    $( "#form-validator-list" ).append('<li>Please enter a title for your writing entry</li>');
+  }
+
+  if ( $('#original-input').val() == "") {
+    $( "#form-validator-list" ).append('<li>Please enter some text</li>');
+  }
+
+  event.preventDefault();
+});
 
 </script>
 

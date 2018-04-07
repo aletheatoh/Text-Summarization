@@ -11,18 +11,11 @@
 </head>
 <body>
 
-  <div id="edit-article-container">
-  <h2>Editing: Folder {{folder.id}}</h2>
+  <div>
+  <h3 style="margin-bottom:0px;">Editing: Folder {{folder.id}}</h3>
 
-<div style="display:inline">
+<div style="display:inline" style="margin-top:0px;">
 <form class="ui form folder-form" method="POST" action="/folders/{{folder.id}}/edit?_method=PUT">
-
-  <h6 class="ui horizontal divider header">
-    <i class="tag icon"></i>
-    Details
-  </h6>
-</br>
-
   <div class="two fields">
   <div class="field">
     <label>Folder Name</label>

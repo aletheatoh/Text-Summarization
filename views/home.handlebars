@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css">
 
   <link href="https://fonts.googleapis.com/css?family=Delius+Swash+Caps" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
@@ -27,9 +28,43 @@
   <a href="/writing_pieces" class="item">
     My Writing
   </a>
+  <div class="item">
+  <div class="ui green compact left attached button" id="add-article-button"><i class="add icon"></i>Article</div>
+  <div class="ui orange compact right attached button" id="add-writing-piece-button"><i class="add icon"></i>Writing</div>
+  </div>
   <form id="logout-button" method="POST" action="/users/logout" class="right floated item">
     <button class="ui compact primary button"><i class="sign out icon"></i>Log Out</button>
   </form>
+</div>
+
+<!-- ADD ARTICLE -->
+<div class="ui longer modal add-article">
+  <i class="close icon"></i>
+  <div class="header">
+    New Article
+  </div>
+  <div class="scrolling content">
+    <div id="add-article" class="ui embed" data-url="articles/new">
+    </div>
+  </div>
+  <div class="actions">
+    <button id="add-close-button" class="ui button">OK</button>
+  </div>
+</div>
+
+<!-- ADD WRITING PIECE -->
+<div class="ui longer modal add-writing-piece">
+  <i class="close icon"></i>
+  <div class="header">
+    New Writing Entry
+  </div>
+  <div class="scrolling content">
+    <div id="add-writing-piece" class="ui embed" data-url="writing_pieces/new">
+    </div>
+  </div>
+  <div class="actions">
+    <button id="add-close-button" class="ui button">OK</button>
+  </div>
 </div>
 
 <div id="home-page-content">
@@ -40,8 +75,11 @@
 <i class="exclamation icon"></i></h1>
 
 <p id="home-page-message">Get Started With:</p>
-<button class="ui large green left attached button" onclick="window.location.href='/articles'"><i class="text file icon"></i>Articles</button>
-<button class="ui large orange right attached button" onclick="window.location.href='/writing_pieces'"><i class="pencil icon"></i>Writing</button>
+<div class="ui large buttons">
+<button class="ui green button" onclick="window.location.href='/articles'"><i class="text file icon"></i>Articles</button>
+<div class="or"></div>
+<button class="ui orange button" onclick="window.location.href='/writing_pieces'"><i class="pencil icon"></i>Writing</button>
+</div>
 
 </div>
 

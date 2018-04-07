@@ -12,11 +12,11 @@
 <body>
 
   <div id="edit-article-container">
-  <h2 style="display:inline-block;">Editing: Article {{article.id}}</h2>
-  <div id="edit-details-button"><button class="tiny ui button" onclick="window.location.href='/articles/{{article.id}}'"><i class="info icon"></i>See Details</button></div>
+  <h3 style="display:inline-block;">Article {{article.id}}</h3>
+  <div id="edit-details-button"><button class="ui tiny button" onclick="window.location.href='/articles/{{article.id}}'"><i class="info icon"></i>See Details</button></div>
 </br>
 <div style="display:inline;">
-<form class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
+<form display="inline"class="ui form article-form" method="POST" action="/articles/{{article.id}}/edit?_method=PUT">
   <div class="ui small top attached fluid multiple search selection dropdown">
     <input type="hidden" name="folders">
     <i class="dropdown icon"></i>
@@ -29,14 +29,15 @@
         <i class="folder icon"></i>{{this.name}}</div>
       {{/each}}
     </div>
+
   </div>
-  <h6 class="ui horizontal divider header">
+  <!-- <h6 class="ui horizontal divider header">
     <i class="tag icon"></i>
     Details
-  </h6>
-</br>
+  </h6> -->
 
-  <div class="two fields">
+
+  <div id="edit-article-details" class="two fields">
   <div class="field">
     <label>Article Title</label>
     <input name="title" type="text" value="{{article.title}}"/>

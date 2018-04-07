@@ -75,7 +75,7 @@
             <i class="twitter icon"></i>
           </button>
         </div>
-        <div class="ui bottom attached warning message">
+        <div id="already-signed-up" class="ui bottom attached warning message">
           <i class="icon help"></i>Already signed up? <a href="/users/login">Login here</a> instead.
         </div>
       </div>
@@ -83,6 +83,7 @@
 
     <script>
     {{#if needToRegister}}
+    $('#already-signed-up').hide();
     $('#register-message').show();
     $('#remove-prompt').hide();
     $('#close-register-message').click(function() {

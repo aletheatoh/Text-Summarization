@@ -43,7 +43,6 @@
 
  const articlesHomePage = (db) => {
    return (request, response) => {
-
      // retrieve cookies
      let loggedIn = request.cookies['loggedIn'];
      let username = request.cookies['username'];
@@ -51,50 +50,61 @@
 
      db.article.getUserArticles(username, (error, queryResult) => {
        // queryResult contains article data returned from the article model
+       db.writing_piece.getUserWritingPieces(username, (anotherErr, anotherQr) => {
 
-       db.folder.getUserFolders(username, (err, qr) => {
+         db.folder.getUserFolders(username, (err, qr) => {
 
-         db.folder.folders_and_articles((e, res) => {
-           if (e) {
-             console.error('error getting article:', e);
-             response.sendStatus(500);
-           }
+           db.folder.folders_and_articles((e, res) => {
 
-           else {
+             db.folder.folders_and_writing_pieces((er, r) => {
 
-             var folder_articles = {};
-
-             res.rows.forEach(function(item){
-               var folder_id = parseInt(item.folder_id);
-               var article_id = item.article_id;
-               if (folder_articles[item.folder_id] === undefined) {
-                 folder_articles[item.folder_id] = {};
-                 folder_articles[item.folder_id]['folder_id'] = folder_id;
-                 folder_articles[item.folder_id]['articles'] = [];
+               if (er) {
+                 console.error('error getting article:', er);
+                 response.sendStatus(500);
                }
-               folder_articles[item.folder_id]['articles'].push(article_id);
+
+               else {
+
+                 var folder_articles = {};
+
+                 res.rows.forEach(function(item){
+                   var folder_id = parseInt(item.folder_id);
+                   var article_id = item.article_id;
+                   if (folder_articles[item.folder_id] === undefined) {
+                     folder_articles[item.folder_id] = {};
+                     folder_articles[item.folder_id]['folder_id'] = folder_id;
+                     folder_articles[item.folder_id]['articles'] = [];
+                   }
+                   folder_articles[item.folder_id]['articles'].push(article_id);
+                 });
+
+                 var folder_writing_pieces = {};
+
+                 r.rows.forEach(function(item){
+                   var folder_id = parseInt(item.folder_id);
+                   var writing_id = item.writing_id;
+                   if (folder_writing_pieces[item.folder_id] === undefined) {
+                     folder_writing_pieces[item.folder_id] = {};
+                     folder_writing_pieces[item.folder_id]['folder_id'] = folder_id;
+                     folder_writing_pieces[item.folder_id]['writing_pieces'] = [];
+                   }
+                   folder_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
+                 });
+
+                 let context = {
+                   loggedIn: loggedIn,
+                   username: username,
+                   articles: queryResult.rows,
+                   writing_pieces: anotherQr.rows,
+                   folders: qr.rows,
+                   folder_articles: folder_articles,
+                   folder_writing_pieces: folder_writing_pieces
+                 };
+
+                 response.render('article/articles', context);
+               }
              });
-
-             let context = {
-               loggedIn: loggedIn,
-               username: username,
-               folder_articles: folder_articles
-             };
-
-             if (queryResult != undefined) {
-               context['articles'] = queryResult.rows;
-             }
-
-             if (qr != undefined) {
-               context['folders'] = qr.rows;
-             }
-
-             if (context['articles'].length == 0) {
-               context['noArticles'] = true;
-             }
-
-             response.render('article/articles', context);
-           }
+           });
          });
        });
      });

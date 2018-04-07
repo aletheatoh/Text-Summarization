@@ -12,7 +12,7 @@
 <body>
 
   <div id="edit-writing_piece-container">
-  <h2 style="display:inline-block;">Editing: Writing Entry {{writing_piece.id}}</h2>
+  <h3 style="display:inline-block;">Writing Entry {{writing_piece.id}}</h3>
   <div id="edit-details-button"><button class="tiny ui button" onclick="window.location.href='/writing_pieces/{{writing_piece.id}}'"><i class="info icon"></i>See Details</button></div>
 
 </br>
@@ -31,24 +31,27 @@
       {{/each}}
     </div>
   </div>
-  <h6 class="ui horizontal divider header">
+  <!-- <h6 class="ui horizontal divider header">
     <i class="tag icon"></i>
     Details
-  </h6>
-</br>
+  </h6> -->
 
-  <div class="field">
+  <div id="edit-writing-details" class="field">
     <label>Title</label>
     <input name="title" type="text" value="{{writing_piece.title}}"/>
   </div>
-  <div class="field textarea">
-    <label>Original</label>
-    <textarea name="original" type="text">{{writing_piece.original}}</textarea>
+
+  <div class="two fields">
+    <div class="field textarea">
+      <label>Original</label>
+      <textarea name="original" type="text">{{writing_piece.original}}</textarea>
+    </div>
+    <div class="field textarea">
+      <label>Summary</label>
+      <textarea onkeyup="textAreaAdjust(this)" name="summary" type="text" placeholder="No summary available">{{writing_piece.summary}}</textarea>
+    </div>
   </div>
-  <div class="field textarea">
-    <label>Summary</label>
-    <textarea onkeyup="textAreaAdjust(this)" name="summary" type="text" placeholder="No summary available">{{writing_piece.summary}}</textarea>
-  </div>
+
   <button class="ui button" type="submit">Submit</button>
 </form>
 </div>

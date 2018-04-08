@@ -71,14 +71,6 @@ module.exports = (dbPool) => {
           callback(error, queryResult);
         });
       });
-
-      var queryString = `UPDATE users SET name='${user.name}', email='${user.email}', password='${user.password}' WHERE id='${id}';`;
-
-      // execute query
-      dbPool.query(queryString, (error, queryResult) => {
-        // invoke callback function with results after query has executed
-        callback(error, queryResult);
-      });
     },
 
     getWriting: (id, callback) => {

@@ -112,6 +112,7 @@ const update = (db) => {
       if (error) {
         console.error('error getting user:', error);
         response.sendStatus(500);
+        return;
       }
 
       // update cookies
@@ -126,6 +127,7 @@ const update = (db) => {
       response.cookie('user-id', request.params.id);
 
       response.redirect(`/users/${request.params.id}?success=true`);
+      return;
     })
 
   };

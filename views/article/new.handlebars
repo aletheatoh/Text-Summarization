@@ -64,10 +64,7 @@ $( "form" ).submit(function( event ) {
   // display error message
   $('#form-validator').show();
   $( "#form-validator-list" ).empty();
-  // 
-  // if ( $('#title-input').val() == "") {
-  //   $( "#form-validator-list" ).append('<li>Please enter a title for the article</li>');
-  // }
+
 
   if ( $('#url-input').val() == "") {
     $( "#form-validator-list" ).append('<li>Please enter the article URL</li>');

@@ -13,9 +13,15 @@
     "express-handlebars": "^3.0.0",
     "jsonfile": "^4.0.0",
     "method-override": "^2.3.10",
+    "node-summary": "^1.2.0",
     "node-sumuparticles": "^0.1.4",
+    "nodejs-text-summarizer": "^2.0.3",
     "pg": "^7.4.1",
     "request": "^2.85.0",
-    "sum": "^0.1.4"
-  }
+    "sum": "^0.1.4",
+    "summarizer": "^1.0.0",
+    "textrank": "^1.0.5"
+  },
+  "repository": "https://github.com/aletheatoh/Text-Summarization.git",
+  "author": "Alethea Toh <alethea.toh@duke.edu>"
 }

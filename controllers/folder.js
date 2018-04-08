@@ -39,10 +39,14 @@ const get = (db) => {
             let context = {
               folder: queryResult.rows[0],
               articles: uniq(qr.rows),
-              writing_pieces: uniq(res.rows)
+              numArticles: uniq(qr.rows).length,
+              noArticles : (uniq(qr.rows).length == 0),
+              writing_pieces: uniq(res.rows),
+              numWriting: uniq(res.rows).length,
+              noWriting: (uniq(res.rows).length == 0)
             }
 
-            console.log(context);
+            console.log('numarticles ' + uniq(qr.rows).length);
             // render article.handlebars in the article folder
             response.render('folder/folder', context);
           }
@@ -115,7 +119,27 @@ const foldersHomePage = (db) => {
 
                 if (qr.rows.length == 0) context['noFolders'] = true;
 
-                response.render('folder/folders', context);
+                if (user_id == undefined) {
+                  console.log('yes');
+                  console.log('usernae is ' + username);
+
+                  db.user.getUserId(username, (errorUser, qrUserID) => {
+                    if (errorUser) {
+                      console.error('error getting user details:', errorUser);
+                      response.sendStatus(500);
+                    }
+
+                    else {
+                      context['id'] = qrUserID.rows[0].id;
+                      console.log(qrUserID.rows[0].id);
+                      console.log(context);
+                      response.clearCookie('user-id');
+                      response.cookie('user-id', queryResult.rows[0].id);
+                      response.render('folder/folders', context);
+                    }
+                  });
+                }
+                else response.render('folder/folders', context);
               }
             });
           });
@@ -162,8 +186,10 @@ const update = (db) => {
           let context = {
             edit_success: true,
             folder: folder,
-            articles: qr.rows,
-            writing_pieces: res.rows
+            articles: uniq(qr.rows),
+            numArticles: uniq(qr.rows).length,
+            writing_pieces: uniq(res.rows),
+            numWriting: uniq(res.rows).length
           }
 
           response.render('folder/folder', context);
@@ -242,7 +268,7 @@ const removeWriting = (db) => {
         response.sendStatus(500);
       }
 
-      response.redirect(`/articles/${request.params.writing_id}`);
+      response.redirect(`/writing_pieces/${request.params.writing_id}`);
     });
   }
 };

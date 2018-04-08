@@ -44,8 +44,8 @@
 </div>
 
   <div class="field textarea">
-    <label>Summary</label>
-    <textarea onkeyup="textAreaAdjust(this)" name="summary" type="text" placeholder="No summary available">{{article.summary}}</textarea>
+    <label>Summary Code Editor</label>
+    <textarea onkeyup="textAreaAdjust(this)" name="summary" type="text" placeholder="No summary available" style="font-family: 'Consolas';">{{article.summary}}</textarea>
   </div>
   <button class="ui button" type="submit">Submit</button>
 </form>
@@ -58,6 +58,10 @@
 </div>
 </div>
 
+<div class="ui active dimmer" style="display:none;">
+  <div class="ui text loader">Editing Article</div>
+</div>
+
 <div class="ui success message" style="display:none;">
   <i class="close icon" id="close-success-message"></i>
   <div class="header">
@@ -67,8 +71,13 @@
 </div>
 
   <script>
+
   $('.ui.dropdown')
   .dropdown();
+
+  $( "form" ).submit(function( event ) {
+    $('.ui.active.dimmer').show();
+  });
 
   {{#if delete_success}}
   $('#edit-article-container').hide();

@@ -22,14 +22,24 @@
   <p>Enjoy reading!</p>
 </div>
 
-<table class="ui celled table">
+<table class="ui celled sortable table">
   <thead>
     <tr><th colspan="2">
-      Folders
+      <div class="item folder-label" style="margin-right:5px;">
+        Folders
+      </div>
+      <div class="folder-label"><a class="ui yellow circular label">{{numFolders}}</a></div>
     </th>
   </tr>
 </thead>
   <tbody>
+    {{#if noFolders}}
+    <tr>
+      <td colspan="2">
+        Article {{article.id}} currently does not belong to any folders.
+      </td>
+    </tr>
+    {{/if}}
     {{#each folders}}
     <tr>
       <td class="collapsing">
@@ -44,30 +54,29 @@
     {{/each}}
   </tbody>
 </table>
-<table class="ui celled striped table">
+<table class="ui celled table">
   <thead>
-    <tr><th colspan="2">
+    <tr><th colspan="4">
       Details
     </th>
   </tr>
 </thead>
   <tbody>
     <tr>
-      <td class="collapsing">
+      <td colspan="1" class="collapsing">
         <i class="text file outline icon"></i> Article ID
       </td>
-      <td>{{article.id}}</td>
-    </tr>
-    <tr>
-      <td>
-        <i class="chain icon"></i> URL</td>
-      <td>{{article.url}}</td>
-    </tr>
-    <tr>
-      <td>
-        <i class="pencil icon"></i> Summary
+      <td colspan="1">{{article.id}}</td>
+      <td class="collapsing">
+        <i colspan="1" class="chain icon"></i> URL
       </td>
-      <td>{{article.summary}}</td>
+      <td colspan="1">{{article.url}}</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="collapsing">
+        <i class="code icon"></i> Summary
+      </td>
+      <td colspan="2" id="article-summary"><code style="font-family: 'Consolas';">{{article.summary}}</code></td>
     </tr>
   </tbody>
 </table>
@@ -79,6 +88,7 @@ $('#close-success-message').click(function() {
   $('.success.message').hide();
 });
 {{/if}}
+
 </script>
 
 </body>

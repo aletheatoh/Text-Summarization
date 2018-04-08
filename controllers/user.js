@@ -25,10 +25,14 @@ const get = (db) => {
             let context = {
               user: queryResult.rows[0],
               articles: qr.rows,
-              writing_pieces: res.rows
+              numArticles: qr.rows.length,
+              noArticles: (qr.rows.length == 0),
+              writing_pieces: res.rows,
+              numWriting: res.rows.length,
+              noWriting: (res.rows.length == 0)
             }
 
-            if (articles.length == 0) context['noArticles'] = true;
+            if (qr.rows.length == 0) context['noArticles'] = true;
 
             if (request.query.success == "true") {
               context['edit_success'] = true;
@@ -48,7 +52,7 @@ const create = (db) => {
 
     db.user.checkUsernameAvailability(request.body.name, (err, res) => {
 
-      if (res == undefined ) {
+      if (res != undefined && res.rows.length >= 1) {
 
         let context = {
           usernameTaken: true
@@ -72,12 +76,13 @@ const create = (db) => {
         if (queryResult.rowCount >= 1) {
           console.log('User created successfully');
 
-          // drop cookies to indicate user's logged in status and username
           response.cookie('loggedIn', true);
           response.cookie('username', request.body.name);
           response.cookie('email', request.body.email);
 
-        } else {
+        }
+
+        else {
           console.log('User could not be created');
         }
 

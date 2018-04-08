@@ -101,7 +101,7 @@
   <div class="text" id="folders-dropdown"><a href="/folders">All Folders</a><i class="dropdown icon"></i></div>
   <div class="menu">
     <div onclick="location.href='/folders'" class="item folder-button">
-      <i class="orange folder icon"></i>
+      <i class="yellow folder icon"></i>
       All Folders
     </div>
     {{#each folders}}
@@ -189,7 +189,32 @@ $('#folders-dropdown').click(function() {
 </div>
 
 {{#if noArticles}}
+<div id="no-entries-container">
 <p id="no-entries">Oops, seems like you don't have any articles yet!</p>
+<div class="ui steps">
+  <div class="step">
+    <i class="linkify icon"></i>
+    <div class="content">
+      <div class="title">Add Article</div>
+      <div class="description">Enter URL of article</div>
+    </div>
+  </div>
+  <div class="step">
+    <i class="cog icon"></i>
+    <div class="content">
+      <div class="title">Wait 2 Seconds</div>
+      <div class="description">Summary + Title auto-generated</div>
+      <!-- <div class="description">Article is summarized</div> -->
+    </div>
+  </div>
+  <div class="completed step">
+    <i class="info icon"></i>
+    <div class="content">
+      <div class="title">Ready to Read!</div>
+    </div>
+  </div>
+</div>
+</div>
 {{/if}}
 
   <!-- ARTICLES GRID -->
@@ -212,7 +237,7 @@ $('#folders-dropdown').click(function() {
     <div class="ui longer large modal article-original-modal-{{this.id}}">
       <i class="close icon"></i>
       <div class="header">
-        <i class="linkify icon"></i><a href={{this.url}} target="_blank">Page Source</a>: Article {{this.id}}
+        <i class="linkify icon"></i><a href={{this.url}} target="_blank">Page Source</a>: <i>{{this.title}}</i>
       </div>
       <div class="scrolling content">
         <div id="article-web-page-{{this.id}}" class="ui embed" data-url="{{this.url}}">
@@ -229,9 +254,9 @@ $('#folders-dropdown').click(function() {
       <div class="header">
         Generated Summary: Article {{this.id}}
       </div>
-      <div class="scrolling content">
+      <div id="article-summary-test-{{this.id}}" class="scrolling content">
         <h3>{{this.title}}</h3>
-        <p>{{this.summary}}</p>
+        {{{this.summary}}}
       </div>
       <div class="actions">
         <button id="article-summary-close-button-{{this.id}}" class="ui button">OK</button>
@@ -239,7 +264,7 @@ $('#folders-dropdown').click(function() {
     </div>
 
     <!-- DETAILS -->
-    <div class="ui longer large modal article-edit-modal-{{this.id}}">
+    <div class="ui long large modal article-edit-modal-{{this.id}}">
       <i class="close icon"></i>
       <div class="header">
         Editing: Article {{this.id}}

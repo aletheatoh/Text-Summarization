@@ -50,10 +50,11 @@ app.get('/', (request, response) => {
   let email = request.cookies['email'];
   let user_id = request.cookies['user-id'];
 
-  // get id user
+  // get id user is user_id cookie does not exist
+
   var queryString = `SELECT id FROM users WHERE name='${username}' AND email='${email}';`;
 
-  let context = {
+  var context = {
     loggedIn: loggedIn,
     username: username,
     id: user_id
@@ -61,7 +62,28 @@ app.get('/', (request, response) => {
 
   if (request.query.returninguser == "true") context['returningUser'] = true;
 
-  if (loggedIn) response.render('home', context);
+  if (loggedIn) {
+
+    if (user_id == undefined) {
+      console.log('im here again');
+
+      db.user.getUserId(username, (error, queryResult) => {
+
+        console.log(queryResult.rows[0].id);
+        context['id'] = queryResult.rows[0].id;
+        console.log(context);
+        response.clearCookie('user-id');
+        response.cookie('user-id', queryResult.rows[0].id);
+        response.render('home', context);
+        return;
+      });
+    }
+
+    else {
+      response.render('home', context);
+      return;
+    }
+  }
 
   else {
     response.clearCookie('loggedIn');

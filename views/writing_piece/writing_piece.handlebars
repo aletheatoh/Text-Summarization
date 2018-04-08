@@ -21,14 +21,22 @@
   <p>Enjoy reading!</p>
 </div>
 
-<table class="ui celled table">
+<table class="ui celled sortable table">
   <thead>
     <tr><th colspan="2">
-      Folders
+      <div class="item folder-label" style="margin-right:5px;">
+        Folders
+      </div>
+      <div class="folder-label"><a class="ui yellow circular label">{{numFolders}}</a></div>
     </th>
   </tr>
 </thead>
   <tbody>
+    {{#if noFolders}}
+    <td colspan="2">
+      Writing Entry {{writing_piece.id}} currently does not belong to any folders.
+    </td>
+    {{/if}}
     {{#each folders}}
     <tr>
       <td class="collapsing">

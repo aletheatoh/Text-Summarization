@@ -13,14 +13,24 @@
 
 <button id="edit-button-{{folder.id}}" class="ui labeled icon button" onclick="window.location.href='/folders/{{folder.id}}/edit'"><i class="edit icon"></i>Edit Folder</button>
 
-<table class="ui celled table">
+<table class="ui celled sortable table">
   <thead>
     <tr><th colspan="2">
-      Articles
+      <div class="item article-label" style="margin-right:5px;">
+        Articles
+      </div>
+      <div class="article-label"><a class="ui green circular label">{{numArticles}}</a></div>
     </th>
   </tr>
 </thead>
   <tbody>
+    {{#if noArticles}}
+    <tr>
+      <td colspan="2">
+        There are currently no articles in Folder {{folder.id}}.
+      </td>
+    </tr>
+    {{/if}}
     {{#each articles}}
     <tr>
       <td class="collapsing">
@@ -32,14 +42,24 @@
   </tbody>
 </table>
 
-<table class="ui celled table">
+<table class="ui celled sortable table">
   <thead>
     <tr><th colspan="2">
-      Writing Entries
+      <div class="item writing-label" style="margin-right:5px;">
+        Writing
+      </div>
+      <div class="writing-label"><a class="ui orange circular label">{{numWriting}}</a></div>
     </th>
   </tr>
 </thead>
   <tbody>
+    {{#if noWriting}}
+    <tr>
+      <td colspan="2">
+        There are currently no writing entries in Folder {{folder.id}}.
+      </td>
+    </tr>
+    {{/if}}
     {{#each writing_pieces}}
     <tr>
       <td class="collapsing">

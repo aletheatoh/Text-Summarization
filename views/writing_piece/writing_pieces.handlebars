@@ -100,7 +100,7 @@
   <div class="text" id="folders-dropdown"><a href="/folders">All Folders</a><i class="dropdown icon"></i></div>
   <div class="menu">
     <div onclick="location.href='/folders'" class="item folder-button">
-      <i class="orange folder icon"></i>
+      <i class="yellow folder icon"></i>
       All Folders
     </div>
     {{#each folders}}
@@ -188,7 +188,30 @@ $('#folders-dropdown').click(function() {
 </div>
 
 {{#if noWritingPieces}}
+<div id="no-entries-container">
 <p id="no-entries">Oops, seems like you don't have any writing entries yet!</p>
+<div class="ui steps">
+  <div class="step">
+    <i class="keyboard icon"></i>
+    <div class="content">
+      <div class="title">Add Writing Entry</div>
+      <div class="description">Enter writing piece + title</div>
+    </div>
+  </div>
+  <div class="step">
+    <i class="cog icon"></i>
+    <div class="content">
+      <div class="title">Wait 2 Seconds</div>
+      <div class="description">Summary auto-generated</div>
+    </div>
+  </div>
+  <div class="completed step">
+    <i class="info icon"></i>
+    <div class="content">
+      <div class="title">Ready to Read!</div>
+    </div>
+  </div>
+</div>
 {{/if}}
 
 <!-- ARTICLES GRID -->

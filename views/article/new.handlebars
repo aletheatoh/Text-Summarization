@@ -12,10 +12,10 @@
 <body>
 
   <form class="ui form article-form" method="POST" action="/articles">
-      <div class="eight wide field">
+      <!-- <div class="eight wide field">
         <label>Article Title</label>
         <input id="title-input" name="title" type="text"/>
-      </div>
+      </div> -->
       <div class="ten wide field">
         <label>URL</label>
         <input id="url-input" name="url" type="url"/>
@@ -56,7 +56,7 @@ $('#close-success-message').click(function() {
 $( "form" ).submit(function( event ) {
 
   // if both a username and password have been entered
-  if ( $('#title-input').val() !== "" && $('#url-input').val() !== "") {
+  if ( $('#url-input').val() !== "") {
     $('.ui.active.dimmer').show();
     return;
   }
@@ -64,10 +64,10 @@ $( "form" ).submit(function( event ) {
   // display error message
   $('#form-validator').show();
   $( "#form-validator-list" ).empty();
-
-  if ( $('#title-input').val() == "") {
-    $( "#form-validator-list" ).append('<li>Please enter a title for the article</li>');
-  }
+  // 
+  // if ( $('#title-input').val() == "") {
+  //   $( "#form-validator-list" ).append('<li>Please enter a title for the article</li>');
+  // }
 
   if ( $('#url-input').val() == "") {
     $( "#form-validator-list" ).append('<li>Please enter the article URL</li>');

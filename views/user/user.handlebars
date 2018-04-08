@@ -43,18 +43,31 @@
   <div id="user-articles-table">
   <table class="ui celled sortable table">
     <thead>
-      <tr><th colspan="2">
-        Your Articles
+      <tr>
+        <th colspan="2">
+        <div class="item article-label" style="margin-right:5px;">
+          Your Articles
+        </div>
+        <div class="article-label"><a class="ui green circular label">{{numArticles}}</a></div>
       </th>
     </tr>
   </thead>
     <tbody>
+      {{#if noArticles}}
+      <tr>
+        <td colspan="2">
+          You currently have no articles.
+        </td>
+      </tr>
+      {{/if}}
       {{#each articles}}
       <tr>
         <td class="collapsing">
           <i class="text file outline icon"></i> Article {{this.id}}
         </td>
-        <td>{{this.title}}</td>
+        <td>
+          {{this.title}}
+        </td>
       </tr>
       {{/each}}
     </tbody>
@@ -65,11 +78,21 @@
   <table class="ui celled sortable table">
     <thead>
       <tr><th colspan="2">
-        Your Writing Entries
+        <div class="item writing-label" style="margin-right:5px;">
+          Your Writing
+        </div>
+        <div class="writing-label"><a class="ui orange circular label">{{numWriting}}</a></div>
       </th>
     </tr>
   </thead>
     <tbody>
+      {{#if noWriting}}
+      <tr>
+        <td colspan="2">
+          You currently have no writing entries.
+        </td>
+      </tr>
+      {{/if}}
       {{#each writing_pieces}}
       <tr>
         <td class="collapsing">

@@ -36,7 +36,9 @@
          else {
            let context = {
              writing_piece: queryResult.rows[0],
-             folders: uniq(res.rows)
+             folders: uniq(res.rows),
+             numFolders: uniq(res.rows).length,
+             noFolders: (uniq(res.rows).length == 0)
            }
 
            if (request.query.success == "true") {
@@ -115,7 +117,27 @@
 
                  if (anotherQr.rows.length == 0 ) context['noWritingPieces'] = true;
 
-                 response.render('writing_piece/writing_pieces', context);
+                 if (user_id == undefined) {
+                   console.log('yes');
+                   console.log('usernae is ' + username);
+
+                   db.user.getUserId(username, (errorUser, qrUserID) => {
+                     if (errorUser) {
+                       console.error('error getting user details:', errorUser);
+                       response.sendStatus(500);
+                     }
+
+                     else {
+                       context['id'] = qrUserID.rows[0].id;
+                       console.log(qrUserID.rows[0].id);
+                       console.log(context);
+                       response.clearCookie('user-id');
+                       response.cookie('user-id', queryResult.rows[0].id);
+                       response.render('writing_piece/writing_pieces', context);
+                     }
+                   });
+                 }
+                 else response.render('writing_piece/writing_pieces', context);
                }
              });
            });
@@ -152,15 +174,20 @@
  const update = (db) => {
    return (request, response) => {
 
+     var count1 = 0;
+     var count2 = 0;
+
      db.writing_piece.update(request.params.id, request.body, (error, queryResult) => {
-       console.log(request.body);
+
        if (request.body.folders != '') {
          var array = request.body['folders'].split('<i class=&quot;folder icon&quot;></i>');
 
          array.forEach(function(item, index) {
            array[index] = item.replace(',', '');
+           count1 += 1;
          });
-         var removed = array.splice(0,1);
+
+         if (count1 == array.length) var removed = array.splice(0,1);
 
          var res = request.body;
          res['folders'] = array;
@@ -173,14 +200,18 @@
            if (array.includes(folder.toLowerCase())) folder_ids.push(request.body['id']);
          }
 
-         else request.body['id'].forEach(function(item, index) {
-           let folder = request.body['name'][index];
-           if (array.includes(folder.toLowerCase())) {
-             folder_ids.push(item);
-           }
-         });
+         else {
+           request.body['id'].forEach(function(item, index) {
+             let folder = request.body['name'][index];
+             if (array.includes(folder.toLowerCase())) {
+               folder_ids.push(item);
+             }
+             count2 += 1;
+           });
+         }
 
-         folder_ids.forEach(function(id) {
+         var count3 = 0;
+         if (count2 == request.body['id'].length) folder_ids.forEach(function(id) {
            db.folder.addWritingPieceToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
              if (err) {
                console.error('error:', err);
@@ -192,9 +223,13 @@
                console.log('writing piece could not be added');
              }
            });
+
          });
        }
-       response.redirect(`/writing_pieces/${request.params.id}?success=true`);
+       
+       setTimeout(function() {
+         response.redirect(`/writing_pieces/${request.params.id}?success=true`);
+       }, 3000);
      });
    };
  };

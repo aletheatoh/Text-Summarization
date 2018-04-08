@@ -63,6 +63,10 @@
 </div>
 </div>
 
+<div class="ui active dimmer" style="display:none;">
+  <div class="ui text loader">Editing Writing Entry</div>
+</div>
+
 <div class="ui success message" style="display:none;">
   <i class="close icon" id="close-success-message"></i>
   <div class="header">
@@ -74,6 +78,10 @@
   <script>
   $('.ui.dropdown')
   .dropdown();
+
+  $( "form" ).submit(function( event ) {
+    $('.ui.active.dimmer').show();
+  });
 
   {{#if delete_success}}
   $('#edit-writing_piece-container').hide();

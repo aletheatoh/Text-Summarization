@@ -35,14 +35,17 @@ function uniq(a) {
 
          else {
 
-           let context = {
+           var context = {
              article: queryResult.rows[0],
-             folders: uniq(res.rows)
+             folders: uniq(res.rows),
+             numFolders: uniq(res.rows).length,
+             noFolders: (uniq(res.rows).length == 0)
            }
 
            if (request.query.success == "true") {
              context['edit_success'] = true;
            }
+
            // render article.handlebars in the article folder
            response.render('article/article', context);
          }
@@ -58,7 +61,7 @@ function uniq(a) {
      let username = request.cookies['username'];
      let user_id = request.cookies['user-id'];
 
-     // let email = request.cookies['email'];
+     console.log('user_id is ' + user_id);
 
      db.article.getUserArticles(username, (error, queryResult) => {
        // queryResult contains article data returned from the article model
@@ -103,7 +106,7 @@ function uniq(a) {
                    folder_writing_pieces[item.folder_id]['writing_pieces'].push(writing_id);
                  });
 
-                 let context = {
+                 var context = {
                    loggedIn: loggedIn,
                    username: username,
                    id: user_id,
@@ -116,7 +119,27 @@ function uniq(a) {
 
                  if (queryResult.rows.length == 0 ) context['noArticles'] = true;
 
-                 response.render('article/articles', context);
+                 if (user_id == undefined) {
+                   console.log('yes');
+                   console.log('usernae is ' + username);
+
+                   db.user.getUserId(username, (errorUser, qrUserID) => {
+                     if (errorUser) {
+                       console.error('error getting user details:', errorUser);
+                       response.sendStatus(500);
+                     }
+
+                     else {
+                       context['id'] = qrUserID.rows[0].id;
+                       console.log(qrUserID.rows[0].id);
+                       console.log(context);
+                       response.clearCookie('user-id');
+                       response.cookie('user-id', queryResult.rows[0].id);
+                       response.render('article/articles', context);
+                     }
+                   });
+                 }
+                 else response.render('article/articles', context);
                }
              });
            });
@@ -187,16 +210,13 @@ function uniq(a) {
                console.error('error:', err);
                response.sendStatus(500);
              }
-             if (queryResult.rowCount >= 1) {
-               console.log('article added successfully');
-             } else {
-               console.log('article could not be added');
-             }
            });
          });
        }
 
-       response.redirect(`/articles/${request.params.id}?success=true`);
+       setTimeout(function() {
+         response.redirect(`/articles/${request.params.id}?success=true`);
+       }, 3000);
      });
    };
  };
@@ -240,9 +260,10 @@ function uniq(a) {
          console.log('article could not be created');
        }
 
-       let context = {
+       var context = {
          create_success: true
        }
+
        response.render('article/new', context);
 
      });

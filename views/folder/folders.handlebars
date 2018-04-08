@@ -101,7 +101,7 @@
   <div class="text" id="folders-dropdown"><a href="/folders">All Folders</a><i class="dropdown icon"></i></div>
   <div class="menu">
     <div onclick="location.href='/folders'" class="item folder-button">
-      <i class="orange folder icon"></i>
+      <i class="yellow folder icon"></i>
       All Folders
     </div>
     {{#each folders}}
@@ -143,7 +143,16 @@ $('#folders-dropdown').click(function() {
 </div>
 
 {{#if noFolders}}
+<div id="no-entries-container">
 <p id="no-entries">Oops, seems like you don't have any folders yet!</p>
+<div class="ui steps">
+  <div class="step">
+    <i class="yellow folder icon"></i>
+    <div class="content">
+      <div style="font-size:16px;width:250px;line-height:1.2;"class="description">Organize your articles and writing entries with folders!</div>
+    </div>
+  </div>
+</div>
 {{/if}}
 
 <!-- ARTICLES GRID -->

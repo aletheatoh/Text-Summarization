@@ -3,13 +3,18 @@ h1, #article-grid-header, #writing-grid-header {
 }
 
 .modal {
-  overflow: scroll;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* View Game Code On GitHub */
 #github-logo {
   width: 25px;
   height: auto;
+}
+
+.article-label, .writing-label, .folder-label {
+  display: inline;
 }
 
 #github {
@@ -105,10 +110,22 @@ a {
   font-size: 20px;
 }
 
-#no-entries, #home-page-content {
+#home-page-content {
   width: 1000px;
   height: 100px;
   position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+#no-entries-container {
+  position: absolute;
+  width: 1000px;
+  height: 100px;
   top:0;
   bottom: 0;
   left: 0;

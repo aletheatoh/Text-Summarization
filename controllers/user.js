@@ -3,6 +3,7 @@
 * Controller logic
 * ===========================================
 */
+
 const bcrypt = require('bcrypt');
 const newForm = (request, response) => {
   response.render('user/new');
@@ -13,7 +14,6 @@ const get = (db) => {
     let username = request.cookies['username'];
     // use user model method `get` to retrieve user data
     db.user.get(request.params.id, (error, queryResult) => {
-
       db.article.getUserArticles(username, (err, qr) => {
         db.writing_piece.getUserWritingPieces(username, (e, res) => {
           // queryResult contains user data returned from the user model
@@ -27,6 +27,8 @@ const get = (db) => {
               articles: qr.rows,
               writing_pieces: res.rows
             }
+
+            if (articles.length == 0) context['noArticles'] = true;
 
             if (request.query.success == "true") {
               context['edit_success'] = true;

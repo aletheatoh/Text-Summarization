@@ -48,34 +48,28 @@ app.get('/', (request, response) => {
   let loggedIn = request.cookies['loggedIn'];
   let username = request.cookies['username'];
   let email = request.cookies['email'];
+  let user_id = request.cookies['user-id'];
 
   // get id user
   var queryString = `SELECT id FROM users WHERE name='${username}' AND email='${email}';`;
 
-  db.pool.query(queryString, (error, queryResult) => {
+  let context = {
+    loggedIn: loggedIn,
+    username: username,
+    id: user_id
+  };
 
-    if (error) console.error('error!', error);
+  if (request.query.returninguser == "true") context['returningUser'] = true;
 
+  if (loggedIn) response.render('home', context);
 
-    let context = {
-      loggedIn: loggedIn,
-      username: username
-    };
-
-    if (queryResult.rows[0] != undefined) {
-      response.cookie('user-id', queryResult.rows[0].id); // set cookie
-      context['id'] = queryResult.rows[0].id;
-    }
-
-    if (loggedIn) response.render('home', context);
-    else {
-      response.clearCookie('loggedIn');
-      response.clearCookie('username');
-      response.clearCookie('email');
-      response.clearCookie('user-id');
-      response.render('welcome');
-    }
-  });
+  else {
+    response.clearCookie('loggedIn');
+    response.clearCookie('username');
+    response.clearCookie('email');
+    response.clearCookie('user-id');
+    response.render('welcome');
+  }
 });
 
 // Catch all unmatched requests and return 404 not found page

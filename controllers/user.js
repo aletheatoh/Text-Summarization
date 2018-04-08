@@ -159,7 +159,6 @@ const login = (db) => {
     // Hint: All SQL queries should happen in the corresponding model file
     // ie. in models/user.js - which method should this controller call on the model?
     db.user.login(request.body, (error, queryResult) => {
-      console.log(queryResult.rowCount);
 
       if (queryResult.rowCount === 0) {
 
@@ -168,6 +167,7 @@ const login = (db) => {
         let context = {
           needToRegister: true
         }
+
         response.render('user/new', context);
         return;
       }
@@ -183,22 +183,18 @@ const login = (db) => {
           response.cookie('email', request.body.email);
           response.cookie('user-id', queryResult.rows[0].id);
 
-          let context = {
-            returningUser: true,
-            loggedIn: true,
-            username: request.body.name
-          }
-
-          response.render('home', context);
-
+          // response.render('home', context);
+          response.redirect('/?returninguser=true');
           return;
         }
+
         else {
           console.log('incorrect password');
 
           let context = {
             loginFailure: true
           }
+
           response.render('user/login', context);
           return;
         }

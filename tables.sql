@@ -41,10 +41,3 @@ CREATE TABLE IF NOT EXISTS organized_writing (
   folder_id INTEGER,
   writing_id INTEGER
 );
-
-DROP TABLE users;
-DROP TABLE articles;
-DROP TABLE writing_pieces;
-DROP TABLE folders;
-DROP TABLE organized_articles;
-DROP TABLE organized_writing;

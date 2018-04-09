@@ -9,7 +9,7 @@ Deployed on Heroku: http://sumrise.herokuapp.com/
 This app takes at most 2 seconds to auto-generate sumarizations. All you need to do is:
 
 | Web Articles | Writing Entries |
-| ------------ | ------------------ |
+| -------------- | ------------------ |
 | Enter the URL of your web article | Enter your writing entry + title|
 
 

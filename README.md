@@ -1,13 +1,14 @@
 # SumRise
 
 <p>An online portal that can summarize both web articles and raw text.</p>
+<p>I was inspired by the words of my swimming coach: "A "</p>
 
 ### How to Use
 
 #### Reading
 User only needs to pass the URL of the web article, and a summary + title is auto-generated
 
-### Writing
+#### Writing
 User inputs some writing content and a summary is auto-generated
 
 ## Live Version
@@ -16,24 +17,29 @@ Deployed on Heroku: http://sumrise.herokuapp.com/
 
 ## Built With
 
-What did you use to build it, list the technologies, plugins, gems, packages etc.
-
 #### Frameworks
 * jQuery
 * Semantic UI
 
 #### Packages
-
+* bcrypt
+* body-parser
+* cookie-parser
+* db
+* express
+* express-handlebars
+* method-override
+* pg
+* request
+* node-sumuparticles
+* textrank
 
 ## Workflow
 
 Did you write user stories, draw wireframes, use task tracking, produce ERDs? Did you use source control, with regular commits? Include links to them here.
 
-## Authors
-
-Did you collaborate with others on this project, list them here
-
-* **John McClain** - *Responsible for keeping vests white* - [GithubUserName](https://github.com/GithubUserName)
+#### Entity Relationship Diagram
+<img alt="entity relationship diagram 1" src="https://user-images.githubusercontent.com/22549537/38484169-4030b772-3c08-11e8-9c1f-82926efe1152.png">
 
 ## Acknowledgments
 

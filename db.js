@@ -32,8 +32,9 @@ if( process.env.DATABASE_URL ){
     database: params.pathname.split('/')[1],
     ssl: true
   };
+}
 
-}else{
+else {
 
   //otherwise we are on the local network
   var configs = {

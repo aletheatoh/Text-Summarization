@@ -39,7 +39,7 @@ Deployed on Heroku: http://sumrise.herokuapp.com/
 Did you write user stories, draw wireframes, use task tracking, produce ERDs? Did you use source control, with regular commits? Include links to them here.
 
 #### Entity Relationship Diagram
-<img alt="entity relationship diagram 1" src="https://user-images.githubusercontent.com/22549537/38484169-4030b772-3c08-11e8-9c1f-82926efe1152.png">
+<img width="400px;" alt="entity relationship diagram 1" src="https://user-images.githubusercontent.com/22549537/38484169-4030b772-3c08-11e8-9c1f-82926efe1152.png">
 
 ## Acknowledgments
 

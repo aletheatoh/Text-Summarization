@@ -42,6 +42,17 @@ else {
     host: '127.0.0.1',
     database: 'project_2',
     port: 5432
+  //   url: process.env.REDIS_STORE_URI,
+  // secret: process.env.REDIS_STORE_SECRET
+ //
+ //    "facebook_api_key"      :     "2020936224834275",
+ // "facebook_api_secret"   :     "FB API SECRET",
+ // "callback_url"          :     "http://localhost:3000/auth/facebook/callback"
+ // "use_database"          :     "false",
+ // "host"                  :     "localhost",
+ // "username"              :     "root",
+ // "password"              :     "",
+ // "database"              :     "DB NAME"
   };
 }
 

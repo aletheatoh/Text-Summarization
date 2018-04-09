@@ -177,6 +177,8 @@
 
      db.writing_piece.update(request.params.id, request.body, (error, queryResult) => {
 
+       console.log(request.body);
+
        if (request.body.folders != '') {
          var array = request.body['folders'].split('<i class=&quot;folder icon&quot;></i>');
 
@@ -207,7 +209,6 @@
            });
          }
 
-
          folder_ids.forEach(function(id, index) {
            db.folder.addWritingPieceToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
              if (err) {
@@ -221,6 +222,8 @@
            }
          });
        }
+
+       else response.redirect(`/writing_pieces/${request.params.id}?success=true`);
      });
    };
  };

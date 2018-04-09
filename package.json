@@ -18,6 +18,8 @@
     "express-handlebars": "^3.0.0",
     "method-override": "^2.3.10",
     "node-sumuparticles": "^0.1.4",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
     "pg": "^7.4.1",
     "request": "^2.85.0",
     "textrank": "^1.0.5"

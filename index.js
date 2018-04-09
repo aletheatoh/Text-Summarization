@@ -5,6 +5,8 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const db = require('./db');
 const http = require("https");
+var passport = require('passport')
+  , FacebookStrategy = require('passport-facebook').Strategy;
 
 /**
  * ===================================
@@ -19,6 +21,16 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+// app.use(session({
+//   store: new RedisStore({
+//     url: config.redisStore.url
+//   }),
+//   secret: config.redisStore.secret,
+//   resave: false,
+//   saveUninitialized: false
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Set handlebars to be the default view engine
 const handlebarsConfigs = {
@@ -41,6 +53,19 @@ require('./routes')(app, db);
 
 // tell Express to look into the public/ folder for assets that should be publicly available (eg. CSS files, JavaScript files, images, etc.)
 app.use(express.static('public'));
+
+// passport.use(new FacebookStrategy({
+//     clientID: 193309921460726,
+//     clientSecret: d15cbcde23806006423b860ccbda820f,
+//     callbackURL: "http://localhost:3000/auth/facebook/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     User.findOrCreate(..., function(err, user) {
+//       if (err) { return done(err); }
+//       done(null, user);
+//     });
+//   }
+// ));
 
 // Root GET request (it doesn't belong in any controller file)
 app.get('/', (request, response) => {

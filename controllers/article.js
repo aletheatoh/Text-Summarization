@@ -217,6 +217,7 @@ function uniq(a) {
            }
          });
        }
+       else response.redirect(`/articles/${request.params.id}?success=true`);
 
      });
    };

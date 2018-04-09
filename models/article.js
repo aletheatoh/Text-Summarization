@@ -28,8 +28,6 @@
        		console.log("An error occured! " + result.error);
        	}
 
-        // var summary = result;
-        // var summary = result.join("\n");
         var summary = "<p>" + result.join("</p><p>") + "</p>";
         console.log('title is ' + title);
 

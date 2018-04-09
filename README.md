@@ -1,19 +1,18 @@
 # SumRise
 
 <p>An online portal that can summarize both web articles and raw text.</p>
-<p>I was inspired by the words of my former swimming coach: "A good swimmer is a lazy swimmer with brains."</p>
+
+Deployed on Heroku: http://sumrise.herokuapp.com/
 
 ### How to Use
 
-#### Reading
-User only needs to pass the URL of the web article, and a summary + title is auto-generated
+This app takes at most 2 seconds to auto-generate sumarizations. All you need to do is:
 
-#### Writing
-User inputs some writing content and a summary is auto-generated
+#### For Web Articles
+- Just enter the URL of your web article
 
-## Live Version
-
-Deployed on Heroku: http://sumrise.herokuapp.com/
+#### For Writing Entries
+- Just enter your writing entry + title
 
 ## Built With
 

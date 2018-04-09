@@ -27,7 +27,7 @@ Summaries are generated within 2 seconds!
 
 ## Workflow
 
-#### Entity Relationship Diagram
+#### [Entity Relationship Diagram](https://www.lucidchart.com/invitations/accept/a94fb83d-1068-4188-9cb1-b9810f5a41f8)
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img width="480px;" alt="entity relationship diagram 1" src="https://user-images.githubusercontent.com/22549537/38484169-4030b772-3c08-11e8-9c1f-82926efe1152.png">
 
 ## Acknowledgments

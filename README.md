@@ -4,29 +4,26 @@
 
 ### How to Use
 
-<p>Key Uses:</p>
-1. Reading: User only needs to pass a source URL and a summary + title is auto-generated
-2. Writing: User inputs some writing content and a summary is auto-generated
+#### Reading
+User only needs to pass the URL of the web article, and a summary + title is auto-generated
 
-```
-Code example
-```
-
-More steps...
-
-```
-until finished
-```
+### Writing
+User inputs some writing content and a summary is auto-generated
 
 ## Live Version
 
-Where is this deployed online (github pages, heroku etc), give us the link and any access details we need.
+Deployed on Heroku: http://sumrise.herokuapp.com/
 
 ## Built With
 
 What did you use to build it, list the technologies, plugins, gems, packages etc.
 
-* [jQuery](http://jquery.com/) - jQuery for example is something you likely used
+#### Frameworks
+* jQuery
+* Semantic UI
+
+#### Packages
+
 
 ## Workflow
 

@@ -204,19 +204,20 @@ function uniq(a) {
            }
          });
 
-         folder_ids.forEach(function(id) {
+         folder_ids.forEach(function(id, index) {
            db.folder.addArticleToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
              if (err) {
                console.error('error:', err);
                response.sendStatus(500);
              }
            });
+           // request completed
+           if (index ===  folder_ids.length - 1) {
+             response.redirect(`/articles/${request.params.id}?success=true`);
+           }
          });
        }
 
-       setTimeout(function() {
-         response.redirect(`/articles/${request.params.id}?success=true`);
-       }, 3000);
      });
    };
  };

@@ -278,7 +278,7 @@ $('#folders-dropdown').click(function() {
     </div>
 
     <script>
-
+// var data = {{js_data}}
     $(function(){
 
       // ARTICLES - ORIGINAL
@@ -449,7 +449,16 @@ $('.folder-button').click(function() {
   $('.writing_piece-box').css('display', 'none');
   // get folder id
   var id = $(this).attr('id');
-
+// var folder_articles = [
+//
+//   {},
+// ];
+// for( var i=0; i<filder_artilces.lenght; i++){
+//
+//
+//
+//
+// }
   // then display articles belonging to folder
   {{#each folder_articles}}
   if ({{this.folder_id}} == id) { // target folder

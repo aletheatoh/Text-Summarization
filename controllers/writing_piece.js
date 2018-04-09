@@ -208,25 +208,19 @@
          }
 
 
-         folder_ids.forEach(function(id) {
+         folder_ids.forEach(function(id, index) {
            db.folder.addWritingPieceToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
              if (err) {
                console.error('error:', err);
                response.sendStatus(500);
              }
-             if (queryResult.rowCount >= 1) {
-               console.log('writing piece added successfully');
-             } else {
-               console.log('writing piece could not be added');
-             }
            });
-
+           // request completed
+           if (index ===  folder_ids.length - 1) {
+             response.redirect(`/writing_pieces/${request.params.id}?success=true`);
+           }
          });
        }
-
-       setTimeout(function() {
-         response.redirect(`/writing_pieces/${request.params.id}?success=true`);
-       }, 3000);
      });
    };
  };

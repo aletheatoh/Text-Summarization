@@ -10,24 +10,18 @@
     "node": "^9.10.1"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "bcrypt": "^2.0.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "db": "^1.0.6",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
-    "jsonfile": "^4.0.0",
     "method-override": "^2.3.10",
-    "node-summary": "^1.2.0",
     "node-sumuparticles": "^0.1.4",
-    "nodejs-text-summarizer": "^2.0.3",
     "pg": "^7.4.1",
     "request": "^2.85.0",
-    "sum": "^0.1.4",
-    "summarizer": "^1.0.0",
     "textrank": "^1.0.5"
   },
-  "repository": "https://github.com/aletheatoh/Text-Summarization.git",
+  "repository": "https://github.com/aletheatoh/sum-rise",
   "author": "Alethea Toh <alethea.toh@duke.edu>"
 }

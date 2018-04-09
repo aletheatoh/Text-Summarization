@@ -14,7 +14,7 @@
   <div>
   <h3 style="margin-bottom:0px;">Editing: Folder {{folder.id}}</h3>
 
-<div style="display:inline" style="margin-top:0px;">
+<div id="edit-folder-container" style="display:inline" style="margin-top:0px;">
 <form class="ui form folder-form" method="POST" action="/folders/{{folder.id}}/edit?_method=PUT">
   <div class="two fields">
   <div class="field">
@@ -27,7 +27,7 @@
 </form>
 </div>
 
-<div style="display: inline">
+<div id="delete-folder-button" style="display: inline">
 <form method="POST" action="/folders/{{folder.id}}?_method=DELETE">
   <button class="ui button"><i class="trash icon"></i>Delete Folder</button>
 </form>
@@ -47,7 +47,8 @@
   .dropdown();
 
   {{#if delete_success}}
-  $('#edit-article-container').hide();
+  $('#edit-folder-container').hide();
+  $('#delete-folder-button').hide();
   $('.success.message').show();
   $('#close-success-message').click(function() {
     $('.success.message').hide();

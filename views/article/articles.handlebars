@@ -92,7 +92,7 @@
 <div class="ui large breadcrumb">
   <a class="section" href="/">Home</a>
   <span class="divider">/</span>
-  <a class="section" href="/articles">All Articles</a>
+  <a id="all-articles" class="section" href="/articles"><b>All Articles</b></a>
   <span class="divider">/</span>
   <a class="section" href="/writing_pieces">All Writing</a>
   <span class="divider">/</span>
@@ -430,14 +430,17 @@ $('#folders-dropdown').click(function() {
 
 <script>
 
+
 $('.folder-button').click(function() {
+
+  $('#all-articles').replaceWith('<a id="all-articles" class="section" href="/articles">All Articles</a>');
+
   var folder_name = $(this).text();
   $('#folders-dropdown').html(`${folder_name}<i class="dropdown icon"></i>`);
 
   // first clear all boxes
   $('.article-box').css('display', 'none');
   $('.writing_piece-box').css('display', 'none');
-
 
   // load writing pieces grid
   $('#writing_piece-grid').show();
@@ -448,13 +451,12 @@ $('.folder-button').click(function() {
   // get folder id
   var id = $(this).attr('id');
 
-  // get folder id
-  var id = $(this).attr('id');
   // then display articles belonging to folder
   {{#each folder_articles}}
   if ({{this.folder_id}} == id) { // target folder
     // change heading
     $('h1').text('Displaying all items in Folder {{this.folder_id}}');
+
     $.each([{{this.articles}}], function( index, value ) {
       let article_entry_id = '#article-' + value + '-box';
       $(article_entry_id).css('display', '');

@@ -174,8 +174,6 @@
  const update = (db) => {
    return (request, response) => {
 
-     var count1 = 0;
-     var count2 = 0;
 
      db.writing_piece.update(request.params.id, request.body, (error, queryResult) => {
 
@@ -184,10 +182,9 @@
 
          array.forEach(function(item, index) {
            array[index] = item.replace(',', '');
-           count1 += 1;
          });
 
-         if (count1 == array.length) var removed = array.splice(0,1);
+         var removed = array.splice(0,1);
 
          var res = request.body;
          res['folders'] = array;
@@ -206,12 +203,12 @@
              if (array.includes(folder.toLowerCase())) {
                folder_ids.push(item);
              }
-             count2 += 1;
+
            });
          }
 
-         var count3 = 0;
-         if (count2 == request.body['id'].length) folder_ids.forEach(function(id) {
+
+         folder_ids.forEach(function(id) {
            db.folder.addWritingPieceToFolder(parseInt(request.params.id), parseInt(id), (err, ar) => {
              if (err) {
                console.error('error:', err);
@@ -226,7 +223,7 @@
 
          });
        }
-       
+
        setTimeout(function() {
          response.redirect(`/writing_pieces/${request.params.id}?success=true`);
        }, 3000);

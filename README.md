@@ -1,7 +1,7 @@
 # SumRise
 
 <p>An online portal that can summarize both web articles and raw text.</p>
-<p>I was inspired by the words of my swimming coach: "A good swimmer is a lazy swimmer with brains."</p>
+<p>I was inspired by the words of my former swimming coach: "A good swimmer is a lazy swimmer with brains."</p>
 
 ### How to Use
 

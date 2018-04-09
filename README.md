@@ -30,6 +30,6 @@ Deployed on Heroku: http://sumrise.herokuapp.com/
 ## Workflow
 
 #### Entity Relationship Diagram
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img width="550px;" alt="entity relationship diagram 1" src="https://user-images.githubusercontent.com/22549537/38484169-4030b772-3c08-11e8-9c1f-82926efe1152.png">
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img width="480px;" alt="entity relationship diagram 1" src="https://user-images.githubusercontent.com/22549537/38484169-4030b772-3c08-11e8-9c1f-82926efe1152.png">
 
 ## Acknowledgments

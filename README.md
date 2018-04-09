@@ -1,23 +1,12 @@
 # SumRise
 
-This is the starter code for WDI projects. Please update this README file with information specific to your project. Replace this paragraph for instance, with a short description of your project. Then update the sections below. Refer to your project specificaion for instructions on how to submit your projects.
-
-## Getting Started
-
-Provide instructions here about how to get your project running on our local machine. Do we just need to clone and open a certain file or do we need to install anything first.
-
-### Prerequisites
-
-What is needed to install and run the project, how do we install them
-
-```
-Code example
-```
+<p>An online portal that can summarize both web articles and raw text.</p>
 
 ### How to Use
 
-A step by step guide on how to install and use the project, for example if this is a game, how do we play it.
-
+<p>Key Uses:</p>
+1. Reading: User only needs to pass a source URL and a summary + title is auto-generated
+2. Writing: User inputs some writing content and a summary is auto-generated
 
 ```
 Code example
@@ -27,16 +16,6 @@ More steps...
 
 ```
 until finished
-```
-
-
-## Tests
-
-Did you write automated tests? If so, how do we run them.
-
-
-```
-Code example
 ```
 
 ## Live Version

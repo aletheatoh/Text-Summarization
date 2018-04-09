@@ -8,11 +8,10 @@ Deployed on Heroku: http://sumrise.herokuapp.com/
 
 This app takes at most 2 seconds to auto-generate sumarizations. All you need to do is:
 
-#### For Web Articles
-- Just enter the URL of your web article
+| Web Articles | Writing Entries |
+| ------------ | ------------------ |
+| Enter the URL of your web article | Enter your writing entry + title|
 
-#### For Writing Entries
-- Just enter your writing entry + title
 
 ## Built With
 

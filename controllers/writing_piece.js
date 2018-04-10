@@ -28,6 +28,7 @@
        // queryResult contains article data returned from the article model
        db.folder.getWritingPieceFolders(request.params.id, (err, res) => {
          // queryResult contains article data returned from the article model
+
          if (error) {
            console.error('error getting writing piece:', error);
            response.sendStatus(500);
@@ -56,6 +57,7 @@
 
  const writingPiecesHomePage = (db) => {
    return (request, response) => {
+
      // retrieve cookies
      let loggedIn = request.cookies['loggedIn'];
      let username = request.cookies['username'];
@@ -130,13 +132,14 @@
                      else {
                        context['id'] = qrUserID.rows[0].id;
                        console.log(qrUserID.rows[0].id);
-                       console.log(context);
+
                        response.clearCookie('user-id');
                        response.cookie('user-id', queryResult.rows[0].id);
                        response.render('writing_piece/writing_pieces', context);
                      }
                    });
                  }
+
                  else response.render('writing_piece/writing_pieces', context);
                }
              });
@@ -239,7 +242,8 @@
        let context = {
          delete_success: true
        }
-       response.render('writing_piece/edit', context);
+
+      response.render('writing_piece/edit', context);
      });
    };
  };

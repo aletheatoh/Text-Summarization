@@ -41,22 +41,37 @@
        var modified = org.replace(re, '\"');
        var textRank = new tr.TextRank(modified, settings);
 
-    // set up query
-    var queryString = `INSERT INTO writing_pieces (user_id, title, original, summary)
-      VALUES ($1, $2, $3, $4);`;
+       // testing python scripts
+       const { spawn } = require('child_process');
+       const pyProg = spawn('python',['models/test.py']);
 
-    var values = [
-      user_id,
-      writing_piece.title,
-      writing_piece.original,
-      textRank.summarizedArticle
-    ];
+       var res = "";
+       pyProg.stdout.on('data', function(data) {
 
-    // execute query
-    dbPool.query(queryString, values, (error, queryResult) => {
-      // invoke callback function with results after query has executed
-      callback(error, queryResult);
-    });
+             console.log(data.toString());
+             res = data.toString().trim();
+             // response.write(data);
+             // response.end('end');
+
+             // set up query
+             var queryString = `INSERT INTO writing_pieces (user_id, title, original, summary)
+               VALUES ($1, $2, $3, $4);`;
+
+             var values = [
+               user_id,
+               writing_piece.title,
+               writing_piece.original,
+               textRank.summarizedArticle
+               // res
+             ];
+
+             // execute query
+             dbPool.query(queryString, values, (error, queryResult) => {
+               // invoke callback function with results after query has executed
+               callback(error, queryResult);
+             });
+        });
+
 
      },
 
